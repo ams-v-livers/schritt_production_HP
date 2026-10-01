@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
 
@@ -8,7 +9,7 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>しゅりっとプロダクション｜Liver Production</title>
+  <title>しゅりっとプロダクション</title>
 
   <meta
     name="description"
@@ -17,16 +18,28 @@
 
   <meta
     name="theme-color"
-    content="#ff9700"
+    content="#ff9400"
   >
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Font -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800;900&family=Montserrat:wght@600;700;800;900&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet"
   >
+
 
   <link
     rel="stylesheet"
@@ -39,6 +52,150 @@
 
 
 <!-- =========================================================
+     LOADING
+========================================================= -->
+
+<div
+  class="loading-screen"
+  id="loadingScreen"
+>
+
+  <div class="loading-background-grid"></div>
+
+
+  <div class="loading-inner">
+
+    <div class="loading-small-label">
+      SCHRITT LIVE NETWORK
+    </div>
+
+
+    <h1 class="loading-title">
+
+      LIVE<br>
+      CONNECTION
+
+      <span>
+        .
+      </span>
+
+    </h1>
+
+
+    <div class="connection-list">
+
+      <div class="connection-row">
+
+        <span>
+          IRIAM
+        </span>
+
+        <strong
+          data-connection="iriam"
+        >
+          CONNECTING...
+        </strong>
+
+      </div>
+
+
+      <div class="connection-row">
+
+        <span>
+          TikTok LIVE
+        </span>
+
+        <strong
+          data-connection="tiktok"
+        >
+          CONNECTING...
+        </strong>
+
+      </div>
+
+
+      <div class="connection-row">
+
+        <span>
+          Mirrativ
+        </span>
+
+        <strong
+          data-connection="mirrativ"
+        >
+          CONNECTING...
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="loading-progress">
+
+      <div
+        class="loading-progress-bar"
+        id="loadingProgressBar"
+      ></div>
+
+    </div>
+
+
+    <div class="loading-progress-text">
+
+      CREATOR DATA
+
+      <span
+        id="loadingPercent"
+      >
+        0%
+      </span>
+
+    </div>
+
+
+    <div
+      class="loading-complete"
+      id="loadingComplete"
+    >
+
+      <span>
+        ✦
+      </span>
+
+      CONNECTED!
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     BUBBLE TRANSITION
+========================================================= -->
+
+<div
+  class="bubble-transition"
+  id="bubbleTransition"
+  aria-hidden="true"
+>
+
+  <span class="transition-bubble tb-1"></span>
+  <span class="transition-bubble tb-2"></span>
+  <span class="transition-bubble tb-3"></span>
+  <span class="transition-bubble tb-4"></span>
+  <span class="transition-bubble tb-5"></span>
+  <span class="transition-bubble tb-6"></span>
+  <span class="transition-bubble tb-7"></span>
+
+</div>
+
+
+
+<!-- =========================================================
      GLOBAL DECORATION
 ========================================================= -->
 
@@ -47,11 +204,21 @@
   aria-hidden="true"
 >
 
-  <span class="float-symbol fs-1">✦</span>
-  <span class="float-symbol fs-2">♪</span>
-  <span class="float-symbol fs-3">✦</span>
-  <span class="float-symbol fs-4">♫</span>
-  <span class="float-symbol fs-5">★</span>
+  <span class="float-symbol fs-1">
+    ✦
+  </span>
+
+  <span class="float-symbol fs-2">
+    ♪
+  </span>
+
+  <span class="float-symbol fs-3">
+    ★
+  </span>
+
+  <span class="float-symbol fs-4">
+    ♫
+  </span>
 
 </div>
 
@@ -71,10 +238,12 @@
 
     <a
       href="#home"
-      class="brand-text"
+      class="brand"
     >
 
-      <strong>
+      <strong
+        data-site-name
+      >
         しゅりっとプロダクション
       </strong>
 
@@ -100,7 +269,15 @@
       </a>
 
       <a href="#talents">
-        TALENTS
+        CREATOR
+      </a>
+
+      <a href="#events">
+        EVENT
+      </a>
+
+      <a href="#interviews">
+        INTERVIEW
       </a>
 
       <a href="#about">
@@ -111,12 +288,19 @@
         RECRUIT
       </a>
 
+
       <a
-        href="#recruit"
-        class="nav-entry"
+        href="#line"
+        class="nav-entry external-link"
+        data-link="line"
       >
-        ENTRY
-        <span>↗</span>
+
+        LINE
+
+        <span>
+          ↗
+        </span>
+
       </a>
 
     </nav>
@@ -157,31 +341,25 @@
      HERO
 ========================================================= -->
 
-<section class="hero-section">
+<section class="hero">
 
 
-  <div class="hero-grid-pattern"></div>
+  <div class="hero-grid-bg"></div>
 
+  <div class="hero-block hero-block-a"></div>
+  <div class="hero-block hero-block-b"></div>
+  <div class="hero-block hero-block-c"></div>
 
-  <div class="hero-deco-block block-1"></div>
-  <div class="hero-deco-block block-2"></div>
-  <div class="hero-deco-block block-3"></div>
-
-  <div class="hero-slash slash-1"></div>
-  <div class="hero-slash slash-2"></div>
-
-  <div class="hero-dot-pattern"></div>
+  <div class="hero-dots"></div>
 
 
   <div class="container hero-layout">
 
 
-    <div
-      class="hero-copy reveal"
-    >
+    <div class="hero-copy reveal">
 
 
-      <div class="hero-mini-label">
+      <div class="hero-label">
 
         <span>
           ✦
@@ -193,7 +371,7 @@
 
 
 
-      <h1 class="hero-title">
+      <h1>
 
         FIND YOUR
 
@@ -205,7 +383,7 @@
 
         AND
 
-        <span class="yellow-sticker">
+        <span class="yellow-word">
           GO LIVE!
         </span>
 
@@ -213,11 +391,9 @@
 
 
 
-      <p class="hero-jp-copy">
+      <p class="hero-jp">
 
-        自分らしく、
-        <br>
-        楽しく、
+        自分らしく、楽しく。
         <br>
         配信を続けられる場所へ。
 
@@ -227,24 +403,24 @@
 
       <p class="hero-description">
 
-        キャラクターとして活動するVライバーも、
-        自分自身を発信するリアルライバーも。
+        Vライバーも、
+        リアルライバーも。
 
         IRIAM・Mirrativ・TikTok LIVEから、
-        自分に合った活動スタイルを選べます。
+        自分に合ったスタイルで活動できます。
 
       </p>
 
 
 
-      <div class="hero-buttons">
+      <div class="hero-actions">
 
         <a
           href="#talents"
-          class="main-button orange-button"
+          class="button orange-button"
         >
 
-          TALENTS
+          CREATOR
 
           <span>
             →
@@ -255,7 +431,7 @@
 
         <a
           href="#recruit"
-          class="main-button outline-button"
+          class="button white-button"
         >
 
           RECRUIT
@@ -270,21 +446,21 @@
 
 
 
-      <div class="hero-platform-list">
+      <div class="platform-chips">
 
-        <span class="platform-caption">
+        <small>
           PLATFORM
-        </span>
+        </small>
 
-        <span class="platform-chip">
+        <span>
           IRIAM
         </span>
 
-        <span class="platform-chip">
+        <span>
           Mirrativ
         </span>
 
-        <span class="platform-chip blue-chip">
+        <span class="blue">
           TikTok LIVE
         </span>
 
@@ -295,45 +471,41 @@
 
 
 
-    <div
-      class="hero-art reveal reveal-delay"
-    >
+    <div class="hero-visual reveal reveal-delay">
 
 
-      <div class="hero-main-shape"></div>
+      <div class="hero-shape"></div>
 
       <div class="hero-yellow-circle"></div>
 
-      <div class="hero-white-circle"></div>
 
 
+      <div class="hero-visual-card">
 
-      <div class="hero-art-card">
 
-
-        <div class="hero-art-top">
+        <div class="visual-top">
 
           <span>
             LIVE
           </span>
 
           <span>
-            2026
+            SCHRITT
           </span>
 
         </div>
 
 
-        <div class="hero-art-word">
+        <strong>
 
           BE<br>
           YOUR<br>
           COLOR.
 
-        </div>
+        </strong>
 
 
-        <div class="hero-art-bottom">
+        <div class="visual-bottom">
 
           <span>
             CREATE
@@ -354,9 +526,9 @@
 
 
 
-      <div class="hero-floating-card floating-a">
+      <div class="floating-card fc-a">
 
-        <span class="floating-icon">
+        <span class="float-icon">
           ✦
         </span>
 
@@ -367,7 +539,7 @@
           </strong>
 
           <small>
-            キャラクターで活動
+            Vライバー
           </small>
 
         </div>
@@ -376,9 +548,9 @@
 
 
 
-      <div class="hero-floating-card floating-b">
+      <div class="floating-card fc-b">
 
-        <span class="floating-icon blue">
+        <span class="float-icon blue-icon">
           ♪
         </span>
 
@@ -389,7 +561,7 @@
           </strong>
 
           <small>
-            自分自身を発信
+            リアルライバー
           </small>
 
         </div>
@@ -398,9 +570,9 @@
 
 
 
-      <div class="hero-floating-card floating-c">
+      <div class="floating-card fc-c">
 
-        <strong class="platform-number">
+        <strong>
           03
         </strong>
 
@@ -408,20 +580,6 @@
           PLATFORMS
         </small>
 
-      </div>
-
-
-
-      <div class="hero-small-star star-one">
-        ✦
-      </div>
-
-      <div class="hero-small-star star-two">
-        ★
-      </div>
-
-      <div class="hero-small-note">
-        ♪
       </div>
 
 
@@ -436,44 +594,171 @@
 
     <div class="marquee-track">
 
-      <span>VIRTUAL LIVER</span>
-      <i>✦</i>
+      <span>
+        VIRTUAL LIVER
+      </span>
 
-      <span>REAL LIVER</span>
-      <i>♪</i>
+      <i>
+        ✦
+      </i>
 
-      <span>IRIAM</span>
-      <i>★</i>
+      <span>
+        REAL LIVER
+      </span>
 
-      <span>MIRRATIV</span>
-      <i>✦</i>
+      <i>
+        ♪
+      </i>
 
-      <span>TIKTOK LIVE</span>
-      <i>♫</i>
+      <span>
+        IRIAM
+      </span>
 
-      <span>BE YOUR COLOR</span>
-      <i>✦</i>
+      <i>
+        ★
+      </i>
+
+      <span>
+        TIKTOK LIVE
+      </span>
+
+      <i>
+        ✦
+      </i>
+
+      <span>
+        MIRRATIV
+      </span>
+
+      <i>
+        ♫
+      </i>
+
+      <span>
+        BE YOUR COLOR
+      </span>
+
+      <i>
+        ✦
+      </i>
 
 
-      <span>VIRTUAL LIVER</span>
-      <i>✦</i>
+      <span>
+        VIRTUAL LIVER
+      </span>
 
-      <span>REAL LIVER</span>
-      <i>♪</i>
+      <i>
+        ✦
+      </i>
 
-      <span>IRIAM</span>
-      <i>★</i>
+      <span>
+        REAL LIVER
+      </span>
 
-      <span>MIRRATIV</span>
-      <i>✦</i>
+      <i>
+        ♪
+      </i>
 
-      <span>TIKTOK LIVE</span>
-      <i>♫</i>
+      <span>
+        IRIAM
+      </span>
 
-      <span>BE YOUR COLOR</span>
-      <i>✦</i>
+      <i>
+        ★
+      </i>
+
+      <span>
+        TIKTOK LIVE
+      </span>
+
+      <i>
+        ✦
+      </i>
+
+      <span>
+        MIRRATIV
+      </span>
+
+      <i>
+        ♫
+      </i>
+
+      <span>
+        BE YOUR COLOR
+      </span>
+
+      <i>
+        ✦
+      </i>
 
     </div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     PICKUP
+========================================================= -->
+
+<section class="section pickup-section">
+
+
+  <div class="pickup-bg-text">
+    PICK UP
+  </div>
+
+
+  <div class="container">
+
+
+    <div class="section-heading reveal">
+
+
+      <div>
+
+        <div class="section-label">
+
+          <span>
+            PICK UP
+          </span>
+
+          FEATURED CREATOR
+
+        </div>
+
+
+        <h2 class="section-title">
+
+          今月の
+
+          <em>
+            PICK UP!
+          </em>
+
+        </h2>
+
+      </div>
+
+
+      <span
+        class="pickup-period"
+        id="pickupPeriod"
+      ></span>
+
+
+    </div>
+
+
+
+    <div
+      class="pickup-card"
+      id="pickupCreator"
+    ></div>
+
 
   </div>
 
@@ -486,18 +771,13 @@
      NEWS
 ========================================================= -->
 
-<section class="section news-section">
-
-
-  <div class="huge-bg-word">
-    NEWS
-  </div>
+<section class="section">
 
 
   <div class="container">
 
 
-    <div class="section-header reveal">
+    <div class="section-heading reveal">
 
 
       <div>
@@ -523,16 +803,7 @@
 
         </h2>
 
-
-        <p class="section-description">
-
-          事務所からのお知らせや、
-          所属ライバー・イベントに関する最新情報をお届けします。
-
-        </p>
-
       </div>
-
 
 
       <a
@@ -567,29 +838,21 @@
 
 
 <!-- =========================================================
-     TALENTS
+     CREATORS
 ========================================================= -->
 
-<section class="section talents-home-section">
+<section class="section creator-section">
 
 
-  <div class="talents-top-wave"></div>
-
-  <div class="talent-deco-circle"></div>
-
-  <span class="talent-deco-symbol talent-symbol-1">
+  <span class="creator-bg-star">
     ✦
-  </span>
-
-  <span class="talent-deco-symbol talent-symbol-2">
-    ♪
   </span>
 
 
   <div class="container">
 
 
-    <div class="section-header reveal">
+    <div class="section-heading reveal">
 
 
       <div>
@@ -600,14 +863,14 @@
             02
           </span>
 
-          OUR TALENTS
+          OUR CREATOR
 
         </div>
 
 
-        <h2 class="section-title light-heading">
+        <h2 class="section-title light-title">
 
-          TALENTS
+          CREATOR
 
           <em>
             .
@@ -615,21 +878,12 @@
 
         </h2>
 
-
-        <p class="section-description light-description">
-
-          IRIAM・Mirrativ・TikTok LIVEで活動する
-          所属ライバーをご紹介します。
-
-        </p>
-
       </div>
-
 
 
       <a
         href="#talents"
-        class="circle-link white-circle-link"
+        class="circle-link light-circle"
       >
 
         VIEW ALL
@@ -659,61 +913,198 @@
 
 
 <!-- =========================================================
-     CONCEPT
+     EVENTS
 ========================================================= -->
 
-<section class="section concept-section">
+<section class="section event-preview-section">
 
 
-  <div class="container concept-layout">
+  <div class="container">
+
+
+    <div class="section-heading reveal">
+
+
+      <div>
+
+        <div class="section-label">
+
+          <span>
+            03
+          </span>
+
+          OFFICE EVENT
+
+        </div>
+
+
+        <h2 class="section-title">
+
+          EVENT
+
+          <em>
+            .
+          </em>
+
+        </h2>
+
+
+        <p class="section-description">
+
+          各プラットフォームで行われている
+          事務所イベントやキャンペーンをご紹介します。
+
+        </p>
+
+      </div>
+
+
+      <a
+        href="#events"
+        class="circle-link"
+      >
+
+        VIEW ALL
+
+        <span>
+          ↗
+        </span>
+
+      </a>
+
+
+    </div>
+
 
 
     <div
-      class="concept-copy reveal"
-    >
+      class="event-grid"
+      id="homeEvents"
+    ></div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     INTERVIEW
+========================================================= -->
+
+<section class="section interview-preview-section">
+
+
+  <div class="container">
+
+
+    <div class="section-heading reveal">
+
+
+      <div>
+
+        <div class="section-label">
+
+          <span>
+            04
+          </span>
+
+          CREATOR VOICE
+
+        </div>
+
+
+        <h2 class="section-title">
+
+          INTERVIEW
+
+          <em>
+            .
+          </em>
+
+        </h2>
+
+      </div>
+
+
+      <a
+        href="#interviews"
+        class="circle-link"
+      >
+
+        VIEW ALL
+
+        <span>
+          ↗
+        </span>
+
+      </a>
+
+
+    </div>
+
+
+
+    <div
+      class="interview-grid"
+      id="homeInterviews"
+    ></div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section class="section about-preview">
+
+
+  <div class="container about-preview-grid">
+
+
+    <div class="about-copy reveal">
 
 
       <div class="section-label">
 
         <span>
-          03
+          05
         </span>
 
-        OUR STYLE
+        ABOUT US
 
       </div>
 
 
+      <h2>
 
-      <h2 class="concept-title">
+        好きなことを、
+        <br>
 
         <span>
-          好きなことを、
-        </span>
-
-        <strong>
           もっと自由に。
-        </strong>
-
-        <em>
-          もっと楽しく。
-        </em>
+        </span>
 
       </h2>
 
 
-
       <p>
 
-        配信のスタイルは、人それぞれ。
+        ライバーごとに、
+        得意なことも目標も違います。
 
-        雑談、ゲーム、歌、企画、美容、ファッション。
-        Vライバーでも、リアルライバーでも。
-
-        自分らしい形で活動を続けられる環境を目指しています。
+        その人らしい活動スタイルを一緒に考え、
+        長く楽しく活動できる環境を目指しています。
 
       </p>
-
 
 
       <a
@@ -721,7 +1112,7 @@
         class="under-link"
       >
 
-        ABOUT US
+        MORE ABOUT US
 
         <span>
           →
@@ -734,23 +1125,14 @@
 
 
 
-    <div
-      class="concept-card-grid reveal reveal-delay"
-    >
+    <div class="about-bento reveal reveal-delay">
 
 
-      <article class="concept-card orange-card">
-
-
-        <span class="concept-symbol">
-          ✦
-        </span>
-
+      <div class="about-card orange-card">
 
         <small>
-          STYLE 01
+          STYLE
         </small>
-
 
         <strong>
 
@@ -759,23 +1141,18 @@
 
         </strong>
 
-
-      </article>
-
-
-
-      <article class="concept-card yellow-card">
-
-
-        <span class="concept-symbol">
-          ♪
+        <span>
+          ✦
         </span>
 
+      </div>
+
+
+      <div class="about-card yellow-card">
 
         <small>
-          STYLE 02
+          ENJOY
         </small>
-
 
         <strong>
 
@@ -784,23 +1161,18 @@
 
         </strong>
 
-
-      </article>
-
-
-
-      <article class="concept-card blue-card">
-
-
-        <span class="concept-symbol">
-          ↗
+        <span>
+          ♪
         </span>
 
+      </div>
+
+
+      <div class="about-card blue-card">
 
         <small>
-          STYLE 03
+          COMMUNITY
         </small>
-
 
         <strong>
 
@@ -809,8 +1181,11 @@
 
         </strong>
 
+        <span>
+          ↗
+        </span>
 
-      </article>
+      </div>
 
 
     </div>
@@ -830,14 +1205,10 @@
 <section class="section platform-section">
 
 
-  <div class="platform-bg-line line-a"></div>
-  <div class="platform-bg-line line-b"></div>
-
-
   <div class="container">
 
 
-    <div class="section-header reveal">
+    <div class="section-heading reveal">
 
 
       <div>
@@ -845,7 +1216,7 @@
         <div class="section-label">
 
           <span>
-            04
+            06
           </span>
 
           PLATFORM
@@ -863,14 +1234,6 @@
 
         </h2>
 
-
-        <p class="section-description">
-
-          目標や活動スタイルに合わせて、
-          自分に合ったプラットフォームから始められます。
-
-        </p>
-
       </div>
 
 
@@ -881,118 +1244,65 @@
     <div class="platform-grid">
 
 
-      <article class="platform-card platform-iriam reveal">
+      <article class="platform-card iriam-card">
 
-
-        <div class="platform-number">
+        <small>
           01
-        </div>
-
+        </small>
 
         <h3>
           IRIAM
         </h3>
 
-
         <p>
 
           キャラクターとして、
-          リスナーとのコミュニケーションを
-          楽しみながら活動したい方に。
+          リスナーとの距離が近い
+          コミュニケーションを楽しみたい方に。
 
         </p>
-
-
-        <div class="platform-footer">
-
-          <span>
-            VIRTUAL
-          </span>
-
-          <span>
-            ↗
-          </span>
-
-        </div>
-
 
       </article>
 
 
 
-      <article class="platform-card platform-mirrativ reveal">
+      <article class="platform-card mirrativ-card">
 
-
-        <div class="platform-number">
+        <small>
           02
-        </div>
-
+        </small>
 
         <h3>
           Mirrativ
         </h3>
 
-
         <p>
 
-          ゲームや雑談を中心に、
-          スマートフォンから
-          気軽に配信したい方に。
+          ゲーム・雑談を中心に、
+          スマートフォンから配信したい方に。
 
         </p>
-
-
-        <div class="platform-footer">
-
-          <span>
-            GAME / TALK
-          </span>
-
-          <span>
-            ↗
-          </span>
-
-        </div>
-
 
       </article>
 
 
 
-      <article class="platform-card platform-tiktok reveal">
+      <article class="platform-card tiktok-card">
 
-
-        <div class="platform-number">
+        <small>
           03
-        </div>
-
+        </small>
 
         <h3>
           TikTok
         </h3>
 
-
         <p>
 
-          ライブと動画を組み合わせながら、
-          より多くの人へ
-          自分の魅力を届けたい方に。
+          ライブ配信や動画を使って、
+          より多くの人へ自分を届けたい方に。
 
         </p>
-
-
-        <div class="platform-footer">
-
-          <span>
-            REAL / VIRTUAL
-          </span>
-
-          <span>
-            ↗
-          </span>
-
-        </div>
-
 
       </article>
 
@@ -1011,24 +1321,17 @@
      RECRUIT
 ========================================================= -->
 
-<section class="section recruit-home-section">
-
-
-  <div class="recruit-bg-star">
-    ✦
-  </div>
+<section class="section recruit-preview">
 
 
   <div class="container">
 
 
-    <div class="recruit-main-heading reveal">
+    <div class="recruit-heading reveal">
 
-
-      <span class="recruit-eyebrow">
+      <small>
         JOIN SCHRITT PRODUCTION
-      </span>
-
+      </small>
 
       <h2>
 
@@ -1038,20 +1341,9 @@
           STAGE
         </span>
 
-        <br>
-
         STARTS HERE.
 
       </h2>
-
-
-      <p>
-
-        Vライバー・リアルライバー、
-        どちらの活動スタイルにも対応しています。
-
-      </p>
-
 
     </div>
 
@@ -1062,37 +1354,22 @@
 
       <a
         href="#recruit-virtual"
-        class="recruit-card virtual-card reveal"
+        class="recruit-card virtual-recruit"
       >
 
+        <span class="recruit-type">
+          VIRTUAL LIVER
+        </span>
 
-        <div class="recruit-card-header">
-
-          <span>
-            01
-          </span>
-
-          <span>
-            VIRTUAL LIVER
-          </span>
-
-        </div>
-
-
-
-        <div class="recruit-giant-symbol">
+        <span class="recruit-symbol">
           ◇
-        </div>
+        </span>
 
-
-
-        <div class="recruit-card-body">
-
+        <div>
 
           <small>
             Vライバー募集
           </small>
-
 
           <h3>
 
@@ -1102,22 +1379,18 @@
 
           </h3>
 
-
           <p>
 
-            キャラクターを通して、
-            自分らしい世界観や個性を届けたい方へ。
+            キャラクターを通して
+            自分らしく活動したい方へ。
 
           </p>
 
-
-          <div class="recruit-arrow">
-            ↗
-          </div>
-
-
         </div>
 
+        <span class="recruit-arrow">
+          ↗
+        </span>
 
       </a>
 
@@ -1125,37 +1398,22 @@
 
       <a
         href="#recruit-real"
-        class="recruit-card real-card reveal reveal-delay"
+        class="recruit-card real-recruit"
       >
 
+        <span class="recruit-type">
+          REAL LIVER
+        </span>
 
-        <div class="recruit-card-header">
-
-          <span>
-            02
-          </span>
-
-          <span>
-            REAL LIVER
-          </span>
-
-        </div>
-
-
-
-        <div class="recruit-giant-symbol circle-symbol">
+        <span class="recruit-symbol">
           ●
-        </div>
+        </span>
 
-
-
-        <div class="recruit-card-body">
-
+        <div>
 
           <small>
             リアルライバー募集
           </small>
-
 
           <h3>
 
@@ -1165,22 +1423,18 @@
 
           </h3>
 
-
           <p>
 
-            自分自身の個性や好きなことを、
+            自分自身の魅力や個性を
             ライブ配信で届けたい方へ。
 
           </p>
 
-
-          <div class="recruit-arrow">
-            ↗
-          </div>
-
-
         </div>
 
+        <span class="recruit-arrow">
+          ↗
+        </span>
 
       </a>
 
@@ -1196,60 +1450,335 @@
 
 
 <!-- =========================================================
-     CTA
+     JOURNAL
 ========================================================= -->
 
-<section class="cta-section">
+<section class="section journal-section">
 
 
-  <div class="cta-big-star">
-    ✦
-  </div>
+  <div class="container">
 
 
-  <div class="cta-dot-pattern"></div>
+    <div class="section-heading reveal">
 
 
-  <div class="container cta-inner">
+      <div>
+
+        <div class="section-label">
+
+          <span>
+            07
+          </span>
+
+          SCHRITT JOURNAL
+
+        </div>
 
 
-    <div>
+        <h2 class="section-title">
+
+          NOTE
+
+          <em>
+            .
+          </em>
+
+        </h2>
 
 
-      <span class="cta-label">
-        ENTRY
-      </span>
+        <p class="section-description">
+
+          配信ノウハウ・機材・ソフト・
+          運営の日常などを発信しています。
+
+        </p>
+
+      </div>
 
 
-      <h2>
+      <a
+        href="#"
+        class="circle-link external-link"
+        data-link="note"
+      >
 
-        READY TO
+        NOTE
 
         <span>
-          GO LIVE?
+          ↗
         </span>
 
-      </h2>
-
-
-      <p>
-
-        あなたの「やってみたい」を、
-        ここから始めてみませんか。
-
-      </p>
+      </a>
 
 
     </div>
 
 
 
+    <div
+      class="journal-grid"
+      id="journalGrid"
+    ></div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     FAQ
+========================================================= -->
+
+<section class="section faq-section">
+
+
+  <div class="container faq-layout">
+
+
+    <div class="faq-heading reveal">
+
+      <div class="section-label">
+
+        <span>
+          08
+        </span>
+
+        FAQ
+
+      </div>
+
+      <h2>
+
+        よくある
+        <br>
+        <span>
+          質問
+        </span>
+
+      </h2>
+
+    </div>
+
+
+
+    <div
+      class="faq-list"
+      id="faqList"
+    ></div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     MORE SCHRITT
+========================================================= -->
+
+<section class="section more-section">
+
+
+  <div class="container">
+
+
+    <div class="section-heading reveal">
+
+      <div>
+
+        <div class="section-label">
+
+          <span>
+            09
+          </span>
+
+          EXTERNAL
+
+        </div>
+
+        <h2 class="section-title">
+
+          MORE SCHRITT
+
+          <em>
+            .
+          </em>
+
+        </h2>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="external-grid">
+
+
+      <a
+        href="#"
+        class="external-card external-link"
+        data-link="note"
+      >
+
+        <span>
+          01
+        </span>
+
+        <h3>
+          note
+        </h3>
+
+        <p>
+          運営の裏側や配信ノウハウ。
+        </p>
+
+        <strong>
+          ↗
+        </strong>
+
+      </a>
+
+
+
+      <a
+        href="#"
+        class="external-card external-link"
+        data-link="company"
+      >
+
+        <span>
+          02
+        </span>
+
+        <h3>
+          CAREERS
+        </h3>
+
+        <p>
+          運営として働きたい方へ。
+        </p>
+
+        <strong>
+          ↗
+        </strong>
+
+      </a>
+
+
+
+      <a
+        href="#"
+        class="external-card external-link"
+        data-link="businessContact"
+      >
+
+        <span>
+          03
+        </span>
+
+        <h3>
+          BUSINESS
+        </h3>
+
+        <p>
+          案件・取材・企業様からのお問い合わせ。
+        </p>
+
+        <strong>
+          ↗
+        </strong>
+
+      </a>
+
+
+
+      <a
+        href="#"
+        class="external-card external-link"
+        data-link="booth"
+      >
+
+        <span>
+          04
+        </span>
+
+        <h3>
+          OFFICIAL STORE
+        </h3>
+
+        <p>
+          所属クリエイターの公式グッズ。
+        </p>
+
+        <strong>
+          ↗
+        </strong>
+
+      </a>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     LINE CTA
+========================================================= -->
+
+<section class="line-cta">
+
+
+  <div class="line-star">
+    ✦
+  </div>
+
+
+  <div class="container line-cta-inner">
+
+
+    <div>
+
+      <small>
+        TALK WITH US
+      </small>
+
+      <h2>
+
+        まずはLINEで
+        <br>
+        話してみる？
+
+      </h2>
+
+      <p>
+
+        応募するかまだ決まっていなくてもOK。
+        面談前の相談にもご利用いただけます。
+
+      </p>
+
+    </div>
+
+
     <a
-      href="#recruit"
-      class="cta-round-button"
+      href="#"
+      class="line-button external-link"
+      data-link="line"
     >
 
-      ENTRY
+      公式LINEで相談
 
       <span>
         ↗
@@ -1277,69 +1806,38 @@
   class="page-view"
 >
 
+  <section
+    class="sub-hero"
+    data-word="NEWS"
+  >
 
-<section
-  class="sub-page-hero"
-  data-word="NEWS"
->
+    <div class="container">
 
+      <div class="section-label">
+        INFORMATION
+      </div>
 
-  <div class="container">
+      <h1>
+        NEWS<span>.</span>
+      </h1>
 
-
-    <div class="sub-number">
-      01
     </div>
 
+  </section>
 
-    <div class="section-label">
-      INFORMATION
+
+  <section class="section">
+
+    <div class="container">
+
+      <div
+        class="news-page-grid"
+        id="allNews"
+      ></div>
+
     </div>
 
-
-    <h1>
-
-      NEWS
-
-      <span>
-        .
-      </span>
-
-    </h1>
-
-
-    <p>
-
-      事務所からのお知らせ、
-      所属ライバーやイベントに関する情報をご案内します。
-
-    </p>
-
-
-  </div>
-
-
-</section>
-
-
-
-<section class="section">
-
-
-  <div class="container">
-
-
-    <div
-      class="news-page-grid"
-      id="allNews"
-    ></div>
-
-
-  </div>
-
-
-</section>
-
+  </section>
 
 </main>
 
@@ -1354,127 +1852,234 @@
   class="page-view"
 >
 
+  <section
+    class="sub-hero orange-sub-hero"
+    data-word="CREATOR"
+  >
 
-<section
-  class="sub-page-hero orange-sub-page"
-  data-word="TALENTS"
->
+    <div class="container">
 
+      <div class="section-label light-label">
+        OUR CREATOR
+      </div>
 
-  <div class="container">
-
-
-    <div class="sub-number light-sub-number">
-      02
-    </div>
-
-
-    <div class="section-label light-label">
-      OUR TALENTS
-    </div>
-
-
-    <h1 class="light-sub-title">
-
-      TALENTS
-
-      <span>
-        .
-      </span>
-
-    </h1>
-
-
-    <p class="light-sub-description">
-
-      IRIAM・Mirrativ・TikTok LIVEで活動する
-      所属ライバーをご紹介します。
-
-    </p>
-
-
-  </div>
-
-
-</section>
-
-
-
-<section class="section">
-
-
-  <div class="container">
-
-
-    <div
-      class="talent-filter"
-      id="talentFilter"
-    >
-
-      <button
-        class="filter-button active"
-        data-filter="ALL"
-      >
-        ALL
-      </button>
-
-      <button
-        class="filter-button"
-        data-filter="IRIAM"
-      >
-        IRIAM
-      </button>
-
-      <button
-        class="filter-button"
-        data-filter="Mirrativ"
-      >
-        Mirrativ
-      </button>
-
-      <button
-        class="filter-button"
-        data-filter="TikTok"
-      >
-        TikTok
-      </button>
-
-      <button
-        class="filter-button"
-        data-filter="V"
-      >
-        V LIVER
-      </button>
-
-      <button
-        class="filter-button"
-        data-filter="REAL"
-      >
-        REAL LIVER
-      </button>
+      <h1>
+        CREATOR<span>.</span>
+      </h1>
 
     </div>
 
+  </section>
 
 
-    <div
-      class="talent-grid light-talent-grid"
-      id="allTalents"
-    ></div>
+  <section class="section">
+
+    <div class="container">
+
+      <div
+        class="talent-filter"
+        id="talentFilter"
+      >
+
+        <button
+          class="filter-button active"
+          data-filter="ALL"
+        >
+          ALL
+        </button>
+
+        <button
+          class="filter-button"
+          data-filter="IRIAM"
+        >
+          IRIAM
+        </button>
+
+        <button
+          class="filter-button"
+          data-filter="Mirrativ"
+        >
+          Mirrativ
+        </button>
+
+        <button
+          class="filter-button"
+          data-filter="TikTok"
+        >
+          TikTok
+        </button>
+
+        <button
+          class="filter-button"
+          data-filter="V"
+        >
+          V LIVER
+        </button>
+
+        <button
+          class="filter-button"
+          data-filter="REAL"
+        >
+          REAL LIVER
+        </button>
+
+      </div>
 
 
-  </div>
+      <div
+        class="talent-grid light-talent-grid"
+        id="allTalents"
+      ></div>
 
+    </div>
 
-</section>
-
+  </section>
 
 </main>
 
 
 
 <!-- =========================================================
-     RECRUIT TOP
+     EVENTS PAGE
+========================================================= -->
+
+<main
+  id="page-events"
+  class="page-view"
+>
+
+  <section
+    class="sub-hero"
+    data-word="EVENT"
+  >
+
+    <div class="container">
+
+      <div class="section-label">
+        OFFICE EVENT
+      </div>
+
+      <h1>
+        EVENT<span>.</span>
+      </h1>
+
+      <p>
+        プラットフォーム別の事務所イベント情報。
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="container">
+
+      <div
+        class="event-filter"
+        id="eventFilter"
+      >
+
+        <button
+          class="filter-button active"
+          data-event-filter="ALL"
+        >
+          ALL
+        </button>
+
+        <button
+          class="filter-button"
+          data-event-filter="IRIAM"
+        >
+          IRIAM
+        </button>
+
+        <button
+          class="filter-button"
+          data-event-filter="Mirrativ"
+        >
+          Mirrativ
+        </button>
+
+        <button
+          class="filter-button"
+          data-event-filter="TikTok"
+        >
+          TikTok
+        </button>
+
+      </div>
+
+
+      <div
+        class="event-grid"
+        id="allEvents"
+      ></div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     INTERVIEW PAGE
+========================================================= -->
+
+<main
+  id="page-interviews"
+  class="page-view"
+>
+
+  <section
+    class="sub-hero blue-sub-hero"
+    data-word="INTERVIEW"
+  >
+
+    <div class="container">
+
+      <div class="section-label light-label">
+        CREATOR VOICE
+      </div>
+
+      <h1>
+        INTERVIEW<span>.</span>
+      </h1>
+
+      <p>
+
+        所属クリエイターが感じている、
+        配信や事務所について。
+
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="container">
+
+      <div
+        class="interview-page-grid"
+        id="allInterviews"
+      ></div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     RECRUIT
 ========================================================= -->
 
 <main
@@ -1482,178 +2087,108 @@
   class="page-view"
 >
 
+  <section
+    class="sub-hero"
+    data-word="RECRUIT"
+  >
 
-<section
-  class="sub-page-hero"
-  data-word="RECRUIT"
->
+    <div class="container">
 
+      <div class="section-label">
+        JOIN US
+      </div>
 
-  <div class="container">
+      <h1>
+        RECRUIT<span>.</span>
+      </h1>
 
+      <p>
+        あなたに合った活動スタイルを選べます。
+      </p>
 
-    <div class="sub-number">
-      03
     </div>
 
-
-    <div class="section-label">
-      JOIN US
-    </div>
+  </section>
 
 
-    <h1>
+  <section class="section">
 
-      RECRUIT
+    <div class="container">
 
-      <span>
-        .
-      </span>
+      <div class="recruit-grid">
 
-    </h1>
+        <a
+          href="#recruit-virtual"
+          class="recruit-card virtual-recruit"
+        >
 
-
-    <p>
-
-      自分らしい活動スタイルを見つけ、
-      新しい一歩を始めたい方へ。
-
-    </p>
-
-
-  </div>
-
-
-</section>
-
-
-
-<section class="section">
-
-
-  <div class="container">
-
-
-    <div class="recruit-grid">
-
-
-      <a
-        href="#recruit-virtual"
-        class="recruit-card virtual-card"
-      >
-
-
-        <div class="recruit-card-header">
-
-          <span>
-            01
-          </span>
-
-          <span>
+          <span class="recruit-type">
             VIRTUAL LIVER
           </span>
 
-        </div>
-
-
-        <div class="recruit-giant-symbol">
-          ◇
-        </div>
-
-
-        <div class="recruit-card-body">
-
-          <small>
-            Vライバー募集
-          </small>
-
-          <h3>
-
-            CREATE<br>
-            YOUR<br>
-            WORLD.
-
-          </h3>
-
-          <p>
-
-            キャラクターとして
-            活動したい方はこちら。
-
-          </p>
-
-          <div class="recruit-arrow">
-            ↗
-          </div>
-
-        </div>
-
-      </a>
-
-
-
-      <a
-        href="#recruit-real"
-        class="recruit-card real-card"
-      >
-
-
-        <div class="recruit-card-header">
-
-          <span>
-            02
+          <span class="recruit-symbol">
+            ◇
           </span>
 
-          <span>
+          <div>
+
+            <small>
+              Vライバー募集
+            </small>
+
+            <h3>
+              CREATE<br>
+              YOUR<br>
+              WORLD.
+            </h3>
+
+          </div>
+
+          <span class="recruit-arrow">
+            ↗
+          </span>
+
+        </a>
+
+
+        <a
+          href="#recruit-real"
+          class="recruit-card real-recruit"
+        >
+
+          <span class="recruit-type">
             REAL LIVER
           </span>
 
-        </div>
+          <span class="recruit-symbol">
+            ●
+          </span>
 
+          <div>
 
-        <div class="recruit-giant-symbol circle-symbol">
-          ●
-        </div>
+            <small>
+              リアルライバー募集
+            </small>
 
+            <h3>
+              SHOW<br>
+              YOUR<br>
+              COLOR.
+            </h3>
 
-        <div class="recruit-card-body">
-
-          <small>
-            リアルライバー募集
-          </small>
-
-          <h3>
-
-            SHOW<br>
-            YOUR<br>
-            COLOR.
-
-          </h3>
-
-          <p>
-
-            自分自身を発信しながら
-            活動したい方はこちら。
-
-          </p>
-
-          <div class="recruit-arrow">
-            ↗
           </div>
 
-        </div>
+          <span class="recruit-arrow">
+            ↗
+          </span>
 
-      </a>
+        </a>
 
+      </div>
 
     </div>
 
-
-  </div>
-
-
-</section>
-
+  </section>
 
 </main>
 
@@ -1668,224 +2203,168 @@
   class="page-view"
 >
 
+  <section class="recruit-detail-hero virtual-detail">
 
-<section class="recruit-detail-hero virtual-detail-hero">
+    <div class="container">
 
-
-  <div class="container recruit-detail-hero-inner">
-
-
-    <div>
-
-      <span class="detail-hero-label">
+      <small>
         RECRUIT 01
-      </span>
+      </small>
 
       <h1>
-
         VIRTUAL<br>
-        LIVER
-
-        <span>
-          .
-        </span>
-
+        LIVER<span>.</span>
       </h1>
 
-      <p>
-
-        キャラクターを通して、
-        自分らしい世界や個性を発信する。
-
-      </p>
-
     </div>
 
-
-    <div class="detail-hero-symbol">
-      ◇
-    </div>
+  </section>
 
 
-  </div>
+  <section class="section">
+
+    <div class="container recruit-detail-grid">
+
+      <aside class="recruit-side">
+
+        <h2>
+
+          YOUR<br>
+          STORY,<br>
+          YOUR STYLE.
+
+        </h2>
+
+        <p>
+
+          配信未経験の方でも応募可能です。
+
+        </p>
+
+        <a
+          href="#"
+          class="button orange-button external-link"
+          data-link="line"
+        >
+          LINEで相談 ↗
+        </a>
+
+      </aside>
 
 
-</section>
+      <div class="detail-list">
+
+        <article class="detail-card">
+
+          <span>
+            01
+          </span>
+
+          <h3>
+            募集対象
+          </h3>
+
+          <ul>
+
+            <li>
+              18歳以上
+            </li>
+
+            <li>
+              継続して活動できる方
+            </li>
+
+            <li>
+              配信未経験OK
+            </li>
+
+            <li>
+              IRIAM・Mirrativ等で活動したい方
+            </li>
+
+          </ul>
+
+        </article>
 
 
+        <article class="detail-card">
 
-<section class="section">
+          <span>
+            02
+          </span>
+
+          <h3>
+            SUPPORT
+          </h3>
+
+          <div class="support-grid">
+
+            <div>
+              ✦ 配信相談
+            </div>
+
+            <div>
+              ♪ 活動振り返り
+            </div>
+
+            <div>
+              ★ イベント支援
+            </div>
+
+            <div>
+              ↗ 活動方針相談
+            </div>
+
+          </div>
+
+        </article>
 
 
-  <div class="container recruit-detail-layout">
+        <article class="detail-card">
 
+          <span>
+            03
+          </span>
 
-    <aside class="recruit-side">
+          <h3>
+            FLOW
+          </h3>
 
+          <div class="flow-grid">
 
-      <div class="section-label">
-        V LIVER
+            <div>
+              <small>STEP 01</small>
+              <strong>ENTRY</strong>
+              <span>応募</span>
+            </div>
+
+            <div>
+              <small>STEP 02</small>
+              <strong>CHECK</strong>
+              <span>確認</span>
+            </div>
+
+            <div>
+              <small>STEP 03</small>
+              <strong>MEET</strong>
+              <span>面談</span>
+            </div>
+
+            <div class="active">
+              <small>STEP 04</small>
+              <strong>START!</strong>
+              <span>活動開始</span>
+            </div>
+
+          </div>
+
+        </article>
+
       </div>
 
-
-      <h2>
-
-        YOUR<br>
-        STORY,<br>
-        YOUR STYLE.
-
-      </h2>
-
-
-      <p>
-
-        配信経験がない方でも、
-        活動への興味や挑戦したい気持ちがあれば応募できます。
-
-      </p>
-
-
-      <a
-        href="#"
-        class="main-button orange-button"
-      >
-        ENTRY
-        <span>↗</span>
-      </a>
-
-
-    </aside>
-
-
-
-    <div class="recruit-detail-content">
-
-
-      <article class="detail-card">
-
-        <span class="detail-number">
-          01
-        </span>
-
-        <h3>
-          募集対象
-        </h3>
-
-        <ul>
-
-          <li>
-            18歳以上の方
-          </li>
-
-          <li>
-            継続して配信活動ができる方
-          </li>
-
-          <li>
-            IRIAM・Mirrativ等で活動したい方
-          </li>
-
-          <li>
-            配信未経験者も応募可能
-          </li>
-
-          <li>
-            活動に前向きに取り組める方
-          </li>
-
-        </ul>
-
-      </article>
-
-
-
-      <article class="detail-card">
-
-        <span class="detail-number">
-          02
-        </span>
-
-        <h3>
-          SUPPORT
-        </h3>
-
-        <div class="support-grid">
-
-          <div>
-            <span>✦</span>
-            配信活動相談
-          </div>
-
-          <div>
-            <span>♪</span>
-            活動振り返り
-          </div>
-
-          <div>
-            <span>★</span>
-            イベント支援
-          </div>
-
-          <div>
-            <span>↗</span>
-            活動方針相談
-          </div>
-
-        </div>
-
-      </article>
-
-
-
-      <article class="detail-card">
-
-        <span class="detail-number">
-          03
-        </span>
-
-        <h3>
-          FLOW
-        </h3>
-
-        <div class="flow-grid">
-
-          <div class="flow-card">
-            <small>STEP 01</small>
-            <strong>ENTRY</strong>
-            <span>応募</span>
-          </div>
-
-          <div class="flow-card">
-            <small>STEP 02</small>
-            <strong>CHECK</strong>
-            <span>確認</span>
-          </div>
-
-          <div class="flow-card">
-            <small>STEP 03</small>
-            <strong>MEET</strong>
-            <span>面談</span>
-          </div>
-
-          <div class="flow-card orange-flow">
-            <small>STEP 04</small>
-            <strong>START!</strong>
-            <span>活動開始</span>
-          </div>
-
-        </div>
-
-      </article>
-
-
     </div>
 
-
-  </div>
-
-
-</section>
-
+  </section>
 
 </main>
 
@@ -1900,251 +2379,202 @@
   class="page-view"
 >
 
+  <section class="recruit-detail-hero real-detail">
 
-<section class="recruit-detail-hero real-detail-hero">
+    <div class="container">
 
-
-  <div class="container recruit-detail-hero-inner">
-
-
-    <div>
-
-      <span class="detail-hero-label">
+      <small>
         RECRUIT 02
-      </span>
+      </small>
 
       <h1>
-
         REAL<br>
-        LIVER
-
-        <span>
-          .
-        </span>
-
+        LIVER<span>.</span>
       </h1>
 
-      <p>
-
-        自分自身の魅力や個性を、
-        ライブ配信を通して届ける。
-
-      </p>
-
     </div>
 
-
-    <div class="detail-hero-symbol circle-detail-symbol">
-      ●
-    </div>
+  </section>
 
 
-  </div>
+  <section class="section">
 
+    <div class="container recruit-detail-grid">
 
-</section>
+      <aside class="recruit-side">
 
+        <h2>
 
+          SHOW<br>
+          YOUR<br>
+          COLOR.
 
-<section class="section">
+        </h2>
 
+        <p>
 
-  <div class="container recruit-detail-layout">
-
-
-    <aside class="recruit-side">
-
-
-      <div class="section-label">
-        REAL LIVER
-      </div>
-
-
-      <h2>
-
-        SHOW<br>
-        YOUR<br>
-        COLOR.
-
-      </h2>
-
-
-      <p>
-
-        雑談・ゲーム・歌・美容・ファッションなど、
-        自分らしいジャンルで活動できます。
-
-      </p>
-
-
-      <a
-        href="#"
-        class="main-button orange-button"
-      >
-        ENTRY
-        <span>↗</span>
-      </a>
-
-
-    </aside>
-
-
-
-    <div class="recruit-detail-content">
-
-
-      <article class="detail-card">
-
-        <span class="detail-number">
-          01
-        </span>
-
-        <h3>
-          募集対象
-        </h3>
-
-        <ul>
-
-          <li>
-            18歳以上の方
-          </li>
-
-          <li>
-            TikTok LIVEで活動したい方
-          </li>
-
-          <li>
-            ライブ配信に興味がある方
-          </li>
-
-          <li>
-            配信未経験者も応募可能
-          </li>
-
-          <li>
-            継続して活動できる方
-          </li>
-
-        </ul>
-
-      </article>
-
-
-
-      <article class="detail-card">
-
-        <span class="detail-number">
-          02
-        </span>
-
-        <h3>
-          STYLE
-        </h3>
-
-        <div class="genre-list">
-
-          <span>TALK</span>
-          <span>GAME</span>
-          <span>MUSIC</span>
-          <span>BEAUTY</span>
-          <span>FASHION</span>
-          <span>LIFE STYLE</span>
-
-        </div>
-
-      </article>
-
-
-
-      <article class="detail-card">
-
-        <div class="detail-heading-row">
-
-          <div>
-
-            <span class="detail-number">
-              03
-            </span>
-
-            <h3>
-              REAL LIVER IMAGE
-            </h3>
-
-          </div>
-
-          <span class="sample-label">
-            SAMPLE
-          </span>
-
-        </div>
-
-
-        <p class="sample-note">
-
-          下記はサイトデザイン確認用の
-          架空の日本人ライバーイメージです。
+          自分自身の個性を、
+          ライブ配信で発信したい方へ。
 
         </p>
 
+        <a
+          href="#"
+          class="button orange-button external-link"
+          data-link="line"
+        >
+          LINEで相談 ↗
+        </a>
 
-        <div
-          class="real-sample-grid"
-          id="realSampleGrid"
-        ></div>
-
-      </article>
+      </aside>
 
 
+      <div class="detail-list">
 
-      <article class="detail-card">
+        <article class="detail-card">
 
-        <span class="detail-number">
-          04
-        </span>
+          <span>
+            01
+          </span>
 
-        <h3>
-          FLOW
-        </h3>
+          <h3>
+            募集対象
+          </h3>
 
-        <div class="flow-grid">
+          <ul>
 
-          <div class="flow-card">
-            <small>STEP 01</small>
-            <strong>ENTRY</strong>
-            <span>応募</span>
+            <li>
+              18歳以上
+            </li>
+
+            <li>
+              TikTok LIVEで活動したい方
+            </li>
+
+            <li>
+              配信未経験OK
+            </li>
+
+            <li>
+              継続して活動できる方
+            </li>
+
+          </ul>
+
+        </article>
+
+
+        <article class="detail-card">
+
+          <span>
+            02
+          </span>
+
+          <h3>
+            STYLE
+          </h3>
+
+          <div class="genre-list">
+
+            <span>
+              TALK
+            </span>
+
+            <span>
+              GAME
+            </span>
+
+            <span>
+              MUSIC
+            </span>
+
+            <span>
+              BEAUTY
+            </span>
+
+            <span>
+              FASHION
+            </span>
+
+            <span>
+              LIFE STYLE
+            </span>
+
           </div>
 
-          <div class="flow-card">
-            <small>STEP 02</small>
-            <strong>CHECK</strong>
-            <span>確認</span>
+        </article>
+
+
+        <article class="detail-card">
+
+          <span>
+            03
+          </span>
+
+          <h3>
+            REAL LIVER IMAGE
+          </h3>
+
+          <p class="small-note">
+
+            以下はサイト確認用の
+            架空の人物です。
+
+          </p>
+
+          <div
+            class="real-sample-grid"
+            id="realSampleGrid"
+          ></div>
+
+        </article>
+
+
+        <article class="detail-card">
+
+          <span>
+            04
+          </span>
+
+          <h3>
+            FLOW
+          </h3>
+
+          <div class="flow-grid">
+
+            <div>
+              <small>STEP 01</small>
+              <strong>ENTRY</strong>
+              <span>応募</span>
+            </div>
+
+            <div>
+              <small>STEP 02</small>
+              <strong>CHECK</strong>
+              <span>確認</span>
+            </div>
+
+            <div>
+              <small>STEP 03</small>
+              <strong>MEET</strong>
+              <span>面談</span>
+            </div>
+
+            <div class="active">
+              <small>STEP 04</small>
+              <strong>START!</strong>
+              <span>活動開始</span>
+            </div>
+
           </div>
 
-          <div class="flow-card">
-            <small>STEP 03</small>
-            <strong>MEET</strong>
-            <span>面談</span>
-          </div>
+        </article>
 
-          <div class="flow-card orange-flow">
-            <small>STEP 04</small>
-            <strong>START!</strong>
-            <span>活動開始</span>
-          </div>
-
-        </div>
-
-      </article>
-
+      </div>
 
     </div>
 
-
-  </div>
-
-
-</section>
-
+  </section>
 
 </main>
 
@@ -2159,171 +2589,75 @@
   class="page-view"
 >
 
+  <section
+    class="sub-hero"
+    data-word="ABOUT"
+  >
 
-<section
-  class="sub-page-hero"
-  data-word="ABOUT"
->
-
-
-  <div class="container">
-
-
-    <div class="sub-number">
-      04
-    </div>
-
-
-    <div class="section-label">
-      WHO WE ARE
-    </div>
-
-
-    <h1>
-
-      ABOUT
-
-      <span>
-        .
-      </span>
-
-    </h1>
-
-
-    <p>
-
-      一人ひとりの個性や活動スタイルを大切にしながら、
-      ライブ配信活動をサポートしています。
-
-    </p>
-
-
-  </div>
-
-
-</section>
-
-
-
-<section class="section">
-
-
-  <div class="container about-layout">
-
-
-    <div class="about-visual-card">
-
-
-      <span class="about-star">
-        ✦
-      </span>
-
-
-      <strong>
-
-        BE<br>
-        YOUR<br>
-        COLOR.
-
-      </strong>
-
-
-      <small>
-        SCHRITT PRODUCTION
-      </small>
-
-
-    </div>
-
-
-
-    <div class="about-copy">
-
+    <div class="container">
 
       <div class="section-label">
-        OUR MISSION
+        WHO WE ARE
+      </div>
+
+      <h1>
+        ABOUT<span>.</span>
+      </h1>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="container about-page-grid">
+
+      <div class="about-big-card">
+
+        <span>
+          ✦
+        </span>
+
+        <strong>
+          BE<br>
+          YOUR<br>
+          COLOR.
+        </strong>
+
       </div>
 
 
-      <h2>
+      <div>
 
-        「好き」を、
-        <br>
-
-        <span>
-          続けられる活動へ。
-        </span>
-
-      </h2>
-
-
-      <p>
-
-        ライバーごとに、
-        得意なことも、目標も、
-        活動したいプラットフォームも異なります。
-
-      </p>
-
-
-      <p>
-
-        一人ひとりを同じ形に当てはめるのではなく、
-        その人に合った活動スタイルを一緒に考え、
-        成長していける環境を目指しています。
-
-      </p>
-
-
-      <dl class="company-list">
-
-        <div>
-
-          <dt>
-            NAME
-          </dt>
-
-          <dd>
-            しゅりっとプロダクション
-          </dd>
-
+        <div class="section-label">
+          OUR MISSION
         </div>
 
-        <div>
+        <h2 class="about-page-title">
 
-          <dt>
-            PLATFORM
-          </dt>
+          「好き」を、
+          <br>
 
-          <dd>
-            IRIAM / Mirrativ / TikTok LIVE
-          </dd>
+          <span>
+            続けられる活動へ。
+          </span>
 
-        </div>
+        </h2>
 
-        <div>
+        <p class="about-page-text">
 
-          <dt>
-            CATEGORY
-          </dt>
+          一人ひとりの得意なこと・目標・
+          活動スタイルに合わせて、
+          長く楽しく活動できる環境を目指しています。
 
-          <dd>
-            Virtual Liver / Real Liver
-          </dd>
+        </p>
 
-        </div>
-
-      </dl>
-
+      </div>
 
     </div>
 
-
-  </div>
-
-
-</section>
-
+  </section>
 
 </main>
 
@@ -2335,43 +2669,70 @@
 
 <footer class="site-footer">
 
-
   <div class="footer-marquee">
 
+    <div class="footer-track">
 
-    <div class="footer-marquee-track">
+      <span>
+        SCHRITT PRODUCTION
+      </span>
 
-      <span>SCHRITT PRODUCTION</span>
-      <i>✦</i>
+      <i>
+        ✦
+      </i>
 
-      <span>BE YOUR COLOR</span>
-      <i>♪</i>
+      <span>
+        BE YOUR COLOR
+      </span>
 
-      <span>GO LIVE!</span>
-      <i>★</i>
+      <i>
+        ♪
+      </i>
 
-      <span>SCHRITT PRODUCTION</span>
-      <i>✦</i>
+      <span>
+        GO LIVE!
+      </span>
 
-      <span>BE YOUR COLOR</span>
-      <i>♪</i>
+      <i>
+        ★
+      </i>
 
-      <span>GO LIVE!</span>
-      <i>★</i>
+      <span>
+        SCHRITT PRODUCTION
+      </span>
+
+      <i>
+        ✦
+      </i>
+
+      <span>
+        BE YOUR COLOR
+      </span>
+
+      <i>
+        ♪
+      </i>
+
+      <span>
+        GO LIVE!
+      </span>
+
+      <i>
+        ★
+      </i>
 
     </div>
-
 
   </div>
 
 
+  <div class="container footer-grid">
 
-  <div class="container footer-main">
+    <div>
 
-
-    <div class="footer-brand">
-
-      <strong>
+      <strong
+        data-site-name
+      >
         しゅりっとプロダクション
       </strong>
 
@@ -2382,16 +2743,14 @@
       <p>
 
         IRIAM・Mirrativ・TikTok LIVEで活動する
-        Vライバー・リアルライバーをサポートしています。
+        ライバーをサポートしています。
 
       </p>
 
     </div>
 
 
-
     <div class="footer-links">
-
 
       <div>
 
@@ -2408,15 +2767,14 @@
         </a>
 
         <a href="#talents">
-          TALENTS
+          CREATOR
         </a>
 
-        <a href="#about">
-          ABOUT
+        <a href="#events">
+          EVENT
         </a>
 
       </div>
-
 
 
       <div>
@@ -2440,29 +2798,41 @@
       </div>
 
 
-
       <div>
 
         <span>
-          SOCIAL
+          EXTERNAL
         </span>
 
-        <a href="#">
-          X
+        <a
+          href="#"
+          class="external-link"
+          data-link="note"
+        >
+          note
         </a>
 
-        <a href="#">
-          TikTok
+        <a
+          href="#"
+          class="external-link"
+          data-link="booth"
+        >
+          BOOTH
+        </a>
+
+        <a
+          href="#"
+          class="external-link"
+          data-link="line"
+        >
+          LINE
         </a>
 
       </div>
 
-
     </div>
 
-
   </div>
-
 
 
   <div class="container footer-bottom">
@@ -2477,7 +2847,6 @@
 
   </div>
 
-
 </footer>
 
 
@@ -2487,88 +2856,100 @@
 ========================================================= -->
 
 <div
-  class="talent-modal-overlay"
+  class="modal-overlay"
   id="talentModal"
 >
 
-
-  <div class="talent-modal">
-
+  <div class="profile-modal">
 
     <button
       class="modal-close"
       id="talentModalClose"
-      aria-label="閉じる"
     >
       ×
     </button>
 
-
-
     <div
-      class="modal-visual"
+      class="profile-modal-visual"
       id="talentModalVisual"
     >
 
       <div
-        class="modal-initial"
         id="talentModalInitial"
+        class="modal-initial"
       ></div>
 
     </div>
 
+    <div class="profile-modal-body">
 
-
-    <div class="modal-body">
-
-
-      <span
-        class="modal-type"
+      <small
         id="talentModalType"
-      ></span>
-
+      ></small>
 
       <h2
         id="talentModalName"
       ></h2>
 
-
       <div
-        class="modal-reading"
         id="talentModalReading"
+        class="modal-reading"
       ></div>
-
 
       <div
-        class="modal-platforms"
         id="talentModalPlatforms"
+        class="modal-platforms"
       ></div>
-
 
       <p
-        class="modal-bio"
         id="talentModalBio"
       ></p>
 
-
       <div
-        class="modal-links"
         id="talentModalLinks"
+        class="modal-links"
       ></div>
-
 
     </div>
 
-
   </div>
-
 
 </div>
 
 
 
-<script src="./script.js"></script>
+<!-- =========================================================
+     INTERVIEW MODAL
+========================================================= -->
 
+<div
+  class="modal-overlay"
+  id="interviewModal"
+>
+
+  <div class="interview-modal">
+
+    <button
+      class="modal-close"
+      id="interviewModalClose"
+    >
+      ×
+    </button>
+
+    <div
+      class="interview-modal-inner"
+      id="interviewModalContent"
+    ></div>
+
+  </div>
+
+</div>
+
+
+
+<script src="./config.js"></script>
+<script src="./data.js"></script>
+<script src="./app.js"></script>
 
 </body>
 </html>
