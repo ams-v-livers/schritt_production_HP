@@ -1,38 +1,13 @@
 /* ============================================================
-   ============================================================
    SCHRITT PRODUCTION
    UPDATE DATA
-   ============================================================
 
-   ★ 日常的な更新は基本的にこのファイルだけです。
-
-   ① HERO PICKUP
-   ② TALENTS
-   ③ NEWS
-   ④ EVENTS
-   ⑤ INTERVIEWS
-   ⑥ JOURNAL
-   ⑦ FAQ
-   ⑧ REAL LIVER SAMPLE
-
+   ★ 基本的な日常更新はこのファイル
 ============================================================ */
-
 
 
 /* ============================================================
    ① HERO PICKUP
-
-   TOP右側に表示するライバーです。
-
-   talentId:
-   → TALENTSに登録されているid
-
-   image:
-   → TOP専用画像
-
-   liveUrl:
-   → 配信ページ等
-
 ============================================================ */
 
 const HERO_PICKUP = {
@@ -68,39 +43,10 @@ const HERO_PICKUP = {
    ② TALENTS
 ============================================================ */
 
-/*
-  type:
-
-  "V"
-  "REAL"
-
-
-  platforms:
-
-  ["IRIAM"]
-
-  ["Mirrativ"]
-
-  ["TikTok"]
-
-  ["IRIAM", "TikTok"]
-
-
-  image:
-
-  "./images/talents/xxx.png"
-
-  画像なしなら
-  ""
-*/
-
-
 const TALENTS = [
 
-
   {
-    id:
-      1,
+    id: 1,
 
     name:
       "SORA",
@@ -142,10 +88,8 @@ const TALENTS = [
   },
 
 
-
   {
-    id:
-      2,
+    id: 2,
 
     name:
       "RIN",
@@ -187,10 +131,8 @@ const TALENTS = [
   },
 
 
-
   {
-    id:
-      3,
+    id: 3,
 
     name:
       "MIO",
@@ -232,10 +174,8 @@ const TALENTS = [
   },
 
 
-
   {
-    id:
-      4,
+    id: 4,
 
     name:
       "REN",
@@ -274,10 +214,8 @@ const TALENTS = [
   },
 
 
-
   {
-    id:
-      5,
+    id: 5,
 
     name:
       "LUNA",
@@ -329,15 +267,13 @@ const TALENTS = [
 /* ============================================================
    ③ NEWS
 
-   ★新しいものを一番上へ追加
+   ★ 新しいものを一番上へ追加
 ============================================================ */
 
 const NEWS = [
 
-
   {
-    id:
-      1,
+    id: 1,
 
     date:
       "2026.10.01",
@@ -353,10 +289,8 @@ const NEWS = [
   },
 
 
-
   {
-    id:
-      2,
+    id: 2,
 
     date:
       "2026.09.25",
@@ -372,10 +306,8 @@ const NEWS = [
   },
 
 
-
   {
-    id:
-      3,
+    id: 3,
 
     date:
       "2026.09.10",
@@ -391,10 +323,8 @@ const NEWS = [
   },
 
 
-
   {
-    id:
-      4,
+    id: 4,
 
     date:
       "2026.09.01",
@@ -417,28 +347,10 @@ const NEWS = [
    ④ EVENTS
 ============================================================ */
 
-/*
-  platform:
-
-  "IRIAM"
-  "Mirrativ"
-  "TikTok"
-
-
-  status:
-
-  "開催中"
-  "開催予定"
-  "終了"
-*/
-
-
 const EVENTS = [
 
-
   {
-    id:
-      1,
+    id: 1,
 
     platform:
       "TikTok",
@@ -463,10 +375,8 @@ const EVENTS = [
   },
 
 
-
   {
-    id:
-      2,
+    id: 2,
 
     platform:
       "IRIAM",
@@ -491,10 +401,8 @@ const EVENTS = [
   },
 
 
-
   {
-    id:
-      3,
+    id: 3,
 
     platform:
       "Mirrativ",
@@ -523,19 +431,13 @@ const EVENTS = [
 
 
 /* ============================================================
-   ⑤ INTERVIEWS
-
-   talentId
-   → TALENTSのid
-
+   ⑤ INTERVIEW
 ============================================================ */
 
 const INTERVIEWS = [
 
-
   {
-    id:
-      1,
+    id: 1,
 
     talentId:
       1,
@@ -581,10 +483,8 @@ const INTERVIEWS = [
   },
 
 
-
   {
-    id:
-      2,
+    id: 2,
 
     talentId:
       3,
@@ -625,15 +525,13 @@ const INTERVIEWS = [
 
 
 /* ============================================================
-   ⑥ JOURNAL / note
+   ⑥ JOURNAL
 ============================================================ */
 
 const JOURNAL_ARTICLES = [
 
-
   {
-    id:
-      1,
+    id: 1,
 
     category:
       "EQUIPMENT",
@@ -652,10 +550,8 @@ const JOURNAL_ARTICLES = [
   },
 
 
-
   {
-    id:
-      2,
+    id: 2,
 
     category:
       "HOW TO",
@@ -674,10 +570,8 @@ const JOURNAL_ARTICLES = [
   },
 
 
-
   {
-    id:
-      3,
+    id: 3,
 
     category:
       "STAFF",
@@ -705,7 +599,6 @@ const JOURNAL_ARTICLES = [
 
 const FAQ = [
 
-
   {
     question:
       "配信未経験でも応募できますか？",
@@ -713,7 +606,6 @@ const FAQ = [
     answer:
       "はい。配信経験がない方でもご応募いただけます。活動したい内容や目標を確認しながらご案内します。"
   },
-
 
 
   {
@@ -725,7 +617,6 @@ const FAQ = [
   },
 
 
-
   {
     question:
       "どのプラットフォームで活動できますか？",
@@ -733,7 +624,6 @@ const FAQ = [
     answer:
       "IRIAM・Mirrativ・TikTok LIVEを取り扱っています。活動スタイルや目標に合わせてご案内します。"
   },
-
 
 
   {
@@ -745,7 +635,6 @@ const FAQ = [
   },
 
 
-
   {
     question:
       "応募前に相談だけできますか？",
@@ -753,7 +642,6 @@ const FAQ = [
     answer:
       "はい。公式LINEからご相談いただけます。応募するか決めていない段階でも問題ありません。"
   },
-
 
 
   {
@@ -770,13 +658,9 @@ const FAQ = [
 
 /* ============================================================
    ⑧ REAL LIVER SAMPLE
-
-   サイトデザイン確認用。
-   実在しない人物を想定しています。
 ============================================================ */
 
 const REAL_LIVER_SAMPLES = [
-
 
   {
     name:
@@ -800,7 +684,6 @@ const REAL_LIVER_SAMPLES = [
     colorB:
       "#ef5b77"
   },
-
 
 
   {
@@ -827,7 +710,6 @@ const REAL_LIVER_SAMPLES = [
   },
 
 
-
   {
     name:
       "YUNA",
@@ -850,7 +732,6 @@ const REAL_LIVER_SAMPLES = [
     colorB:
       "#6a407c"
   },
-
 
 
   {
