@@ -1,13 +1,9 @@
 /* ============================================================
-   ============================================================
    SCHRITT PRODUCTION
    APPLICATION
-   ============================================================
 
-   基本的にこのファイルは触らなくてOKです。
-
+   ★ 基本的に変更不要
 ============================================================ */
-
 
 
 /* ============================================================
@@ -27,7 +23,11 @@ function getTalent(id) {
 function formatDateParts(date) {
 
   const normalized =
-    date.replaceAll("-", ".");
+    date.replaceAll(
+      "-",
+      "."
+    );
+
 
   const parts =
     normalized.split(".");
@@ -139,12 +139,6 @@ function renderHeroPickup() {
     );
 
 
-  const image =
-    document.getElementById(
-      "heroPickupImage"
-    );
-
-
   const name =
     document.getElementById(
       "heroPickupName"
@@ -175,30 +169,46 @@ function renderHeroPickup() {
     );
 
 
-  label.textContent =
-    HERO_PICKUP.label;
+  if(label) {
+
+    label.textContent =
+      HERO_PICKUP.label;
+
+  }
 
 
-  name.textContent =
-    talent.name;
+  if(name) {
+
+    name.textContent =
+      talent.name;
+
+  }
 
 
-  reading.textContent =
-    talent.reading;
+  if(reading) {
+
+    reading.textContent =
+      talent.reading;
+
+  }
 
 
-  platforms.innerHTML =
-    talent.platforms
+  if(platforms) {
 
-      .map(
-        platform => `
-          <span>
-            ${platform}
-          </span>
-        `
-      )
+    platforms.innerHTML =
+      talent.platforms
 
-      .join("");
+        .map(
+          platform => `
+            <span>
+              ${platform}
+            </span>
+          `
+        )
+
+        .join("");
+
+  }
 
 
   const pickupImage =
@@ -206,91 +216,103 @@ function renderHeroPickup() {
     talent.image;
 
 
-  if(pickupImage) {
+  if(imageWrap) {
 
-    imageWrap.innerHTML = `
+    if(pickupImage) {
 
-      <img
-        src="${pickupImage}"
-        alt="${talent.name}"
-        class="hero-pickup-image"
-      >
+      imageWrap.innerHTML = `
 
-    `;
+        <img
+          src="${pickupImage}"
+          alt="${talent.name}"
+          class="hero-pickup-image"
+        >
+
+      `;
+
+    }
+
+    else {
+
+      imageWrap.innerHTML = `
+
+        <div
+          class="hero-pickup-placeholder"
+          style="
+            background:
+            linear-gradient(
+              145deg,
+              ${talent.colorA},
+              ${talent.colorB}
+            );
+          "
+        >
+
+          ${talent.name.charAt(0)}
+
+        </div>
+
+      `;
+
+    }
 
   }
 
-  else {
 
-    imageWrap.innerHTML = `
+  if(profileButton) {
 
-      <div
-        class="hero-pickup-placeholder"
-        style="
-          background:
-          linear-gradient(
-            145deg,
-            ${talent.colorA},
-            ${talent.colorB}
+    if(
+      HERO_PICKUP.showProfileButton
+    ) {
+
+      profileButton.style.display =
+        "inline-flex";
+
+
+      profileButton.onclick =
+        () => {
+
+          openTalentModal(
+            talent.id
           );
-        "
-      >
 
-        ${talent.name.charAt(0)}
+        };
 
-      </div>
+    }
 
-    `;
+    else {
 
-  }
+      profileButton.style.display =
+        "none";
 
-
-  if(
-    HERO_PICKUP.showProfileButton
-  ) {
-
-    profileButton.style.display =
-      "inline-flex";
-
-
-    profileButton.onclick =
-      () => {
-
-        openTalentModal(
-          talent.id
-        );
-
-      };
-
-  }
-
-  else {
-
-    profileButton.style.display =
-      "none";
+    }
 
   }
 
 
-  if(
-    HERO_PICKUP.showLiveButton &&
-    HERO_PICKUP.liveUrl &&
-    HERO_PICKUP.liveUrl !== "#"
-  ) {
+  if(liveButton) {
 
-    liveButton.style.display =
-      "inline-flex";
+    if(
+      HERO_PICKUP.showLiveButton &&
+      HERO_PICKUP.liveUrl &&
+      HERO_PICKUP.liveUrl !== "#"
+    ) {
+
+      liveButton.style.display =
+        "inline-flex";
 
 
-    liveButton.href =
-      HERO_PICKUP.liveUrl;
+      liveButton.href =
+        HERO_PICKUP.liveUrl;
 
-  }
+    }
 
-  else {
+    else {
 
-    liveButton.style.display =
-      "none";
+      liveButton.style.display =
+        "none";
+
+    }
 
   }
 
@@ -387,9 +409,7 @@ function createTalentCard(talent) {
         </p>
 
         <div class="talent-platform-list">
-
           ${platformHTML}
-
         </div>
 
         <div class="talent-footer">
@@ -415,7 +435,7 @@ function createTalentCard(talent) {
 
 
 /* ============================================================
-   NEWS CARD
+   NEWS
 ============================================================ */
 
 function createNewsCard(news) {
@@ -456,7 +476,7 @@ function createNewsCard(news) {
 
 
 /* ============================================================
-   EVENT CARD
+   EVENT
 ============================================================ */
 
 function createEventCard(event) {
@@ -547,7 +567,7 @@ function createEventCard(event) {
 
 
 /* ============================================================
-   INTERVIEW CARD
+   INTERVIEW
 ============================================================ */
 
 function createInterviewCard(interview) {
@@ -581,9 +601,7 @@ function createInterviewCard(interview) {
 
       : `
         <div class="interview-placeholder">
-
           ${talent.name.charAt(0)}
-
         </div>
       `;
 
@@ -645,7 +663,7 @@ function createInterviewCard(interview) {
 
 
 /* ============================================================
-   JOURNAL CARD
+   JOURNAL
 ============================================================ */
 
 function createJournalCard(article) {
@@ -695,16 +713,19 @@ function createJournalCard(article) {
    FAQ
 ============================================================ */
 
-function createFaqItem(item,index) {
+function createFaqItem(
+  item,
+  index
+) {
 
   const number =
     String(
       index + 1
     )
-    .padStart(
-      2,
-      "0"
-    );
+      .padStart(
+        2,
+        "0"
+      );
 
 
   return `
@@ -729,6 +750,7 @@ function createFaqItem(item,index) {
         </span>
 
       </button>
+
 
       <div class="faq-answer">
 
@@ -765,9 +787,7 @@ function createRealSample(person) {
 
       : `
         <div class="real-placeholder">
-
           ${person.name.charAt(0)}
-
         </div>
       `;
 
@@ -819,7 +839,7 @@ function createRealSample(person) {
 
 
 /* ============================================================
-   RENDER ALL
+   RENDER
 ============================================================ */
 
 function renderAll() {
@@ -913,11 +933,9 @@ function renderAll() {
 
     allNews.innerHTML =
       NEWS
-
         .map(
           createNewsCard
         )
-
         .join("");
 
   }
@@ -946,11 +964,9 @@ function renderAll() {
 
     allTalents.innerHTML =
       TALENTS
-
         .map(
           createTalentCard
         )
-
         .join("");
 
   }
@@ -979,11 +995,9 @@ function renderAll() {
 
     allEvents.innerHTML =
       EVENTS
-
         .map(
           createEventCard
         )
-
         .join("");
 
   }
@@ -1012,11 +1026,9 @@ function renderAll() {
 
     allInterviews.innerHTML =
       INTERVIEWS
-
         .map(
           createInterviewCard
         )
-
         .join("");
 
   }
@@ -1045,11 +1057,9 @@ function renderAll() {
 
     faqList.innerHTML =
       FAQ
-
         .map(
           createFaqItem
         )
-
         .join("");
 
   }
@@ -1059,11 +1069,9 @@ function renderAll() {
 
     realSampleGrid.innerHTML =
       REAL_LIVER_SAMPLES
-
         .map(
           createRealSample
         )
-
         .join("");
 
   }
@@ -1121,7 +1129,9 @@ function setupTalentFilter() {
           TALENTS;
 
 
-        if(filter === "V") {
+        if(
+          filter === "V"
+        ) {
 
           filtered =
             TALENTS.filter(
@@ -1171,11 +1181,9 @@ function setupTalentFilter() {
 
         target.innerHTML =
           filtered
-
             .map(
               createTalentCard
             )
-
             .join("");
 
 
@@ -1250,11 +1258,9 @@ function setupEventFilter() {
 
         target.innerHTML =
           filtered
-
             .map(
               createEventCard
             )
-
             .join("");
 
       }
@@ -1328,6 +1334,11 @@ function openTalentModal(id) {
     document.getElementById(
       "talentModalInitial"
     );
+
+
+  if(!modal || !visual || !initial) {
+    return;
+  }
 
 
   visual.style.background =
@@ -1434,7 +1445,7 @@ function openTalentModal(id) {
 
 
 /* ============================================================
-   INTERVIEW
+   INTERVIEW MODAL
 ============================================================ */
 
 function bindInterviewCards() {
@@ -1519,9 +1530,24 @@ function openInterviewModal(id) {
       .join("");
 
 
-  document.getElementById(
-    "interviewModalContent"
-  ).innerHTML = `
+  const content =
+    document.getElementById(
+      "interviewModalContent"
+    );
+
+
+  const modal =
+    document.getElementById(
+      "interviewModal"
+    );
+
+
+  if(!content || !modal) {
+    return;
+  }
+
+
+  content.innerHTML = `
 
     <div class="interview-modal-heading">
 
@@ -1544,13 +1570,9 @@ function openInterviewModal(id) {
   `;
 
 
-  document
-    .getElementById(
-      "interviewModal"
-    )
-    .classList.add(
-      "active"
-    );
+  modal.classList.add(
+    "active"
+  );
 
 
   document.body.classList.add(
@@ -1583,6 +1605,11 @@ function setupFaq() {
             );
 
 
+          if(!item) {
+            return;
+          }
+
+
           const open =
             item.classList.toggle(
               "open"
@@ -1595,15 +1622,20 @@ function setupFaq() {
           );
 
 
-          button
-            .querySelector(
+          const icon =
+            button.querySelector(
               ".faq-icon"
-            )
-            .textContent =
+            );
 
+
+          if(icon) {
+
+            icon.textContent =
               open
                 ? "−"
                 : "＋";
+
+          }
 
         }
       );
@@ -1646,6 +1678,7 @@ function getRoute() {
   );
 
 }
+
 
 
 function showRoute(route) {
@@ -1722,6 +1755,17 @@ function transitionRoute(route) {
     document.getElementById(
       "bubbleTransition"
     );
+
+
+  if(!transition) {
+
+    showRoute(
+      route
+    );
+
+    return;
+
+  }
 
 
   transition.classList.add(
@@ -1827,6 +1871,11 @@ function startLoading() {
     );
 
 
+  if(!screen) {
+    return;
+  }
+
+
   if(
     !SITE_CONFIG.loadingEnabled
   ) {
@@ -1887,12 +1936,20 @@ function startLoading() {
         }
 
 
-        bar.style.width =
-          `${progress}%`;
+        if(bar) {
+
+          bar.style.width =
+            `${progress}%`;
+
+        }
 
 
-        text.textContent =
-          `${progress}%`;
+        if(text) {
+
+          text.textContent =
+            `${progress}%`;
+
+        }
 
 
         if(
@@ -1940,21 +1997,31 @@ function startLoading() {
           );
 
 
-          complete.classList.add(
-            "show"
-          );
+          if(complete) {
+
+            complete.classList.add(
+              "show"
+            );
+
+          }
 
 
           setTimeout(
             () => {
 
-              document
-                .getElementById(
+              const transition =
+                document.getElementById(
                   "bubbleTransition"
-                )
-                .classList.add(
+                );
+
+
+              if(transition) {
+
+                transition.classList.add(
                   "loading-finish"
                 );
+
+              }
 
             },
             220
@@ -1979,13 +2046,19 @@ function startLoading() {
               screen.remove();
 
 
-              document
-                .getElementById(
+              const transition =
+                document.getElementById(
                   "bubbleTransition"
-                )
-                .classList.remove(
+                );
+
+
+              if(transition) {
+
+                transition.classList.remove(
                   "loading-finish"
                 );
+
+              }
 
             },
             1150
@@ -2045,7 +2118,20 @@ function setupMobileMenu() {
     }
   );
 
+
+  nav
+    .querySelectorAll("a")
+    .forEach(link => {
+
+      link.addEventListener(
+        "click",
+        closeMobileMenu
+      );
+
+    });
+
 }
+
 
 
 function closeMobileMenu() {
@@ -2140,6 +2226,22 @@ function observeReveal() {
     );
 
 
+  if(
+    !("IntersectionObserver" in window)
+  ) {
+
+    elements.forEach(
+      element =>
+        element.classList.add(
+          "revealed"
+        )
+    );
+
+    return;
+
+  }
+
+
   const observer =
     new IntersectionObserver(
 
@@ -2151,8 +2253,7 @@ function observeReveal() {
             entry.isIntersecting
           ) {
 
-            entry
-              .target
+            entry.target
               .classList
               .add(
                 "revealed"
@@ -2195,7 +2296,7 @@ function observeReveal() {
 
 
 /* ============================================================
-   CLOSE MODALS
+   MODAL
 ============================================================ */
 
 function closeModals() {
@@ -2220,10 +2321,6 @@ function closeModals() {
 }
 
 
-
-/* ============================================================
-   MODAL EVENTS
-============================================================ */
 
 function setupModalEvents() {
 
