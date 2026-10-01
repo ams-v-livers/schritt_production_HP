@@ -2674,7 +2674,7 @@ p {
    MARQUEE
 ========================================================= */
 
-.hero-marquee {
+@keyframes marqueeMove {
 
   margin-top:
     40px;
