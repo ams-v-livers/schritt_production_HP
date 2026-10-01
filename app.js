@@ -1,658 +1,2341 @@
-/* =========================================================
-   HERO PICK UP CREATOR
-========================================================= */
+/* ============================================================
+   ============================================================
+   SCHRITT PRODUCTION
+   APPLICATION
+   ============================================================
 
-.hero-visual {
-  min-height: 620px;
+   基本的にこのファイルは触らなくてOKです。
 
-  position: relative;
+============================================================ */
+
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function getTalent(id) {
+
+  return TALENTS.find(
+    talent =>
+      talent.id === id
+  );
+
 }
 
 
-/* オレンジ背景 */
+function formatDateParts(date) {
 
-.hero-shape {
-  width: 455px;
-  height: 490px;
+  const normalized =
+    date.replaceAll("-", ".");
 
-  position: absolute;
+  const parts =
+    normalized.split(".");
 
-  top: 55px;
-  right: 10px;
 
-  border-radius:
-    48% 52% 58% 42%
-    /
-    45% 40% 60% 55%;
+  return {
 
-  background:
-    linear-gradient(
-      145deg,
-      var(--orange),
-      var(--orange-light)
+    year:
+      parts[0] || "",
+
+    month:
+      parts[1] || "",
+
+    day:
+      parts[2] || ""
+
+  };
+
+}
+
+
+
+/* ============================================================
+   CONFIG
+============================================================ */
+
+function applyConfig() {
+
+  document
+    .querySelectorAll(
+      "[data-site-name]"
+    )
+    .forEach(element => {
+
+      element.textContent =
+        SITE_CONFIG.siteName;
+
+    });
+
+
+  document
+    .querySelectorAll(
+      ".external-link"
+    )
+    .forEach(link => {
+
+      const key =
+        link.dataset.link;
+
+
+      const url =
+        SITE_CONFIG.links[key];
+
+
+      if(!url) {
+        return;
+      }
+
+
+      link.href =
+        url;
+
+
+      if(
+        url !== "#" &&
+        !url.startsWith("#")
+      ) {
+
+        link.target =
+          "_blank";
+
+        link.rel =
+          "noopener noreferrer";
+
+      }
+
+    });
+
+}
+
+
+
+/* ============================================================
+   HERO PICKUP
+============================================================ */
+
+function renderHeroPickup() {
+
+  const talent =
+    getTalent(
+      HERO_PICKUP.talentId
     );
 
-  box-shadow:
-    0 40px 90px
-    rgba(255,135,0,.27);
 
-  animation:
-    heroPickupBlob
-    9s ease-in-out
-    infinite;
-}
-
-
-@keyframes heroPickupBlob {
-
-  0%,
-  100% {
-
-    border-radius:
-      48% 52% 58% 42%
-      /
-      45% 40% 60% 55%;
-
+  if(!talent) {
+    return;
   }
 
-  50% {
 
-    border-radius:
-      56% 44% 44% 56%
-      /
-      39% 55% 45% 61%;
-
-    transform:
-      translateY(-8px)
-      rotate(2deg);
-
-  }
-
-}
-
-
-/* 黄色い丸 */
-
-.hero-yellow-circle {
-  width: 185px;
-  height: 185px;
-
-  position: absolute;
-
-  top: 22px;
-  right: -2px;
-
-  border-radius: 50%;
-
-  background:
-    var(--yellow);
-
-  animation:
-    heroPickupYellow
-    5.5s ease-in-out
-    infinite;
-}
-
-
-@keyframes heroPickupYellow {
-
-  50% {
-
-    transform:
-      translateY(-13px)
-      scale(1.03);
-
-  }
-
-}
-
-
-/* 白リング */
-
-.hero-pickup-ring {
-  width: 300px;
-  height: 300px;
-
-  position: absolute;
-
-  right: 115px;
-  bottom: 30px;
-
-  border:
-    2px solid
-    rgba(255,255,255,.35);
-
-  border-radius: 50%;
-}
-
-
-/* PICK UPタグ */
-
-.hero-pickup-label {
-  position: absolute;
-
-  top: 55px;
-  left: 10px;
-
-  z-index: 8;
-
-  padding: 9px 14px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 7px;
-
-  color:
-    var(--navy);
-
-  background:
-    white;
-
-  border:
-    1px solid
-    rgba(255,151,0,.15);
-
-  border-radius:
-    999px;
-
-  box-shadow:
-    0 14px 35px
-    rgba(80,45,12,.11);
-
-  font-family:
-    "Montserrat",
-    sans-serif;
-
-  font-size: 8px;
-
-  font-weight: 900;
-
-  letter-spacing: .08em;
-
-  animation:
-    heroPickupLabelFloat
-    5s ease-in-out
-    infinite;
-}
-
-
-.hero-pickup-label span {
-  color:
-    var(--orange);
-
-  font-size: 14px;
-}
-
-
-@keyframes heroPickupLabelFloat {
-
-  50% {
-
-    transform:
-      translateY(-8px)
-      rotate(-2deg);
-
-  }
-
-}
-
-
-/* ライバー画像 */
-
-.hero-pickup-image-wrap {
-  width: 390px;
-  height: 500px;
-
-  position: absolute;
-
-  right: 47px;
-  bottom: 20px;
-
-  z-index: 4;
-
-  display: flex;
-
-  align-items: flex-end;
-  justify-content: center;
-
-  overflow: hidden;
-
-  border-radius:
-    0 0
-    38% 38%;
-}
-
-
-.hero-pickup-image {
-  width: 100%;
-  height: 100%;
-
-  object-fit:
-    contain;
-
-  object-position:
-    center bottom;
-
-  filter:
-    drop-shadow(
-      0 22px 26px
-      rgba(87,45,10,.18)
+  const label =
+    document.getElementById(
+      "heroPickupLabel"
     );
 
-  animation:
-    heroCreatorFloat
-    6s ease-in-out
-    infinite;
-}
+
+  const imageWrap =
+    document.getElementById(
+      "heroPickupImageWrap"
+    );
 
 
-@keyframes heroCreatorFloat {
+  const image =
+    document.getElementById(
+      "heroPickupImage"
+    );
 
-  0%,
-  100% {
 
-    transform:
-      translateY(0);
+  const name =
+    document.getElementById(
+      "heroPickupName"
+    );
+
+
+  const reading =
+    document.getElementById(
+      "heroPickupReading"
+    );
+
+
+  const platforms =
+    document.getElementById(
+      "heroPickupPlatforms"
+    );
+
+
+  const profileButton =
+    document.getElementById(
+      "heroPickupProfile"
+    );
+
+
+  const liveButton =
+    document.getElementById(
+      "heroPickupLive"
+    );
+
+
+  label.textContent =
+    HERO_PICKUP.label;
+
+
+  name.textContent =
+    talent.name;
+
+
+  reading.textContent =
+    talent.reading;
+
+
+  platforms.innerHTML =
+    talent.platforms
+
+      .map(
+        platform => `
+          <span>
+            ${platform}
+          </span>
+        `
+      )
+
+      .join("");
+
+
+  const pickupImage =
+    HERO_PICKUP.image ||
+    talent.image;
+
+
+  if(pickupImage) {
+
+    imageWrap.innerHTML = `
+
+      <img
+        src="${pickupImage}"
+        alt="${talent.name}"
+        class="hero-pickup-image"
+      >
+
+    `;
 
   }
 
-  50% {
+  else {
 
-    transform:
-      translateY(-6px);
+    imageWrap.innerHTML = `
+
+      <div
+        class="hero-pickup-placeholder"
+        style="
+          background:
+          linear-gradient(
+            145deg,
+            ${talent.colorA},
+            ${talent.colorB}
+          );
+        "
+      >
+
+        ${talent.name.charAt(0)}
+
+      </div>
+
+    `;
 
   }
 
-}
 
+  if(
+    HERO_PICKUP.showProfileButton
+  ) {
 
-/* 画像なし */
+    profileButton.style.display =
+      "inline-flex";
 
-.hero-pickup-placeholder {
-  width: 260px;
-  height: 260px;
 
-  margin-bottom: 100px;
+    profileButton.onclick =
+      () => {
 
-  display: grid;
+        openTalentModal(
+          talent.id
+        );
 
-  place-items: center;
+      };
 
-  color:
-    white;
+  }
 
-  border:
-    1px solid
-    rgba(255,255,255,.3);
+  else {
 
-  border-radius: 50%;
+    profileButton.style.display =
+      "none";
 
-  font-family:
-    "Montserrat",
-    sans-serif;
+  }
 
-  font-size: 100px;
 
-  font-weight: 900;
-}
+  if(
+    HERO_PICKUP.showLiveButton &&
+    HERO_PICKUP.liveUrl &&
+    HERO_PICKUP.liveUrl !== "#"
+  ) {
 
+    liveButton.style.display =
+      "inline-flex";
 
-/* ライバー情報 */
 
-.hero-pickup-info {
-  min-width: 255px;
+    liveButton.href =
+      HERO_PICKUP.liveUrl;
 
-  padding: 20px;
+  }
 
-  position: absolute;
+  else {
 
-  z-index: 10;
-
-  left: 0;
-  bottom: 43px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.65);
-
-  border-radius: 24px;
-
-  background:
-    rgba(255,255,255,.94);
-
-  backdrop-filter:
-    blur(18px);
-
-  box-shadow:
-    0 22px 55px
-    rgba(76,42,13,.15);
-
-  transform:
-    rotate(-2deg);
-}
-
-
-.hero-pickup-platforms {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 5px;
-}
-
-
-.hero-pickup-platforms span {
-  padding: 5px 8px;
-
-  color:
-    white;
-
-  background:
-    var(--navy);
-
-  border-radius:
-    999px;
-
-  font-family:
-    "Montserrat",
-    sans-serif;
-
-  font-size: 7px;
-
-  font-weight: 900;
-}
-
-
-.hero-pickup-info h2 {
-  margin:
-    13px 0
-    0;
-
-  font-family:
-    "Montserrat",
-    "Noto Sans JP",
-    sans-serif;
-
-  font-size: 34px;
-
-  line-height: 1;
-
-  letter-spacing: -.055em;
-}
-
-
-.hero-pickup-reading {
-  display: block;
-
-  margin-top: 5px;
-
-  color:
-    var(--muted);
-
-  font-size: 8px;
-}
-
-
-/* ボタン */
-
-.hero-pickup-actions {
-  margin-top: 17px;
-
-  display: flex;
-
-  gap: 7px;
-}
-
-
-.hero-profile-button,
-.hero-live-button {
-  min-height: 37px;
-
-  padding: 0 12px;
-
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  border-radius:
-    999px;
-
-  font-family:
-    "Montserrat",
-    sans-serif;
-
-  font-size: 7px;
-
-  font-weight: 900;
-
-  transition:
-    transform .2s ease;
-}
-
-
-.hero-profile-button {
-  color:
-    white;
-
-  background:
-    var(--orange);
-
-  border: 0;
-}
-
-
-.hero-live-button {
-  color:
-    white;
-
-  background:
-    var(--navy);
-}
-
-
-.hero-profile-button:hover,
-.hero-live-button:hover {
-
-  transform:
-    translateY(-2px);
-
-}
-
-
-/* 装飾 */
-
-.hero-pickup-star,
-.hero-pickup-note {
-  position: absolute;
-
-  z-index: 8;
-
-  font-weight: 900;
-
-  pointer-events: none;
-}
-
-
-.star-one {
-  top: 18px;
-  left: 43%;
-
-  color:
-    var(--orange);
-
-  font-size: 29px;
-
-  animation:
-    pickupStarSpin
-    9s linear
-    infinite;
-}
-
-
-.star-two {
-  right: 8px;
-  top: 43%;
-
-  color:
-    white;
-
-  font-size: 24px;
-
-  animation:
-    pickupStarSpin
-    8s linear
-    infinite reverse;
-}
-
-
-.hero-pickup-note {
-  left: 13%;
-  top: 40%;
-
-  color:
-    var(--navy);
-
-  font-size: 30px;
-
-  animation:
-    pickupNoteFloat
-    5s ease-in-out
-    infinite;
-}
-
-
-@keyframes pickupStarSpin {
-
-  to {
-
-    transform:
-      rotate(360deg);
+    liveButton.style.display =
+      "none";
 
   }
 
 }
 
 
-@keyframes pickupNoteFloat {
 
-  50% {
+/* ============================================================
+   TALENT CARD
+============================================================ */
 
-    transform:
-      translateY(-10px)
-      rotate(7deg);
+function createTalentCard(talent) {
 
-  }
+  const imageHTML =
+    talent.image
+
+      ? `
+        <img
+          src="${talent.image}"
+          alt="${talent.name}"
+          loading="lazy"
+        >
+      `
+
+      : `
+        <div class="talent-placeholder">
+
+          ${talent.name.charAt(0)}
+
+        </div>
+      `;
+
+
+  const platformHTML =
+    talent.platforms
+
+      .map(
+        platform => `
+          <span class="talent-platform">
+            ${platform}
+          </span>
+        `
+      )
+
+      .join("");
+
+
+  const typeLabel =
+    talent.type === "V"
+      ? "VIRTUAL LIVER"
+      : "REAL LIVER";
+
+
+  return `
+
+    <article
+      class="talent-card"
+      data-talent-id="${talent.id}"
+    >
+
+      <div
+        class="talent-visual"
+        style="
+          background:
+          linear-gradient(
+            145deg,
+            ${talent.colorA},
+            ${talent.colorB}
+          );
+        "
+      >
+
+        ${imageHTML}
+
+        <span class="talent-type">
+          ${typeLabel}
+        </span>
+
+      </div>
+
+
+      <div class="talent-body">
+
+        <h3>
+          ${talent.name}
+        </h3>
+
+        <small>
+          ${talent.reading}
+        </small>
+
+        <p>
+          ${talent.shortDescription}
+        </p>
+
+        <div class="talent-platform-list">
+
+          ${platformHTML}
+
+        </div>
+
+        <div class="talent-footer">
+
+          <span>
+            PROFILE
+          </span>
+
+          <span>
+            ↗
+          </span>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  `;
 
 }
 
 
-/* =========================================================
-   TABLET
-========================================================= */
 
-@media(max-width:1080px) {
+/* ============================================================
+   NEWS CARD
+============================================================ */
 
-  .hero-visual {
-    width:
-      min(
-        100%,
-        680px
+function createNewsCard(news) {
+
+  return `
+
+    <a
+      href="${news.url}"
+      class="news-card"
+    >
+
+      <div class="news-meta">
+
+        <span>
+          ${news.date}
+        </span>
+
+        <strong>
+          ${news.category}
+        </strong>
+
+      </div>
+
+      <h3>
+        ${news.title}
+      </h3>
+
+      <small>
+        READ MORE
+      </small>
+
+    </a>
+
+  `;
+
+}
+
+
+
+/* ============================================================
+   EVENT CARD
+============================================================ */
+
+function createEventCard(event) {
+
+  const date =
+    formatDateParts(
+      event.date
+    );
+
+
+  const imageHTML =
+    event.image
+
+      ? `
+        <div class="event-thumbnail">
+
+          <img
+            src="${event.image}"
+            alt="${event.title}"
+            loading="lazy"
+          >
+
+        </div>
+      `
+
+      : "";
+
+
+  return `
+
+    <article class="event-card">
+
+      ${imageHTML}
+
+      <div class="event-card-main">
+
+        <div class="event-date">
+
+          <strong>
+            ${date.day}
+          </strong>
+
+          <span>
+            ${date.month}
+          </span>
+
+        </div>
+
+
+        <div class="event-info">
+
+          <div class="event-meta">
+
+            <span class="event-platform">
+              ${event.platform}
+            </span>
+
+            <span class="event-status">
+              ${event.status}
+            </span>
+
+          </div>
+
+          <h3>
+            ${event.title}
+          </h3>
+
+          <p>
+            ${event.description}
+          </p>
+
+          <a
+            href="${event.url}"
+          >
+            MORE ↗
+          </a>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+
+/* ============================================================
+   INTERVIEW CARD
+============================================================ */
+
+function createInterviewCard(interview) {
+
+  const talent =
+    getTalent(
+      interview.talentId
+    );
+
+
+  if(!talent) {
+    return "";
+  }
+
+
+  const visual =
+    interview.thumbnail ||
+    talent.image;
+
+
+  const imageHTML =
+    visual
+
+      ? `
+        <img
+          src="${visual}"
+          alt="${talent.name}"
+          loading="lazy"
+        >
+      `
+
+      : `
+        <div class="interview-placeholder">
+
+          ${talent.name.charAt(0)}
+
+        </div>
+      `;
+
+
+  return `
+
+    <article
+      class="interview-card"
+      data-interview-id="${interview.id}"
+    >
+
+      <div
+        class="interview-visual"
+        style="
+          background:
+          linear-gradient(
+            145deg,
+            ${talent.colorA},
+            ${talent.colorB}
+          );
+        "
+      >
+
+        ${imageHTML}
+
+        <span>
+          INTERVIEW
+        </span>
+
+      </div>
+
+
+      <div class="interview-body">
+
+        <small>
+          ${talent.name}
+        </small>
+
+        <h3>
+          ${interview.catchCopy}
+        </h3>
+
+        <p>
+          ${interview.title}
+        </p>
+
+        <strong>
+          READ INTERVIEW ↗
+        </strong>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+
+/* ============================================================
+   JOURNAL CARD
+============================================================ */
+
+function createJournalCard(article) {
+
+  return `
+
+    <a
+      href="${article.url}"
+      class="journal-card"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+
+      <div>
+
+        <span>
+          ${article.category}
+        </span>
+
+        <small>
+          ${article.date}
+        </small>
+
+      </div>
+
+      <h3>
+        ${article.title}
+      </h3>
+
+      <p>
+        ${article.description}
+      </p>
+
+      <strong>
+        READ NOTE ↗
+      </strong>
+
+    </a>
+
+  `;
+
+}
+
+
+
+/* ============================================================
+   FAQ
+============================================================ */
+
+function createFaqItem(item,index) {
+
+  const number =
+    String(
+      index + 1
+    )
+    .padStart(
+      2,
+      "0"
+    );
+
+
+  return `
+
+    <article class="faq-item">
+
+      <button
+        class="faq-question"
+        aria-expanded="false"
+      >
+
+        <span class="faq-number">
+          ${number}
+        </span>
+
+        <strong>
+          ${item.question}
+        </strong>
+
+        <span class="faq-icon">
+          ＋
+        </span>
+
+      </button>
+
+      <div class="faq-answer">
+
+        <p>
+          ${item.answer}
+        </p>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+
+/* ============================================================
+   REAL SAMPLE
+============================================================ */
+
+function createRealSample(person) {
+
+  const imageHTML =
+    person.image
+
+      ? `
+        <img
+          src="${person.image}"
+          alt="${person.name}"
+          loading="lazy"
+        >
+      `
+
+      : `
+        <div class="real-placeholder">
+
+          ${person.name.charAt(0)}
+
+        </div>
+      `;
+
+
+  return `
+
+    <article class="real-sample-card">
+
+      <div
+        class="real-sample-visual"
+        style="
+          background:
+          linear-gradient(
+            145deg,
+            ${person.colorA},
+            ${person.colorB}
+          );
+        "
+      >
+
+        ${imageHTML}
+
+      </div>
+
+      <div class="real-sample-body">
+
+        <strong>
+          ${person.name}
+        </strong>
+
+        <span>
+
+          ${person.gender}
+          /
+          ${person.age}
+          /
+          ${person.genre}
+
+        </span>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+
+/* ============================================================
+   RENDER ALL
+============================================================ */
+
+function renderAll() {
+
+  const homeNews =
+    document.getElementById(
+      "homeNews"
+    );
+
+
+  const allNews =
+    document.getElementById(
+      "allNews"
+    );
+
+
+  const homeTalents =
+    document.getElementById(
+      "homeTalents"
+    );
+
+
+  const allTalents =
+    document.getElementById(
+      "allTalents"
+    );
+
+
+  const homeEvents =
+    document.getElementById(
+      "homeEvents"
+    );
+
+
+  const allEvents =
+    document.getElementById(
+      "allEvents"
+    );
+
+
+  const homeInterviews =
+    document.getElementById(
+      "homeInterviews"
+    );
+
+
+  const allInterviews =
+    document.getElementById(
+      "allInterviews"
+    );
+
+
+  const journalGrid =
+    document.getElementById(
+      "journalGrid"
+    );
+
+
+  const faqList =
+    document.getElementById(
+      "faqList"
+    );
+
+
+  const realSampleGrid =
+    document.getElementById(
+      "realSampleGrid"
+    );
+
+
+  if(homeNews) {
+
+    homeNews.innerHTML =
+      NEWS
+
+        .slice(
+          0,
+          SITE_CONFIG.homeDisplay.news
+        )
+
+        .map(
+          createNewsCard
+        )
+
+        .join("");
+
+  }
+
+
+  if(allNews) {
+
+    allNews.innerHTML =
+      NEWS
+
+        .map(
+          createNewsCard
+        )
+
+        .join("");
+
+  }
+
+
+  if(homeTalents) {
+
+    homeTalents.innerHTML =
+      TALENTS
+
+        .slice(
+          0,
+          SITE_CONFIG.homeDisplay.talents
+        )
+
+        .map(
+          createTalentCard
+        )
+
+        .join("");
+
+  }
+
+
+  if(allTalents) {
+
+    allTalents.innerHTML =
+      TALENTS
+
+        .map(
+          createTalentCard
+        )
+
+        .join("");
+
+  }
+
+
+  if(homeEvents) {
+
+    homeEvents.innerHTML =
+      EVENTS
+
+        .slice(
+          0,
+          SITE_CONFIG.homeDisplay.events
+        )
+
+        .map(
+          createEventCard
+        )
+
+        .join("");
+
+  }
+
+
+  if(allEvents) {
+
+    allEvents.innerHTML =
+      EVENTS
+
+        .map(
+          createEventCard
+        )
+
+        .join("");
+
+  }
+
+
+  if(homeInterviews) {
+
+    homeInterviews.innerHTML =
+      INTERVIEWS
+
+        .slice(
+          0,
+          SITE_CONFIG.homeDisplay.interviews
+        )
+
+        .map(
+          createInterviewCard
+        )
+
+        .join("");
+
+  }
+
+
+  if(allInterviews) {
+
+    allInterviews.innerHTML =
+      INTERVIEWS
+
+        .map(
+          createInterviewCard
+        )
+
+        .join("");
+
+  }
+
+
+  if(journalGrid) {
+
+    journalGrid.innerHTML =
+      JOURNAL_ARTICLES
+
+        .slice(
+          0,
+          SITE_CONFIG.homeDisplay.journals
+        )
+
+        .map(
+          createJournalCard
+        )
+
+        .join("");
+
+  }
+
+
+  if(faqList) {
+
+    faqList.innerHTML =
+      FAQ
+
+        .map(
+          createFaqItem
+        )
+
+        .join("");
+
+  }
+
+
+  if(realSampleGrid) {
+
+    realSampleGrid.innerHTML =
+      REAL_LIVER_SAMPLES
+
+        .map(
+          createRealSample
+        )
+
+        .join("");
+
+  }
+
+
+  renderHeroPickup();
+
+  bindTalentCards();
+
+  bindInterviewCards();
+
+  setupFaq();
+
+}
+
+
+
+/* ============================================================
+   TALENT FILTER
+============================================================ */
+
+function setupTalentFilter() {
+
+  const buttons =
+    document.querySelectorAll(
+      "[data-filter]"
+    );
+
+
+  buttons.forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        buttons.forEach(item => {
+
+          item.classList.remove(
+            "active"
+          );
+
+        });
+
+
+        button.classList.add(
+          "active"
+        );
+
+
+        const filter =
+          button.dataset.filter;
+
+
+        let filtered =
+          TALENTS;
+
+
+        if(filter === "V") {
+
+          filtered =
+            TALENTS.filter(
+              talent =>
+                talent.type === "V"
+            );
+
+        }
+
+        else if(
+          filter === "REAL"
+        ) {
+
+          filtered =
+            TALENTS.filter(
+              talent =>
+                talent.type === "REAL"
+            );
+
+        }
+
+        else if(
+          filter !== "ALL"
+        ) {
+
+          filtered =
+            TALENTS.filter(
+              talent =>
+                talent.platforms.includes(
+                  filter
+                )
+            );
+
+        }
+
+
+        const target =
+          document.getElementById(
+            "allTalents"
+          );
+
+
+        if(!target) {
+          return;
+        }
+
+
+        target.innerHTML =
+          filtered
+
+            .map(
+              createTalentCard
+            )
+
+            .join("");
+
+
+        bindTalentCards();
+
+      }
+    );
+
+  });
+
+}
+
+
+
+/* ============================================================
+   EVENT FILTER
+============================================================ */
+
+function setupEventFilter() {
+
+  const buttons =
+    document.querySelectorAll(
+      "[data-event-filter]"
+    );
+
+
+  buttons.forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        buttons.forEach(item => {
+
+          item.classList.remove(
+            "active"
+          );
+
+        });
+
+
+        button.classList.add(
+          "active"
+        );
+
+
+        const filter =
+          button.dataset.eventFilter;
+
+
+        const filtered =
+          filter === "ALL"
+
+            ? EVENTS
+
+            : EVENTS.filter(
+                event =>
+                  event.platform === filter
+              );
+
+
+        const target =
+          document.getElementById(
+            "allEvents"
+          );
+
+
+        if(!target) {
+          return;
+        }
+
+
+        target.innerHTML =
+          filtered
+
+            .map(
+              createEventCard
+            )
+
+            .join("");
+
+      }
+    );
+
+  });
+
+}
+
+
+
+/* ============================================================
+   TALENT MODAL
+============================================================ */
+
+function bindTalentCards() {
+
+  document
+    .querySelectorAll(
+      ".talent-card"
+    )
+    .forEach(card => {
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          const id =
+            Number(
+              card.dataset.talentId
+            );
+
+
+          openTalentModal(
+            id
+          );
+
+        }
       );
 
-    margin:
-      0 auto;
+    });
+
+}
+
+
+
+function openTalentModal(id) {
+
+  const talent =
+    getTalent(id);
+
+
+  if(!talent) {
+    return;
+  }
+
+
+  const modal =
+    document.getElementById(
+      "talentModal"
+    );
+
+
+  const visual =
+    document.getElementById(
+      "talentModalVisual"
+    );
+
+
+  const initial =
+    document.getElementById(
+      "talentModalInitial"
+    );
+
+
+  visual.style.background =
+    `
+      linear-gradient(
+        145deg,
+        ${talent.colorA},
+        ${talent.colorB}
+      )
+    `;
+
+
+  initial.innerHTML =
+    talent.image
+
+      ? `
+        <img
+          src="${talent.image}"
+          alt="${talent.name}"
+        >
+      `
+
+      : talent.name.charAt(0);
+
+
+  document.getElementById(
+    "talentModalType"
+  ).textContent =
+
+    talent.type === "V"
+      ? "VIRTUAL LIVER"
+      : "REAL LIVER";
+
+
+  document.getElementById(
+    "talentModalName"
+  ).textContent =
+    talent.name;
+
+
+  document.getElementById(
+    "talentModalReading"
+  ).textContent =
+    talent.reading;
+
+
+  document.getElementById(
+    "talentModalPlatforms"
+  ).innerHTML =
+
+    talent.platforms
+
+      .map(
+        platform => `
+          <span>
+            ${platform}
+          </span>
+        `
+      )
+
+      .join("");
+
+
+  document.getElementById(
+    "talentModalBio"
+  ).textContent =
+    talent.bio;
+
+
+  document.getElementById(
+    "talentModalLinks"
+  ).innerHTML =
+
+    Object.entries(
+      talent.links
+    )
+
+      .map(
+        ([name,url]) => `
+          <a
+            href="${url}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ${name} ↗
+          </a>
+        `
+      )
+
+      .join("");
+
+
+  modal.classList.add(
+    "active"
+  );
+
+
+  document.body.classList.add(
+    "modal-open"
+  );
+
+}
+
+
+
+/* ============================================================
+   INTERVIEW
+============================================================ */
+
+function bindInterviewCards() {
+
+  document
+    .querySelectorAll(
+      ".interview-card"
+    )
+    .forEach(card => {
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          const id =
+            Number(
+              card.dataset.interviewId
+            );
+
+
+          openInterviewModal(
+            id
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+
+function openInterviewModal(id) {
+
+  const interview =
+    INTERVIEWS.find(
+      item =>
+        item.id === id
+    );
+
+
+  if(!interview) {
+    return;
+  }
+
+
+  const talent =
+    getTalent(
+      interview.talentId
+    );
+
+
+  if(!talent) {
+    return;
+  }
+
+
+  const questionHTML =
+    interview.questions
+
+      .map(
+        item => `
+          <article class="interview-question">
+
+            <small>
+              Q.
+            </small>
+
+            <h3>
+              ${item.question}
+            </h3>
+
+            <p>
+              ${item.answer}
+            </p>
+
+          </article>
+        `
+      )
+
+      .join("");
+
+
+  document.getElementById(
+    "interviewModalContent"
+  ).innerHTML = `
+
+    <div class="interview-modal-heading">
+
+      <small>
+        CREATOR INTERVIEW
+      </small>
+
+      <h2>
+        ${talent.name}
+      </h2>
+
+      <p>
+        ${interview.title}
+      </p>
+
+    </div>
+
+    ${questionHTML}
+
+  `;
+
+
+  document
+    .getElementById(
+      "interviewModal"
+    )
+    .classList.add(
+      "active"
+    );
+
+
+  document.body.classList.add(
+    "modal-open"
+  );
+
+}
+
+
+
+/* ============================================================
+   FAQ
+============================================================ */
+
+function setupFaq() {
+
+  document
+    .querySelectorAll(
+      ".faq-question"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const item =
+            button.closest(
+              ".faq-item"
+            );
+
+
+          const open =
+            item.classList.toggle(
+              "open"
+            );
+
+
+          button.setAttribute(
+            "aria-expanded",
+            String(open)
+          );
+
+
+          button
+            .querySelector(
+              ".faq-icon"
+            )
+            .textContent =
+
+              open
+                ? "−"
+                : "＋";
+
+        }
+      );
+
+    });
+
+}
+
+
+
+/* ============================================================
+   ROUTING
+============================================================ */
+
+const ROUTES = [
+
+  "home",
+  "news",
+  "talents",
+  "events",
+  "interviews",
+  "about",
+  "recruit",
+  "recruit-virtual",
+  "recruit-real"
+
+];
+
+
+function getRoute() {
+
+  return (
+    location.hash
+      .replace(
+        "#",
+        ""
+      )
+
+    || "home"
+  );
+
+}
+
+
+function showRoute(route) {
+
+  if(
+    !ROUTES.includes(
+      route
+    )
+  ) {
+
+    route =
+      "home";
+
+  }
+
+
+  document
+    .querySelectorAll(
+      ".page-view"
+    )
+    .forEach(page => {
+
+      page.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  const page =
+    document.getElementById(
+      `page-${route}`
+    );
+
+
+  if(page) {
+
+    page.classList.add(
+      "active"
+    );
+
+  }
+
+
+  closeMobileMenu();
+
+
+  window.scrollTo(
+    0,
+    0
+  );
+
+
+  setTimeout(
+    observeReveal,
+    50
+  );
+
+}
+
+
+
+/* ============================================================
+   BUBBLE TRANSITION
+============================================================ */
+
+let currentRoute =
+  getRoute();
+
+
+function transitionRoute(route) {
+
+  const transition =
+    document.getElementById(
+      "bubbleTransition"
+    );
+
+
+  transition.classList.add(
+    "active"
+  );
+
+
+  setTimeout(
+    () => {
+
+      showRoute(
+        route
+      );
+
+    },
+    360
+  );
+
+
+  setTimeout(
+    () => {
+
+      transition.classList.remove(
+        "active"
+      );
+
+    },
+    780
+  );
+
+}
+
+
+window.addEventListener(
+  "hashchange",
+  () => {
+
+    const route =
+      getRoute();
+
+
+    if(
+      route === currentRoute
+    ) {
+      return;
+    }
+
+
+    currentRoute =
+      route;
+
+
+    transitionRoute(
+      route
+    );
+
+  }
+);
+
+
+
+/* ============================================================
+   LOADING
+============================================================ */
+
+function setConnection(
+  key,
+  connected
+) {
+
+  const element =
+    document.querySelector(
+      `[data-connection="${key}"]`
+    );
+
+
+  if(!element) {
+    return;
+  }
+
+
+  if(connected) {
+
+    element.textContent =
+      "CONNECTED";
+
+
+    element.classList.add(
+      "connected"
+    );
+
   }
 
 }
 
 
-/* =========================================================
-   MOBILE
-========================================================= */
 
-@media(max-width:560px) {
+function startLoading() {
 
-  .hero-visual {
-    min-height: 535px;
+  const screen =
+    document.getElementById(
+      "loadingScreen"
+    );
+
+
+  if(
+    !SITE_CONFIG.loadingEnabled
+  ) {
+
+    screen.remove();
+
+    return;
+
   }
 
 
-  .hero-shape {
-    width: 310px;
-    height: 380px;
+  const bar =
+    document.getElementById(
+      "loadingProgressBar"
+    );
 
-    right: -5px;
-    top: 75px;
+
+  const text =
+    document.getElementById(
+      "loadingPercent"
+    );
+
+
+  const complete =
+    document.getElementById(
+      "loadingComplete"
+    );
+
+
+  let progress =
+    0;
+
+
+  const tick =
+    Math.max(
+      70,
+      SITE_CONFIG.loadingDuration / 20
+    );
+
+
+  const timer =
+    setInterval(
+      () => {
+
+        progress +=
+          Math.ceil(
+            Math.random() * 8
+          );
+
+
+        if(
+          progress >= 100
+        ) {
+
+          progress =
+            100;
+
+        }
+
+
+        bar.style.width =
+          `${progress}%`;
+
+
+        text.textContent =
+          `${progress}%`;
+
+
+        if(
+          progress >= 30
+        ) {
+
+          setConnection(
+            "iriam",
+            true
+          );
+
+        }
+
+
+        if(
+          progress >= 58
+        ) {
+
+          setConnection(
+            "tiktok",
+            true
+          );
+
+        }
+
+
+        if(
+          progress >= 82
+        ) {
+
+          setConnection(
+            "mirrativ",
+            true
+          );
+
+        }
+
+
+        if(
+          progress >= 100
+        ) {
+
+          clearInterval(
+            timer
+          );
+
+
+          complete.classList.add(
+            "show"
+          );
+
+
+          setTimeout(
+            () => {
+
+              document
+                .getElementById(
+                  "bubbleTransition"
+                )
+                .classList.add(
+                  "loading-finish"
+                );
+
+            },
+            220
+          );
+
+
+          setTimeout(
+            () => {
+
+              screen.classList.add(
+                "finished"
+              );
+
+            },
+            600
+          );
+
+
+          setTimeout(
+            () => {
+
+              screen.remove();
+
+
+              document
+                .getElementById(
+                  "bubbleTransition"
+                )
+                .classList.remove(
+                  "loading-finish"
+                );
+
+            },
+            1150
+          );
+
+        }
+
+      },
+      tick
+    );
+
+}
+
+
+
+/* ============================================================
+   MOBILE MENU
+============================================================ */
+
+function setupMobileMenu() {
+
+  const button =
+    document.getElementById(
+      "mobileMenuButton"
+    );
+
+
+  const nav =
+    document.getElementById(
+      "globalNav"
+    );
+
+
+  if(
+    !button ||
+    !nav
+  ) {
+    return;
   }
 
 
-  .hero-yellow-circle {
-    width: 125px;
-    height: 125px;
+  button.addEventListener(
+    "click",
+    () => {
 
-    top: 52px;
+      const open =
+        nav.classList.toggle(
+          "open"
+        );
+
+
+      button.setAttribute(
+        "aria-expanded",
+        String(open)
+      );
+
+    }
+  );
+
+}
+
+
+function closeMobileMenu() {
+
+  const nav =
+    document.getElementById(
+      "globalNav"
+    );
+
+
+  const button =
+    document.getElementById(
+      "mobileMenuButton"
+    );
+
+
+  if(nav) {
+
+    nav.classList.remove(
+      "open"
+    );
+
   }
 
 
-  .hero-pickup-ring {
-    width: 210px;
-    height: 210px;
+  if(button) {
 
-    right: 50px;
-  }
+    button.setAttribute(
+      "aria-expanded",
+      "false"
+    );
 
-
-  .hero-pickup-image-wrap {
-    width: 290px;
-    height: 390px;
-
-    right: 4px;
-    bottom: 50px;
-  }
-
-
-  .hero-pickup-label {
-    top: 30px;
-    left: 0;
-  }
-
-
-  .hero-pickup-info {
-    left: 0;
-    right: 15px;
-    bottom: 0;
-
-    min-width: 0;
-
-    padding: 16px;
-
-    transform:
-      rotate(-1deg);
-  }
-
-
-  .hero-pickup-info h2 {
-    font-size: 27px;
-  }
-
-
-  .hero-pickup-actions {
-    flex-wrap: wrap;
-  }
-
-
-  .hero-pickup-placeholder {
-    width: 180px;
-    height: 180px;
-
-    margin-bottom: 100px;
-
-    font-size: 70px;
   }
 
 }
+
+
+
+/* ============================================================
+   HEADER
+============================================================ */
+
+function setupHeader() {
+
+  const header =
+    document.getElementById(
+      "siteHeader"
+    );
+
+
+  if(!header) {
+    return;
+  }
+
+
+  const update =
+    () => {
+
+      header.classList.toggle(
+        "scrolled",
+        window.scrollY > 30
+      );
+
+    };
+
+
+  window.addEventListener(
+    "scroll",
+    update,
+    {
+      passive:
+        true
+    }
+  );
+
+
+  update();
+
+}
+
+
+
+/* ============================================================
+   REVEAL
+============================================================ */
+
+function observeReveal() {
+
+  const elements =
+    document.querySelectorAll(
+      ".page-view.active .reveal"
+    );
+
+
+  const observer =
+    new IntersectionObserver(
+
+      entries => {
+
+        entries.forEach(entry => {
+
+          if(
+            entry.isIntersecting
+          ) {
+
+            entry
+              .target
+              .classList
+              .add(
+                "revealed"
+              );
+
+
+            observer.unobserve(
+              entry.target
+            );
+
+          }
+
+        });
+
+      },
+
+      {
+        threshold:
+          0.12,
+
+        rootMargin:
+          "0px 0px -20px 0px"
+      }
+
+    );
+
+
+  elements.forEach(
+    element => {
+
+      observer.observe(
+        element
+      );
+
+    }
+  );
+
+}
+
+
+
+/* ============================================================
+   CLOSE MODALS
+============================================================ */
+
+function closeModals() {
+
+  document
+    .querySelectorAll(
+      ".modal-overlay"
+    )
+    .forEach(modal => {
+
+      modal.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  document.body.classList.remove(
+    "modal-open"
+  );
+
+}
+
+
+
+/* ============================================================
+   MODAL EVENTS
+============================================================ */
+
+function setupModalEvents() {
+
+  const talentClose =
+    document.getElementById(
+      "talentModalClose"
+    );
+
+
+  const interviewClose =
+    document.getElementById(
+      "interviewModalClose"
+    );
+
+
+  if(talentClose) {
+
+    talentClose.addEventListener(
+      "click",
+      closeModals
+    );
+
+  }
+
+
+  if(interviewClose) {
+
+    interviewClose.addEventListener(
+      "click",
+      closeModals
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(
+      ".modal-overlay"
+    )
+    .forEach(modal => {
+
+      modal.addEventListener(
+        "click",
+        event => {
+
+          if(
+            event.target === modal
+          ) {
+
+            closeModals();
+
+          }
+
+        }
+      );
+
+    });
+
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key === "Escape"
+      ) {
+
+        closeModals();
+
+        closeMobileMenu();
+
+      }
+
+    }
+  );
+
+}
+
+
+
+/* ============================================================
+   INITIALIZE
+============================================================ */
+
+function initializeSite() {
+
+  applyConfig();
+
+  renderAll();
+
+  setupTalentFilter();
+
+  setupEventFilter();
+
+  setupMobileMenu();
+
+  setupHeader();
+
+  setupModalEvents();
+
+  showRoute(
+    getRoute()
+  );
+
+  observeReveal();
+
+  startLoading();
+
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  initializeSite
+);
