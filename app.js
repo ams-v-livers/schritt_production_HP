@@ -1,2107 +1,658 @@
-/* ============================================================
-   HELPERS
-============================================================ */
+/* =========================================================
+   HERO PICK UP CREATOR
+========================================================= */
 
-function getTalent(id) {
+.hero-visual {
+  min-height: 620px;
 
-  return TALENTS.find(
-    talent =>
-    talent.id === id
-  );
-
+  position: relative;
 }
 
 
-function formatDateParts(date) {
-
-  const parts =
-    date.split(".");
-
-
-  return {
-    year:
-      parts[0] || "",
-
-    month:
-      parts[1] || "",
-
-    day:
-      parts[2] || ""
-  };
-
-}
-
-
-
-/* ============================================================
-   CONFIG
-============================================================ */
-
-function applyConfig() {
-
-  document
-    .querySelectorAll(
-      "[data-site-name]"
-    )
-    .forEach(element => {
-
-      element.textContent =
-        SITE_CONFIG.siteName;
-
-    });
-
-
-  document
-    .querySelectorAll(
-      ".external-link"
-    )
-    .forEach(link => {
-
-      const key =
-        link.dataset.link;
-
-
-      const url =
-        SITE_CONFIG.links[key];
-
-
-      if(url) {
-
-        link.href =
-          url;
-
-      }
-
-
-      if(
-        url &&
-        !url.startsWith("#")
-      ) {
-
-        link.target =
-          "_blank";
-
-        link.rel =
-          "noopener noreferrer";
-
-      }
-
-    });
-
-}
-
-
-
-/* ============================================================
-   TALENT CARD
-============================================================ */
-
-function createTalentCard(talent) {
-
-  const image = talent.image
-
-    ? `
-      <img
-        src="${talent.image}"
-        alt="${talent.name}"
-        loading="lazy"
-      >
-    `
-
-    : `
-      <div class="talent-placeholder">
-
-        ${talent.name.charAt(0)}
-
-      </div>
-    `;
-
-
-  const platforms =
-    talent.platforms
-
-      .map(
-        item => `
-          <span class="talent-platform">
-            ${item}
-          </span>
-        `
-      )
-
-      .join("");
-
-
-  return `
-
-    <article
-      class="talent-card"
-      data-talent-id="${talent.id}"
-    >
-
-      <div
-        class="talent-visual"
-        style="
-          background:
-          linear-gradient(
-            145deg,
-            ${talent.colorA},
-            ${talent.colorB}
-          );
-        "
-      >
-
-        ${image}
-
-        <span class="talent-type">
-
-          ${
-            talent.type === "V"
-            ? "VIRTUAL LIVER"
-            : "REAL LIVER"
-          }
-
-        </span>
-
-      </div>
-
-
-      <div class="talent-body">
-
-        <h3>
-          ${talent.name}
-        </h3>
-
-        <small>
-          ${talent.reading}
-        </small>
-
-        <p>
-
-          ${talent.shortDescription}
-
-        </p>
-
-        <div class="talent-platform-list">
-
-          ${platforms}
-
-        </div>
-
-        <div class="talent-footer">
-
-          PROFILE
-
-          <span>
-            ↗
-          </span>
-
-        </div>
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-
-/* ============================================================
-   NEWS
-============================================================ */
-
-function createNewsCard(news) {
-
-  return `
-
-    <a
-      href="${news.url}"
-      class="news-card"
-    >
-
-      <div class="news-meta">
-
-        <span>
-          ${news.date}
-        </span>
-
-        <strong>
-          ${news.category}
-        </strong>
-
-      </div>
-
-      <h3>
-        ${news.title}
-      </h3>
-
-      <small>
-        READ MORE
-      </small>
-
-    </a>
-
-  `;
-
-}
-
-
-
-/* ============================================================
-   PICKUP
-============================================================ */
-
-function renderPickup() {
-
-  const talent =
-    getTalent(
-      PICKUP.talentId
+/* オレンジ背景 */
+
+.hero-shape {
+  width: 455px;
+  height: 490px;
+
+  position: absolute;
+
+  top: 55px;
+  right: 10px;
+
+  border-radius:
+    48% 52% 58% 42%
+    /
+    45% 40% 60% 55%;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--orange),
+      var(--orange-light)
     );
 
+  box-shadow:
+    0 40px 90px
+    rgba(255,135,0,.27);
 
-  const target =
-    document.getElementById(
-      "pickupCreator"
-    );
-
-
-  const period =
-    document.getElementById(
-      "pickupPeriod"
-    );
+  animation:
+    heroPickupBlob
+    9s ease-in-out
+    infinite;
+}
 
 
-  if(
-    !target ||
-    !talent
-  ) {
+@keyframes heroPickupBlob {
 
-    return;
+  0%,
+  100% {
+
+    border-radius:
+      48% 52% 58% 42%
+      /
+      45% 40% 60% 55%;
 
   }
 
-
-  period.textContent =
-    PICKUP.period;
-
-
-  const image =
-    talent.image
-
-    ? `
-      <img
-        src="${talent.image}"
-        alt="${talent.name}"
-      >
-    `
-
-    : `
-      <div class="pickup-placeholder">
-
-        ${talent.name.charAt(0)}
-
-      </div>
-    `;
-
-
-  target.innerHTML = `
-
-    <div
-      class="pickup-visual"
-      style="
-        background:
-        linear-gradient(
-          145deg,
-          ${talent.colorA},
-          ${talent.colorB}
-        );
-      "
-    >
-
-      ${image}
-
-      <span class="pickup-star">
-        ✦
-      </span>
-
-      <span class="pickup-note">
-        ♪
-      </span>
-
-    </div>
-
-
-    <div class="pickup-content">
-
-      <span class="pickup-label">
-
-        ${PICKUP.label}
-
-      </span>
-
-      <h3>
-
-        ${talent.name}
-
-      </h3>
-
-      <small>
-
-        ${talent.reading}
-
-      </small>
-
-      <p>
-
-        ${PICKUP.description}
-
-      </p>
-
-      <div class="talent-platform-list">
-
-        ${
-          talent.platforms
-
-            .map(
-              p => `
-                <span class="talent-platform">
-                  ${p}
-                </span>
-              `
-            )
-
-            .join("")
-        }
-
-      </div>
-
-      <button
-        class="button orange-button pickup-profile-button"
-        data-talent-id="${talent.id}"
-      >
-
-        PROFILE
-
-        <span>
-          ↗
-        </span>
-
-      </button>
-
-    </div>
-
-  `;
-
-
-  target
-    .querySelector(
-      ".pickup-profile-button"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        openTalentModal(
-          talent.id
-        );
-
-      }
-    );
-
-}
-
-
-
-/* ============================================================
-   EVENT
-============================================================ */
-
-function createEventCard(event) {
-
-  const date =
-    formatDateParts(
-      event.date
-    );
-
-
-  return `
-
-    <article class="event-card">
-
-      <div class="event-date">
-
-        <strong>
-          ${date.day}
-        </strong>
-
-        <span>
-          ${date.month}
-        </span>
-
-      </div>
-
-      <div class="event-info">
-
-        <div class="event-meta">
-
-          <span class="event-platform">
-            ${event.platform}
-          </span>
-
-          <span class="event-status">
-            ${event.status}
-          </span>
-
-        </div>
-
-        <h3>
-          ${event.title}
-        </h3>
-
-        <p>
-          ${event.description}
-        </p>
-
-        <a
-          href="${event.url}"
-        >
-          MORE ↗
-        </a>
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-
-/* ============================================================
-   INTERVIEW
-============================================================ */
-
-function createInterviewCard(interview) {
-
-  const talent =
-    getTalent(
-      interview.talentId
-    );
-
-
-  if(!talent) {
-
-    return "";
+  50% {
+
+    border-radius:
+      56% 44% 44% 56%
+      /
+      39% 55% 45% 61%;
+
+    transform:
+      translateY(-8px)
+      rotate(2deg);
 
   }
 
-
-  const visual =
-    interview.thumbnail ||
-    talent.image;
-
-
-  const image =
-    visual
-
-    ? `
-      <img
-        src="${visual}"
-        alt="${talent.name}"
-      >
-    `
-
-    : `
-      <div class="interview-placeholder">
-
-        ${talent.name.charAt(0)}
-
-      </div>
-    `;
-
-
-  return `
-
-    <article
-      class="interview-card"
-      data-interview-id="${interview.id}"
-    >
-
-      <div
-        class="interview-visual"
-        style="
-          background:
-          linear-gradient(
-            145deg,
-            ${talent.colorA},
-            ${talent.colorB}
-          );
-        "
-      >
-
-        ${image}
-
-        <span>
-          INTERVIEW
-        </span>
-
-      </div>
-
-      <div class="interview-body">
-
-        <small>
-
-          ${talent.name}
-
-        </small>
-
-        <h3>
-
-          ${interview.catchCopy}
-
-        </h3>
-
-        <p>
-
-          ${interview.title}
-
-        </p>
-
-        <strong>
-
-          READ INTERVIEW ↗
-
-        </strong>
-
-      </div>
-
-    </article>
-
-  `;
-
 }
 
 
+/* 黄色い丸 */
 
-/* ============================================================
-   JOURNAL
-============================================================ */
+.hero-yellow-circle {
+  width: 185px;
+  height: 185px;
 
-function createJournalCard(article) {
+  position: absolute;
 
-  return `
+  top: 22px;
+  right: -2px;
 
-    <a
-      href="${article.url}"
-      class="journal-card"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+  border-radius: 50%;
 
-      <div>
+  background:
+    var(--yellow);
 
-        <span>
-          ${article.category}
-        </span>
-
-        <small>
-          ${article.date}
-        </small>
-
-      </div>
-
-      <h3>
-
-        ${article.title}
-
-      </h3>
-
-      <p>
-
-        ${article.description}
-
-      </p>
-
-      <strong>
-
-        READ NOTE ↗
-
-      </strong>
-
-    </a>
-
-  `;
-
+  animation:
+    heroPickupYellow
+    5.5s ease-in-out
+    infinite;
 }
 
 
+@keyframes heroPickupYellow {
 
-/* ============================================================
-   FAQ
-============================================================ */
+  50% {
 
-function createFaqItem(item,index) {
-
-  return `
-
-    <article class="faq-item">
-
-      <button
-        class="faq-question"
-        aria-expanded="false"
-      >
-
-        <span class="faq-number">
-
-          ${String(index + 1).padStart(2,"0")}
-
-        </span>
-
-        <strong>
-
-          ${item.question}
-
-        </strong>
-
-        <span class="faq-icon">
-          ＋
-        </span>
-
-      </button>
-
-      <div class="faq-answer">
-
-        <p>
-
-          ${item.answer}
-
-        </p>
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-
-/* ============================================================
-   REAL SAMPLE
-============================================================ */
-
-function createRealSample(person) {
-
-  const image =
-    person.image
-
-    ? `
-      <img
-        src="${person.image}"
-        alt="${person.name}"
-      >
-    `
-
-    : `
-      <div class="real-placeholder">
-
-        ${person.name.charAt(0)}
-
-      </div>
-    `;
-
-
-  return `
-
-    <article class="real-sample-card">
-
-      <div
-        class="real-sample-visual"
-        style="
-          background:
-          linear-gradient(
-            145deg,
-            ${person.colorA},
-            ${person.colorB}
-          );
-        "
-      >
-
-        ${image}
-
-      </div>
-
-      <div>
-
-        <strong>
-          ${person.name}
-        </strong>
-
-        <span>
-
-          ${person.gender}
-          /
-          ${person.age}
-          /
-          ${person.genre}
-
-        </span>
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-
-/* ============================================================
-   RENDER
-============================================================ */
-
-function renderAll() {
-
-  document.getElementById(
-    "homeNews"
-  ).innerHTML =
-
-    NEWS
-
-      .slice(
-        0,
-        SITE_CONFIG.homeDisplay.news
-      )
-
-      .map(
-        createNewsCard
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "allNews"
-  ).innerHTML =
-
-    NEWS
-
-      .map(
-        createNewsCard
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "homeTalents"
-  ).innerHTML =
-
-    TALENTS
-
-      .slice(
-        0,
-        SITE_CONFIG.homeDisplay.talents
-      )
-
-      .map(
-        createTalentCard
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "allTalents"
-  ).innerHTML =
-
-    TALENTS
-
-      .map(
-        createTalentCard
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "homeEvents"
-  ).innerHTML =
-
-    EVENTS
-
-      .slice(
-        0,
-        SITE_CONFIG.homeDisplay.events
-      )
-
-      .map(
-        createEventCard
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "allEvents"
-  ).innerHTML =
-
-    EVENTS
-
-      .map(
-        createEventCard
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "homeInterviews"
-  ).innerHTML =
-
-    INTERVIEWS
-
-      .slice(
-        0,
-        SITE_CONFIG.homeDisplay.interviews
-      )
-
-      .map(
-        createInterviewCard
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "allInterviews"
-  ).innerHTML =
-
-    INTERVIEWS
-
-      .map(
-        createInterviewCard
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "journalGrid"
-  ).innerHTML =
-
-    JOURNAL_ARTICLES
-
-      .slice(
-        0,
-        SITE_CONFIG.homeDisplay.journals
-      )
-
-      .map(
-        createJournalCard
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "faqList"
-  ).innerHTML =
-
-    FAQ
-
-      .map(
-        createFaqItem
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "realSampleGrid"
-  ).innerHTML =
-
-    REAL_LIVER_SAMPLES
-
-      .map(
-        createRealSample
-      )
-
-      .join("");
-
-
-  renderPickup();
-
-  bindTalentCards();
-
-  bindInterviewCards();
-
-  setupFaq();
-
-}
-
-
-
-/* ============================================================
-   TALENT FILTER
-============================================================ */
-
-function setupTalentFilter() {
-
-  document
-    .querySelectorAll(
-      "[data-filter]"
-    )
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          document
-            .querySelectorAll(
-              "[data-filter]"
-            )
-            .forEach(item => {
-
-              item.classList.remove(
-                "active"
-              );
-
-            });
-
-
-          button.classList.add(
-            "active"
-          );
-
-
-          const filter =
-            button.dataset.filter;
-
-
-          let data =
-            TALENTS;
-
-
-          if(filter === "V") {
-
-            data =
-              TALENTS.filter(
-                talent =>
-                talent.type === "V"
-              );
-
-          }
-
-          else if(
-            filter === "REAL"
-          ) {
-
-            data =
-              TALENTS.filter(
-                talent =>
-                talent.type === "REAL"
-              );
-
-          }
-
-          else if(
-            filter !== "ALL"
-          ) {
-
-            data =
-              TALENTS.filter(
-                talent =>
-                talent.platforms.includes(
-                  filter
-                )
-              );
-
-          }
-
-
-          document.getElementById(
-            "allTalents"
-          ).innerHTML =
-
-            data
-
-              .map(
-                createTalentCard
-              )
-
-              .join("");
-
-
-          bindTalentCards();
-
-        }
-      );
-
-    });
-
-}
-
-
-
-/* ============================================================
-   EVENT FILTER
-============================================================ */
-
-function setupEventFilter() {
-
-  document
-    .querySelectorAll(
-      "[data-event-filter]"
-    )
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          document
-            .querySelectorAll(
-              "[data-event-filter]"
-            )
-            .forEach(item => {
-
-              item.classList.remove(
-                "active"
-              );
-
-            });
-
-
-          button.classList.add(
-            "active"
-          );
-
-
-          const filter =
-            button.dataset.eventFilter;
-
-
-          const data =
-            filter === "ALL"
-
-            ? EVENTS
-
-            : EVENTS.filter(
-                event =>
-                event.platform === filter
-              );
-
-
-          document.getElementById(
-            "allEvents"
-          ).innerHTML =
-
-            data
-
-              .map(
-                createEventCard
-              )
-
-              .join("");
-
-        }
-      );
-
-    });
-
-}
-
-
-
-/* ============================================================
-   TALENT MODAL
-============================================================ */
-
-function bindTalentCards() {
-
-  document
-    .querySelectorAll(
-      ".talent-card"
-    )
-    .forEach(card => {
-
-      card.addEventListener(
-        "click",
-        () => {
-
-          openTalentModal(
-            Number(
-              card.dataset.talentId
-            )
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-
-function openTalentModal(id) {
-
-  const talent =
-    getTalent(id);
-
-
-  if(!talent) {
-
-    return;
+    transform:
+      translateY(-13px)
+      scale(1.03);
 
   }
 
-
-  const visual =
-    document.getElementById(
-      "talentModalVisual"
-    );
-
-
-  visual.style.background =
-    `
-      linear-gradient(
-        145deg,
-        ${talent.colorA},
-        ${talent.colorB}
-      )
-    `;
-
-
-  document.getElementById(
-    "talentModalInitial"
-  ).innerHTML =
-
-    talent.image
-
-    ? `
-      <img
-        src="${talent.image}"
-        alt="${talent.name}"
-      >
-    `
-
-    : talent.name.charAt(0);
-
-
-  document.getElementById(
-    "talentModalType"
-  ).textContent =
-
-    talent.type === "V"
-    ? "VIRTUAL LIVER"
-    : "REAL LIVER";
-
-
-  document.getElementById(
-    "talentModalName"
-  ).textContent =
-    talent.name;
-
-
-  document.getElementById(
-    "talentModalReading"
-  ).textContent =
-    talent.reading;
-
-
-  document.getElementById(
-    "talentModalPlatforms"
-  ).innerHTML =
-
-    talent.platforms
-
-      .map(
-        p => `
-          <span>
-            ${p}
-          </span>
-        `
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "talentModalBio"
-  ).textContent =
-    talent.bio;
-
-
-  document.getElementById(
-    "talentModalLinks"
-  ).innerHTML =
-
-    Object.entries(
-      talent.links
-    )
-
-      .map(
-        ([name,url]) => `
-          <a
-            href="${url}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ${name} ↗
-          </a>
-        `
-      )
-
-      .join("");
-
-
-  document
-    .getElementById(
-      "talentModal"
-    )
-    .classList.add(
-      "active"
-    );
-
-
-  document.body.classList.add(
-    "modal-open"
-  );
-
 }
 
 
+/* 白リング */
 
-/* ============================================================
-   INTERVIEW MODAL
-============================================================ */
+.hero-pickup-ring {
+  width: 300px;
+  height: 300px;
 
-function bindInterviewCards() {
+  position: absolute;
 
-  document
-    .querySelectorAll(
-      ".interview-card"
-    )
-    .forEach(card => {
+  right: 115px;
+  bottom: 30px;
 
-      card.addEventListener(
-        "click",
-        () => {
+  border:
+    2px solid
+    rgba(255,255,255,.35);
 
-          openInterview(
-            Number(
-              card.dataset.interviewId
-            )
-          );
-
-        }
-      );
-
-    });
-
+  border-radius: 50%;
 }
 
 
+/* PICK UPタグ */
 
-function openInterview(id) {
+.hero-pickup-label {
+  position: absolute;
 
-  const interview =
-    INTERVIEWS.find(
-      item =>
-      item.id === id
-    );
+  top: 55px;
+  left: 10px;
+
+  z-index: 8;
+
+  padding: 9px 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color:
+    var(--navy);
+
+  background:
+    white;
+
+  border:
+    1px solid
+    rgba(255,151,0,.15);
+
+  border-radius:
+    999px;
+
+  box-shadow:
+    0 14px 35px
+    rgba(80,45,12,.11);
+
+  font-family:
+    "Montserrat",
+    sans-serif;
+
+  font-size: 8px;
+
+  font-weight: 900;
+
+  letter-spacing: .08em;
+
+  animation:
+    heroPickupLabelFloat
+    5s ease-in-out
+    infinite;
+}
 
 
-  if(!interview) {
+.hero-pickup-label span {
+  color:
+    var(--orange);
 
-    return;
+  font-size: 14px;
+}
+
+
+@keyframes heroPickupLabelFloat {
+
+  50% {
+
+    transform:
+      translateY(-8px)
+      rotate(-2deg);
 
   }
 
+}
 
-  const talent =
-    getTalent(
-      interview.talentId
+
+/* ライバー画像 */
+
+.hero-pickup-image-wrap {
+  width: 390px;
+  height: 500px;
+
+  position: absolute;
+
+  right: 47px;
+  bottom: 20px;
+
+  z-index: 4;
+
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius:
+    0 0
+    38% 38%;
+}
+
+
+.hero-pickup-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit:
+    contain;
+
+  object-position:
+    center bottom;
+
+  filter:
+    drop-shadow(
+      0 22px 26px
+      rgba(87,45,10,.18)
     );
 
+  animation:
+    heroCreatorFloat
+    6s ease-in-out
+    infinite;
+}
 
-  if(!talent) {
 
-    return;
+@keyframes heroCreatorFloat {
+
+  0%,
+  100% {
+
+    transform:
+      translateY(0);
 
   }
 
+  50% {
 
-  const questions =
+    transform:
+      translateY(-6px);
 
-    interview.questions
-
-      .map(
-        item => `
-          <article class="interview-question">
-
-            <small>
-              Q.
-            </small>
-
-            <h3>
-              ${item.question}
-            </h3>
-
-            <p>
-              ${item.answer}
-            </p>
-
-          </article>
-        `
-      )
-
-      .join("");
-
-
-  document.getElementById(
-    "interviewModalContent"
-  ).innerHTML = `
-
-    <div class="interview-modal-heading">
-
-      <small>
-        CREATOR INTERVIEW
-      </small>
-
-      <h2>
-
-        ${talent.name}
-
-      </h2>
-
-      <p>
-
-        ${interview.title}
-
-      </p>
-
-    </div>
-
-    ${questions}
-
-  `;
-
-
-  document
-    .getElementById(
-      "interviewModal"
-    )
-    .classList.add(
-      "active"
-    );
-
-
-  document.body.classList.add(
-    "modal-open"
-  );
+  }
 
 }
 
 
+/* 画像なし */
 
-/* ============================================================
-   FAQ
-============================================================ */
+.hero-pickup-placeholder {
+  width: 260px;
+  height: 260px;
 
-function setupFaq() {
+  margin-bottom: 100px;
 
-  document
-    .querySelectorAll(
-      ".faq-question"
-    )
-    .forEach(button => {
+  display: grid;
 
-      button.addEventListener(
-        "click",
-        () => {
+  place-items: center;
 
-          const item =
-            button.closest(
-              ".faq-item"
-            );
+  color:
+    white;
 
+  border:
+    1px solid
+    rgba(255,255,255,.3);
 
-          const open =
-            item.classList.toggle(
-              "open"
-            );
+  border-radius: 50%;
 
+  font-family:
+    "Montserrat",
+    sans-serif;
 
-          button.setAttribute(
-            "aria-expanded",
-            open
-          );
+  font-size: 100px;
 
-
-          button
-            .querySelector(
-              ".faq-icon"
-            )
-            .textContent =
-
-              open
-              ? "−"
-              : "＋";
-
-        }
-      );
-
-    });
-
+  font-weight: 900;
 }
 
 
+/* ライバー情報 */
 
-/* ============================================================
-   ROUTER
-============================================================ */
+.hero-pickup-info {
+  min-width: 255px;
 
-const ROUTES = [
+  padding: 20px;
 
-  "home",
-  "news",
-  "talents",
-  "events",
-  "interviews",
-  "about",
-  "recruit",
-  "recruit-virtual",
-  "recruit-real"
+  position: absolute;
 
-];
+  z-index: 10;
 
+  left: 0;
+  bottom: 43px;
 
+  border:
+    1px solid
+    rgba(255,255,255,.65);
 
-function getRoute() {
+  border-radius: 24px;
 
-  return (
-    location.hash.replace(
-      "#",
-      ""
-    )
-    ||
-    "home"
-  );
+  background:
+    rgba(255,255,255,.94);
 
+  backdrop-filter:
+    blur(18px);
+
+  box-shadow:
+    0 22px 55px
+    rgba(76,42,13,.15);
+
+  transform:
+    rotate(-2deg);
 }
 
 
+.hero-pickup-platforms {
+  display: flex;
 
-function showRoute(route) {
+  flex-wrap: wrap;
 
-  if(
-    !ROUTES.includes(route)
-  ) {
-
-    route =
-      "home";
-
-  }
-
-
-  document
-    .querySelectorAll(
-      ".page-view"
-    )
-    .forEach(page => {
-
-      page.classList.remove(
-        "active"
-      );
-
-    });
-
-
-  const target =
-    document.getElementById(
-      `page-${route}`
-    );
-
-
-  if(target) {
-
-    target.classList.add(
-      "active"
-    );
-
-  }
-
-
-  closeMobileMenu();
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "instant"
-  });
-
-
-  setTimeout(
-    observeReveal,
-    60
-  );
-
+  gap: 5px;
 }
 
 
+.hero-pickup-platforms span {
+  padding: 5px 8px;
 
-/* ============================================================
-   BUBBLE PAGE TRANSITION
-============================================================ */
+  color:
+    white;
 
-let currentRoute =
-  getRoute();
+  background:
+    var(--navy);
 
+  border-radius:
+    999px;
 
+  font-family:
+    "Montserrat",
+    sans-serif;
 
-function transitionToRoute(route) {
+  font-size: 7px;
 
-  const overlay =
-    document.getElementById(
-      "bubbleTransition"
-    );
-
-
-  overlay.classList.add(
-    "active"
-  );
-
-
-  setTimeout(
-    () => {
-
-      showRoute(route);
-
-    },
-    380
-  );
-
-
-  setTimeout(
-    () => {
-
-      overlay.classList.remove(
-        "active"
-      );
-
-    },
-    760
-  );
-
+  font-weight: 900;
 }
 
 
-
-window.addEventListener(
-  "hashchange",
-  () => {
-
-    const route =
-      getRoute();
-
-
-    if(
-      route === currentRoute
-    ) {
-
-      return;
-
-    }
-
-
-    currentRoute =
-      route;
-
-
-    transitionToRoute(
-      route
-    );
-
-  }
-);
-
-
-
-/* ============================================================
-   LOADING
-============================================================ */
-
-function startLoading() {
-
-  if(
-    !SITE_CONFIG.loadingEnabled
-  ) {
-
-    document
-      .getElementById(
-        "loadingScreen"
-      )
-      .remove();
-
-    return;
-
-  }
-
-
-  const screen =
-    document.getElementById(
-      "loadingScreen"
-    );
-
-
-  const bar =
-    document.getElementById(
-      "loadingProgressBar"
-    );
-
-
-  const percentText =
-    document.getElementById(
-      "loadingPercent"
-    );
-
-
-  const complete =
-    document.getElementById(
-      "loadingComplete"
-    );
-
-
-  let percent =
+.hero-pickup-info h2 {
+  margin:
+    13px 0
     0;
 
+  font-family:
+    "Montserrat",
+    "Noto Sans JP",
+    sans-serif;
 
-  const duration =
-    SITE_CONFIG.loadingDuration;
+  font-size: 34px;
 
+  line-height: 1;
 
-  const interval =
-    setInterval(
-      () => {
-
-        percent +=
-          Math.ceil(
-            Math.random() * 8
-          );
+  letter-spacing: -.055em;
+}
 
 
-        if(
-          percent >= 100
-        ) {
+.hero-pickup-reading {
+  display: block;
 
-          percent =
-            100;
+  margin-top: 5px;
 
-        }
+  color:
+    var(--muted);
 
-
-        bar.style.width =
-          `${percent}%`;
+  font-size: 8px;
+}
 
 
-        percentText.textContent =
-          `${percent}%`;
+/* ボタン */
+
+.hero-pickup-actions {
+  margin-top: 17px;
+
+  display: flex;
+
+  gap: 7px;
+}
 
 
-        if(percent >= 35) {
+.hero-profile-button,
+.hero-live-button {
+  min-height: 37px;
 
-          setConnection(
-            "iriam",
-            true
-          );
+  padding: 0 12px;
 
-        }
+  display: inline-flex;
 
+  align-items: center;
+  justify-content: center;
 
-        if(percent >= 62) {
+  gap: 8px;
 
-          setConnection(
-            "tiktok",
-            true
-          );
+  border-radius:
+    999px;
 
-        }
+  font-family:
+    "Montserrat",
+    sans-serif;
 
+  font-size: 7px;
 
-        if(percent >= 82) {
+  font-weight: 900;
 
-          setConnection(
-            "mirrativ",
-            true
-          );
-
-        }
-
-
-        if(percent >= 100) {
-
-          clearInterval(
-            interval
-          );
+  transition:
+    transform .2s ease;
+}
 
 
-          complete.classList.add(
-            "show"
-          );
+.hero-profile-button {
+  color:
+    white;
+
+  background:
+    var(--orange);
+
+  border: 0;
+}
 
 
-          setTimeout(
-            () => {
+.hero-live-button {
+  color:
+    white;
 
-              screen.classList.add(
-                "completed"
-              );
-
-
-              document
-                .getElementById(
-                  "bubbleTransition"
-                )
-                .classList.add(
-                  "loading-finish"
-                );
-
-            },
-            300
-          );
+  background:
+    var(--navy);
+}
 
 
-          setTimeout(
-            () => {
+.hero-profile-button:hover,
+.hero-live-button:hover {
 
-              screen.remove();
-
-
-              document
-                .getElementById(
-                  "bubbleTransition"
-                )
-                .classList.remove(
-                  "loading-finish"
-                );
-
-            },
-            1050
-          );
-
-        }
-
-      },
-      duration / 18
-    );
+  transform:
+    translateY(-2px);
 
 }
 
 
+/* 装飾 */
 
-function setConnection(
-  key,
-  connected
-) {
+.hero-pickup-star,
+.hero-pickup-note {
+  position: absolute;
 
-  const element =
-    document.querySelector(
-      `[data-connection="${key}"]`
-    );
+  z-index: 8;
+
+  font-weight: 900;
+
+  pointer-events: none;
+}
 
 
-  if(!element) {
+.star-one {
+  top: 18px;
+  left: 43%;
 
-    return;
+  color:
+    var(--orange);
+
+  font-size: 29px;
+
+  animation:
+    pickupStarSpin
+    9s linear
+    infinite;
+}
+
+
+.star-two {
+  right: 8px;
+  top: 43%;
+
+  color:
+    white;
+
+  font-size: 24px;
+
+  animation:
+    pickupStarSpin
+    8s linear
+    infinite reverse;
+}
+
+
+.hero-pickup-note {
+  left: 13%;
+  top: 40%;
+
+  color:
+    var(--navy);
+
+  font-size: 30px;
+
+  animation:
+    pickupNoteFloat
+    5s ease-in-out
+    infinite;
+}
+
+
+@keyframes pickupStarSpin {
+
+  to {
+
+    transform:
+      rotate(360deg);
 
   }
 
+}
 
-  if(connected) {
 
-    element.textContent =
-      "CONNECTED";
+@keyframes pickupNoteFloat {
 
-    element.classList.add(
-      "connected"
-    );
+  50% {
+
+    transform:
+      translateY(-10px)
+      rotate(7deg);
 
   }
 
 }
 
 
+/* =========================================================
+   TABLET
+========================================================= */
 
-/* ============================================================
-   MENU
-============================================================ */
+@media(max-width:1080px) {
 
-function setupMobileMenu() {
-
-  const button =
-    document.getElementById(
-      "mobileMenuButton"
-    );
-
-
-  const nav =
-    document.getElementById(
-      "globalNav"
-    );
-
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      const open =
-        nav.classList.toggle(
-          "open"
-        );
-
-
-      button.setAttribute(
-        "aria-expanded",
-        open
+  .hero-visual {
+    width:
+      min(
+        100%,
+        680px
       );
 
-    }
-  );
+    margin:
+      0 auto;
+  }
 
 }
 
 
+/* =========================================================
+   MOBILE
+========================================================= */
 
-function closeMobileMenu() {
+@media(max-width:560px) {
 
-  document
-    .getElementById(
-      "globalNav"
-    )
-    .classList.remove(
-      "open"
-    );
-
-}
+  .hero-visual {
+    min-height: 535px;
+  }
 
 
+  .hero-shape {
+    width: 310px;
+    height: 380px;
 
-/* ============================================================
-   HEADER
-============================================================ */
-
-function setupHeader() {
-
-  const header =
-    document.getElementById(
-      "siteHeader"
-    );
+    right: -5px;
+    top: 75px;
+  }
 
 
-  window.addEventListener(
-    "scroll",
-    () => {
+  .hero-yellow-circle {
+    width: 125px;
+    height: 125px;
 
-      header.classList.toggle(
-        "scrolled",
-        scrollY > 30
-      );
-
-    },
-    {
-      passive: true
-    }
-  );
-
-}
+    top: 52px;
+  }
 
 
+  .hero-pickup-ring {
+    width: 210px;
+    height: 210px;
 
-/* ============================================================
-   REVEAL
-============================================================ */
-
-function observeReveal() {
-
-  const elements =
-    document.querySelectorAll(
-      ".page-view.active .reveal"
-    );
+    right: 50px;
+  }
 
 
-  const observer =
-    new IntersectionObserver(
+  .hero-pickup-image-wrap {
+    width: 290px;
+    height: 390px;
 
-      entries => {
-
-        entries.forEach(entry => {
-
-          if(
-            entry.isIntersecting
-          ) {
-
-            entry.target.classList.add(
-              "revealed"
-            );
+    right: 4px;
+    bottom: 50px;
+  }
 
 
-            observer.unobserve(
-              entry.target
-            );
-
-          }
-
-        });
-
-      },
-
-      {
-        threshold: .12
-      }
-
-    );
+  .hero-pickup-label {
+    top: 30px;
+    left: 0;
+  }
 
 
-  elements.forEach(
-    element =>
-    observer.observe(
-      element
-    )
-  );
+  .hero-pickup-info {
+    left: 0;
+    right: 15px;
+    bottom: 0;
+
+    min-width: 0;
+
+    padding: 16px;
+
+    transform:
+      rotate(-1deg);
+  }
+
+
+  .hero-pickup-info h2 {
+    font-size: 27px;
+  }
+
+
+  .hero-pickup-actions {
+    flex-wrap: wrap;
+  }
+
+
+  .hero-pickup-placeholder {
+    width: 180px;
+    height: 180px;
+
+    margin-bottom: 100px;
+
+    font-size: 70px;
+  }
 
 }
-
-
-
-/* ============================================================
-   CLOSE MODALS
-============================================================ */
-
-function closeModals() {
-
-  document
-    .querySelectorAll(
-      ".modal-overlay"
-    )
-    .forEach(modal => {
-
-      modal.classList.remove(
-        "active"
-      );
-
-    });
-
-
-  document.body.classList.remove(
-    "modal-open"
-  );
-
-}
-
-
-
-/* ============================================================
-   INIT
-============================================================ */
-
-function init() {
-
-  applyConfig();
-
-  renderAll();
-
-  setupTalentFilter();
-
-  setupEventFilter();
-
-  setupMobileMenu();
-
-  setupHeader();
-
-  observeReveal();
-
-  showRoute(
-    getRoute()
-  );
-
-
-  document
-    .getElementById(
-      "talentModalClose"
-    )
-    .addEventListener(
-      "click",
-      closeModals
-    );
-
-
-  document
-    .getElementById(
-      "interviewModalClose"
-    )
-    .addEventListener(
-      "click",
-      closeModals
-    );
-
-
-  document
-    .querySelectorAll(
-      ".modal-overlay"
-    )
-    .forEach(modal => {
-
-      modal.addEventListener(
-        "click",
-        event => {
-
-          if(
-            event.target === modal
-          ) {
-
-            closeModals();
-
-          }
-
-        }
-      );
-
-    });
-
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if(
-        event.key === "Escape"
-      ) {
-
-        closeModals();
-
-        closeMobileMenu();
-
-      }
-
-    }
-  );
-
-
-  startLoading();
-
-}
-
-
-
-document.addEventListener(
-  "DOMContentLoaded",
-  init
-);
