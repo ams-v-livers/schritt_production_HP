@@ -68,10 +68,12 @@
       SCHRITT LIVE NETWORK
     </div>
 
+
     <h1 class="loading-title">
       LIVE<br>
       CONNECTION<span>.</span>
     </h1>
+
 
     <p class="loading-message">
       配信ネットワークへ接続しています
@@ -148,13 +150,8 @@
       class="loading-complete"
       id="loadingComplete"
     >
-
-      <span>
-        ✦
-      </span>
-
+      <span>✦</span>
       CONNECTED!
-
     </div>
 
   </div>
@@ -194,21 +191,10 @@
   aria-hidden="true"
 >
 
-  <span class="float-symbol symbol-a">
-    ✦
-  </span>
-
-  <span class="float-symbol symbol-b">
-    ♪
-  </span>
-
-  <span class="float-symbol symbol-c">
-    ★
-  </span>
-
-  <span class="float-symbol symbol-d">
-    ♫
-  </span>
+  <span class="float-symbol symbol-a">✦</span>
+  <span class="float-symbol symbol-b">♪</span>
+  <span class="float-symbol symbol-c">★</span>
+  <span class="float-symbol symbol-d">♫</span>
 
 </div>
 
@@ -282,7 +268,8 @@
         data-link="line"
       >
         LINE
-        <span>↗</span>
+
+        <span class="css-arrow-icon"></span>
       </a>
 
     </nav>
@@ -336,8 +323,6 @@
   <div class="container hero-layout">
 
 
-    <!-- LEFT -->
-
     <div class="hero-copy reveal">
 
       <div class="hero-label">
@@ -371,11 +356,9 @@
 
 
       <p class="hero-japanese">
-
         自分らしく、楽しく。
         <br>
         配信を続けられる場所へ。
-
       </p>
 
 
@@ -396,7 +379,7 @@
           class="button orange-button"
         >
           CREATOR
-          <span>→</span>
+          <span class="arrow-right-icon"></span>
         </a>
 
 
@@ -405,7 +388,7 @@
           class="button white-button"
         >
           RECRUIT
-          <span>↗</span>
+          <span class="css-arrow-icon"></span>
         </a>
 
       </div>
@@ -435,7 +418,7 @@
 
 
 
-    <!-- RIGHT : PICKUP -->
+    <!-- PICKUP -->
 
     <div
       class="hero-pickup reveal reveal-delay"
@@ -493,7 +476,8 @@
             type="button"
           >
             PROFILE
-            <span>↗</span>
+
+            <span class="css-arrow-icon"></span>
           </button>
 
 
@@ -505,7 +489,8 @@
             rel="noopener noreferrer"
           >
             LIVE
-            <span>↗</span>
+
+            <span class="css-arrow-icon"></span>
           </a>
 
         </div>
@@ -532,145 +517,41 @@
 
 
   <!-- =======================================================
-       SEAMLESS MARQUEE
+       HERO MARQUEE
   ======================================================== -->
 
   <div
-    class="hero-marquee"
+    class="auto-marquee hero-marquee"
+    data-marquee-speed="42"
     aria-hidden="true"
   >
 
-    <div class="marquee-track">
+    <div class="auto-marquee-track">
 
+      <div class="auto-marquee-source">
 
-      <!-- GROUP 1 -->
-
-      <div class="marquee-group">
-
-        <span>
-          BE YOUR COLOR
-        </span>
-
+        <span>BE YOUR COLOR</span>
         <i>✦</i>
 
-        <span>
-          VIRTUAL LIVER
-        </span>
-
+        <span>VIRTUAL LIVER</span>
         <i>✦</i>
 
-        <span>
-          REAL LIVER
-        </span>
-
+        <span>REAL LIVER</span>
         <i>♪</i>
 
-        <span>
-          IRIAM
-        </span>
-
+        <span>IRIAM</span>
         <i>★</i>
 
-        <span>
-          TIKTOK LIVE
-        </span>
-
+        <span>TIKTOK LIVE</span>
         <i>✦</i>
 
-        <span>
-          MIRRATIV
-        </span>
-
+        <span>MIRRATIV</span>
         <i>♫</i>
 
-      </div>
-
-
-      <!-- GROUP 2 -->
-
-      <div class="marquee-group">
-
-        <span>
-          BE YOUR COLOR
-        </span>
-
+        <span>GO LIVE!</span>
         <i>✦</i>
-
-        <span>
-          VIRTUAL LIVER
-        </span>
-
-        <i>✦</i>
-
-        <span>
-          REAL LIVER
-        </span>
-
-        <i>♪</i>
-
-        <span>
-          IRIAM
-        </span>
-
-        <i>★</i>
-
-        <span>
-          TIKTOK LIVE
-        </span>
-
-        <i>✦</i>
-
-        <span>
-          MIRRATIV
-        </span>
-
-        <i>♫</i>
 
       </div>
-
-
-      <!-- GROUP 3 -->
-
-      <div class="marquee-group">
-
-        <span>
-          BE YOUR COLOR
-        </span>
-
-        <i>✦</i>
-
-        <span>
-          VIRTUAL LIVER
-        </span>
-
-        <i>✦</i>
-
-        <span>
-          REAL LIVER
-        </span>
-
-        <i>♪</i>
-
-        <span>
-          IRIAM
-        </span>
-
-        <i>★</i>
-
-        <span>
-          TIKTOK LIVE
-        </span>
-
-        <i>✦</i>
-
-        <span>
-          MIRRATIV
-        </span>
-
-        <i>♫</i>
-
-      </div>
-
 
     </div>
 
@@ -712,9 +593,7 @@
 
           NEWS
 
-          <em>
-            .
-          </em>
+          <em>.</em>
 
         </h2>
 
@@ -733,8 +612,11 @@
         href="#news"
         class="circle-link"
       >
+
         VIEW ALL
-        <span>↗</span>
+
+        <span class="css-arrow-icon"></span>
+
       </a>
 
     </div>
@@ -787,9 +669,7 @@
 
           CREATOR
 
-          <em>
-            .
-          </em>
+          <em>.</em>
 
         </h2>
 
@@ -808,8 +688,11 @@
         href="#talents"
         class="circle-link light-circle-link"
       >
+
         VIEW ALL
-        <span>↗</span>
+
+        <span class="css-arrow-icon"></span>
+
       </a>
 
     </div>
@@ -853,9 +736,7 @@
 
           EVENT
 
-          <em>
-            .
-          </em>
+          <em>.</em>
 
         </h2>
 
@@ -874,8 +755,11 @@
         href="#events"
         class="circle-link"
       >
+
         VIEW ALL
-        <span>↗</span>
+
+        <span class="css-arrow-icon"></span>
+
       </a>
 
     </div>
@@ -919,9 +803,7 @@
 
           INTERVIEW
 
-          <em>
-            .
-          </em>
+          <em>.</em>
 
         </h2>
 
@@ -940,8 +822,11 @@
         href="#interviews"
         class="circle-link"
       >
+
         VIEW ALL
-        <span>↗</span>
+
+        <span class="css-arrow-icon"></span>
+
       </a>
 
     </div>
@@ -1007,8 +892,11 @@
         href="#about"
         class="text-link"
       >
+
         MORE ABOUT US
-        <span>→</span>
+
+        <span class="arrow-right-icon"></span>
+
       </a>
 
     </div>
@@ -1016,7 +904,6 @@
 
 
     <div class="about-bento reveal reveal-delay">
-
 
       <article class="about-bento-card about-orange">
 
@@ -1065,9 +952,7 @@
           TOGETHER.
         </strong>
 
-        <span>
-          ↗
-        </span>
+        <span class="css-arrow-icon"></span>
 
       </article>
 
@@ -1131,8 +1016,10 @@
         </h3>
 
         <p>
+
           キャラクターとして、
           リスナーとのコミュニケーションを楽しみたい方へ。
+
         </p>
 
       </article>
@@ -1149,8 +1036,10 @@
         </h3>
 
         <p>
+
           ゲーム・雑談を中心に、
           スマートフォンから気軽に配信したい方へ。
+
         </p>
 
       </article>
@@ -1167,8 +1056,10 @@
         </h3>
 
         <p>
+
           ライブ配信や動画を通して、
           より幅広く自分を発信したい方へ。
+
         </p>
 
       </article>
@@ -1251,15 +1142,17 @@
           </h3>
 
           <p>
+
             キャラクターを通して
             自分らしく活動したい方へ。
+
           </p>
 
         </div>
 
 
         <span class="recruit-card-arrow">
-          ↗
+          <span class="css-arrow-icon"></span>
         </span>
 
       </a>
@@ -1292,15 +1185,17 @@
           </h3>
 
           <p>
+
             自分自身の魅力や個性を
             ライブ配信で届けたい方へ。
+
           </p>
 
         </div>
 
 
         <span class="recruit-card-arrow">
-          ↗
+          <span class="css-arrow-icon"></span>
         </span>
 
       </a>
@@ -1340,9 +1235,7 @@
 
           NOTE
 
-          <em>
-            .
-          </em>
+          <em>.</em>
 
         </h2>
 
@@ -1362,8 +1255,11 @@
         class="circle-link external-link"
         data-link="note"
       >
+
         NOTE
-        <span>↗</span>
+
+        <span class="css-arrow-icon"></span>
+
       </a>
 
     </div>
@@ -1453,9 +1349,7 @@
 
           MORE SCHRITT
 
-          <em>
-            .
-          </em>
+          <em>.</em>
 
         </h2>
 
@@ -1486,7 +1380,7 @@
         </p>
 
         <strong>
-          ↗
+          <span class="css-arrow-icon"></span>
         </strong>
 
       </a>
@@ -1511,7 +1405,7 @@
         </p>
 
         <strong>
-          ↗
+          <span class="css-arrow-icon"></span>
         </strong>
 
       </a>
@@ -1536,7 +1430,7 @@
         </p>
 
         <strong>
-          ↗
+          <span class="css-arrow-icon"></span>
         </strong>
 
       </a>
@@ -1561,7 +1455,7 @@
         </p>
 
         <strong>
-          ↗
+          <span class="css-arrow-icon"></span>
         </strong>
 
       </a>
@@ -1618,8 +1512,11 @@
       class="line-cta-button external-link"
       data-link="line"
     >
+
       公式LINEで相談
-      <span>↗</span>
+
+      <span class="css-arrow-icon"></span>
+
     </a>
 
   </div>
@@ -1956,7 +1853,6 @@
 
       <div class="recruit-grid">
 
-
         <a
           href="#recruit-virtual"
           class="recruit-card virtual-recruit-card"
@@ -1985,7 +1881,7 @@
           </div>
 
           <span class="recruit-card-arrow">
-            ↗
+            <span class="css-arrow-icon"></span>
           </span>
 
         </a>
@@ -2019,7 +1915,7 @@
           </div>
 
           <span class="recruit-card-arrow">
-            ↗
+            <span class="css-arrow-icon"></span>
           </span>
 
         </a>
@@ -2086,8 +1982,11 @@
           class="button orange-button external-link"
           data-link="line"
         >
+
           LINEで相談
-          <span>↗</span>
+
+          <span class="css-arrow-icon"></span>
+
         </a>
 
       </aside>
@@ -2153,7 +2052,7 @@
             </div>
 
             <div>
-              ↗ 活動方針相談
+              配信方針相談
             </div>
 
           </div>
@@ -2255,8 +2154,10 @@
         </h2>
 
         <p>
+
           雑談・ゲーム・美容・歌など、
           自分らしいジャンルで活動できます。
+
         </p>
 
         <a
@@ -2264,8 +2165,11 @@
           class="button orange-button external-link"
           data-link="line"
         >
+
           LINEで相談
-          <span>↗</span>
+
+          <span class="css-arrow-icon"></span>
+
         </a>
 
       </aside>
@@ -2508,31 +2412,17 @@
 <footer class="site-footer">
 
 
-  <!-- FOOTER SEAMLESS MARQUEE -->
+  <!-- FOOTER MARQUEE -->
 
   <div
-    class="footer-marquee"
+    class="auto-marquee footer-marquee"
+    data-marquee-speed="36"
     aria-hidden="true"
   >
 
-    <div class="footer-marquee-track">
+    <div class="auto-marquee-track">
 
-
-      <div class="footer-marquee-group">
-
-        <span>SCHRITT PRODUCTION</span>
-        <i>✦</i>
-
-        <span>BE YOUR COLOR</span>
-        <i>♪</i>
-
-        <span>GO LIVE!</span>
-        <i>★</i>
-
-      </div>
-
-
-      <div class="footer-marquee-group">
+      <div class="auto-marquee-source">
 
         <span>SCHRITT PRODUCTION</span>
         <i>✦</i>
@@ -2543,22 +2433,22 @@
         <span>GO LIVE!</span>
         <i>★</i>
 
-      </div>
-
-
-      <div class="footer-marquee-group">
-
-        <span>SCHRITT PRODUCTION</span>
+        <span>VIRTUAL LIVER</span>
         <i>✦</i>
 
-        <span>BE YOUR COLOR</span>
+        <span>REAL LIVER</span>
         <i>♪</i>
 
-        <span>GO LIVE!</span>
+        <span>IRIAM</span>
         <i>★</i>
 
-      </div>
+        <span>TIKTOK LIVE</span>
+        <i>✦</i>
 
+        <span>MIRRATIV</span>
+        <i>♫</i>
+
+      </div>
 
     </div>
 
