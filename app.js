@@ -49,16 +49,18 @@ function formatDateParts(date) {
 
 
 /* ============================================================
-   ICONS
+   LINK SYMBOL
 ============================================================ */
 
 function arrowIcon() {
 
   return `
     <span
-      class="css-arrow-icon"
+      class="link-symbol"
       aria-hidden="true"
-    ></span>
+    >
+      ✦
+    </span>
   `;
 
 }
@@ -561,7 +563,7 @@ function createEventCard(event) {
 
           <a
             href="${event.url}"
-            class="inline-arrow-link"
+            class="inline-symbol-link"
           >
             MORE
 
@@ -662,7 +664,7 @@ function createInterviewCard(interview) {
           ${interview.title}
         </p>
 
-        <strong class="inline-arrow-link">
+        <strong class="inline-symbol-link">
 
           READ INTERVIEW
 
@@ -715,7 +717,7 @@ function createJournalCard(article) {
         ${article.description}
       </p>
 
-      <strong class="inline-arrow-link">
+      <strong class="inline-symbol-link">
 
         READ NOTE
 
@@ -1448,7 +1450,7 @@ function openTalentModal(id) {
             href="${url}"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-arrow-link"
+            class="inline-symbol-link"
           >
 
             ${name}
@@ -2533,13 +2535,6 @@ function setupAutoMarquees() {
       }
 
 
-      /*
-        1レーンを画面幅の2倍以上にします。
-
-        これにより、右側が空白になる前に
-        必ず次の文字列が続きます。
-      */
-
       const repeatCount =
         Math.max(
           3,
@@ -2658,11 +2653,6 @@ function setupAutoMarquees() {
     build();
 
 
-    /*
-      Webフォント読み込み後にも再構築
-      → 幅ズレ防止
-    */
-
     if(
       document.fonts &&
       document.fonts.ready
@@ -2674,10 +2664,6 @@ function setupAutoMarquees() {
 
     }
 
-
-    /*
-      横画面・縦画面切り替えにも対応
-    */
 
     window.addEventListener(
       "resize",
