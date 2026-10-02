@@ -1,8 +1,6 @@
 /* ============================================================
    SCHRITT PRODUCTION
    APPLICATION
-
-   ★ 基本的に変更不要
 ============================================================ */
 
 
@@ -45,6 +43,23 @@ function formatDateParts(date) {
       parts[2] || ""
 
   };
+
+}
+
+
+
+/* ============================================================
+   ICONS
+============================================================ */
+
+function arrowIcon() {
+
+  return `
+    <span
+      class="css-arrow-icon"
+      aria-hidden="true"
+    ></span>
+  `;
 
 }
 
@@ -339,9 +354,7 @@ function createTalentCard(talent) {
 
       : `
         <div class="talent-placeholder">
-
           ${talent.name.charAt(0)}
-
         </div>
       `;
 
@@ -418,9 +431,7 @@ function createTalentCard(talent) {
             PROFILE
           </span>
 
-          <span>
-            ↗
-          </span>
+          ${arrowIcon()}
 
         </div>
 
@@ -550,8 +561,11 @@ function createEventCard(event) {
 
           <a
             href="${event.url}"
+            class="inline-arrow-link"
           >
-            MORE ↗
+            MORE
+
+            ${arrowIcon()}
           </a>
 
         </div>
@@ -648,8 +662,12 @@ function createInterviewCard(interview) {
           ${interview.title}
         </p>
 
-        <strong>
-          READ INTERVIEW ↗
+        <strong class="inline-arrow-link">
+
+          READ INTERVIEW
+
+          ${arrowIcon()}
+
         </strong>
 
       </div>
@@ -697,8 +715,12 @@ function createJournalCard(article) {
         ${article.description}
       </p>
 
-      <strong>
-        READ NOTE ↗
+      <strong class="inline-arrow-link">
+
+        READ NOTE
+
+        ${arrowIcon()}
+
       </strong>
 
     </a>
@@ -1336,7 +1358,11 @@ function openTalentModal(id) {
     );
 
 
-  if(!modal || !visual || !initial) {
+  if(
+    !modal ||
+    !visual ||
+    !initial
+  ) {
     return;
   }
 
@@ -1422,8 +1448,13 @@ function openTalentModal(id) {
             href="${url}"
             target="_blank"
             rel="noopener noreferrer"
+            class="inline-arrow-link"
           >
-            ${name} ↗
+
+            ${name}
+
+            ${arrowIcon()}
+
           </a>
         `
       )
@@ -1542,7 +1573,10 @@ function openInterviewModal(id) {
     );
 
 
-  if(!content || !modal) {
+  if(
+    !content ||
+    !modal
+  ) {
     return;
   }
 
@@ -2296,7 +2330,7 @@ function observeReveal() {
 
 
 /* ============================================================
-   MODAL
+   MODALS
 ============================================================ */
 
 function closeModals() {
@@ -2402,6 +2436,274 @@ function setupModalEvents() {
 
 
 /* ============================================================
+   AUTO INFINITE MARQUEE
+============================================================ */
+
+function setupAutoMarquees() {
+
+  const marquees =
+    document.querySelectorAll(
+      ".auto-marquee"
+    );
+
+
+  marquees.forEach(marquee => {
+
+    const track =
+      marquee.querySelector(
+        ".auto-marquee-track"
+      );
+
+
+    const source =
+      marquee.querySelector(
+        ".auto-marquee-source"
+      );
+
+
+    if(
+      !track ||
+      !source
+    ) {
+      return;
+    }
+
+
+    const sourceHTML =
+      source.innerHTML;
+
+
+    let resizeTimer =
+      null;
+
+
+    function build() {
+
+      if(
+        track._marqueeAnimation
+      ) {
+
+        track
+          ._marqueeAnimation
+          .cancel();
+
+      }
+
+
+      track.innerHTML =
+        "";
+
+
+      const sample =
+        document.createElement(
+          "div"
+        );
+
+
+      sample.className =
+        "auto-marquee-unit";
+
+
+      sample.innerHTML =
+        sourceHTML;
+
+
+      track.appendChild(
+        sample
+      );
+
+
+      const unitWidth =
+        sample
+          .getBoundingClientRect()
+          .width;
+
+
+      const containerWidth =
+        marquee
+          .getBoundingClientRect()
+          .width;
+
+
+      if(
+        unitWidth <= 0 ||
+        containerWidth <= 0
+      ) {
+        return;
+      }
+
+
+      /*
+        1レーンを画面幅の2倍以上にします。
+
+        これにより、右側が空白になる前に
+        必ず次の文字列が続きます。
+      */
+
+      const repeatCount =
+        Math.max(
+          3,
+
+          Math.ceil(
+            containerWidth * 2 /
+            unitWidth
+          ) + 2
+        );
+
+
+      const lane1 =
+        document.createElement(
+          "div"
+        );
+
+
+      lane1.className =
+        "auto-marquee-lane";
+
+
+      for(
+        let i = 0;
+        i < repeatCount;
+        i++
+      ) {
+
+        const clone =
+          sample.cloneNode(
+            true
+          );
+
+
+        lane1.appendChild(
+          clone
+        );
+
+      }
+
+
+      const lane2 =
+        lane1.cloneNode(
+          true
+        );
+
+
+      lane2.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+
+      track.innerHTML =
+        "";
+
+
+      track.appendChild(
+        lane1
+      );
+
+
+      track.appendChild(
+        lane2
+      );
+
+
+      const laneWidth =
+        lane1
+          .getBoundingClientRect()
+          .width;
+
+
+      const speed =
+        Number(
+          marquee.dataset.marqueeSpeed
+        ) || 40;
+
+
+      const duration =
+        laneWidth /
+        speed *
+        1000;
+
+
+      track._marqueeAnimation =
+        track.animate(
+
+          [
+            {
+              transform:
+                "translate3d(0,0,0)"
+            },
+
+            {
+              transform:
+                `translate3d(-${laneWidth}px,0,0)`
+            }
+          ],
+
+          {
+            duration:
+              duration,
+
+            iterations:
+              Infinity,
+
+            easing:
+              "linear"
+          }
+
+        );
+
+    }
+
+
+    build();
+
+
+    /*
+      Webフォント読み込み後にも再構築
+      → 幅ズレ防止
+    */
+
+    if(
+      document.fonts &&
+      document.fonts.ready
+    ) {
+
+      document.fonts.ready.then(
+        build
+      );
+
+    }
+
+
+    /*
+      横画面・縦画面切り替えにも対応
+    */
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        clearTimeout(
+          resizeTimer
+        );
+
+
+        resizeTimer =
+          setTimeout(
+            build,
+            180
+          );
+
+      }
+    );
+
+  });
+
+}
+
+
+
+/* ============================================================
    INITIALIZE
 ============================================================ */
 
@@ -2420,6 +2722,8 @@ function initializeSite() {
   setupHeader();
 
   setupModalEvents();
+
+  setupAutoMarquees();
 
   showRoute(
     getRoute()
