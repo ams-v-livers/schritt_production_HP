@@ -1,41 +1,52 @@
 /* =========================================================
    SCHRITT PRODUCTION
-   STYLE.CSS
+   style.css
+   FULL CLEAN VERSION
 ========================================================= */
 
 
 /* =========================================================
-   DESIGN SYSTEM
+   DESIGN TOKENS
 ========================================================= */
 
 :root {
-  --orange: #ff9300;
+  --orange: #ff9500;
   --orange-deep: #ff7900;
-  --orange-light: #ffb64d;
-  --orange-pale: #fff0dc;
+  --orange-light: #ffb34d;
+  --orange-soft: #ffe3bd;
 
-  --yellow: #ffe343;
-  --yellow-light: #fff3a3;
+  --yellow: #ffe342;
+  --yellow-soft: #fff3a1;
 
   --navy: #173f87;
-  --navy-dark: #102e67;
-  --blue: #3976c5;
+  --navy-dark: #102f69;
+  --blue: #3975c3;
+  --blue-light: #6ca0dd;
 
-  --cream: #fffaf0;
-  --cream-deep: #fff1dc;
+  --cream: #fffaf1;
+  --cream-2: #fff2df;
+  --cream-3: #fcebd2;
 
   --white: #ffffff;
 
   --text: #302923;
-  --sub: #706861;
-  --muted: #9a9189;
+  --sub: #6d655e;
+  --muted: #8d857d;
 
-  --line: rgba(255, 132, 0, 0.16);
+  --line: rgba(255, 133, 0, 0.18);
+  --line-blue: rgba(23, 63, 135, 0.15);
+
+  --shadow-small:
+    0 12px 30px rgba(70, 43, 18, 0.08);
 
   --shadow:
-    0 25px 70px rgba(105, 61, 17, 0.13);
+    0 24px 65px rgba(70, 43, 18, 0.13);
+
+  --shadow-blue:
+    0 24px 65px rgba(15, 45, 95, 0.18);
 
   --container: 1240px;
+  --header-height: 82px;
 }
 
 
@@ -56,6 +67,8 @@ html {
 body {
   margin: 0;
 
+  overflow-x: hidden;
+
   color: var(--text);
   background: var(--cream);
 
@@ -69,7 +82,8 @@ body {
   font-size: 16px;
   line-height: 1.8;
 
-  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body.modal-open {
@@ -94,14 +108,24 @@ button {
 
 img {
   display: block;
+
   max-width: 100%;
 }
 
-ul {
+ul,
+ol {
   margin: 0;
   padding: 0;
 
   list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  overflow-wrap: break-word;
 }
 
 p {
@@ -109,20 +133,21 @@ p {
 }
 
 ::selection {
-  color: #fff;
+  color: white;
   background: var(--orange);
 }
 
 
 /* =========================================================
-   COMMON
+   BASE
 ========================================================= */
 
 .container {
-  width: min(
-    calc(100% - 48px),
-    var(--container)
-  );
+  width:
+    min(
+      calc(100% - 48px),
+      var(--container)
+    );
 
   margin-inline: auto;
 }
@@ -130,7 +155,7 @@ p {
 .section {
   position: relative;
 
-  padding: 110px 0;
+  padding: 105px 0;
 }
 
 .page-view {
@@ -162,11 +187,11 @@ p {
 
 
 /* =========================================================
-   SECTION HEADING
+   TYPOGRAPHY
 ========================================================= */
 
 .section-heading {
-  margin-bottom: 48px;
+  margin-bottom: 46px;
 
   display: flex;
 
@@ -189,16 +214,18 @@ p {
     "Montserrat",
     sans-serif;
 
-  font-size: 11px;
+  font-size: 12px;
 
   font-weight: 900;
 
-  letter-spacing: 0.12em;
+  line-height: 1;
+
+  letter-spacing: 0.1em;
 }
 
 .section-label > span {
-  min-width: 32px;
-  height: 32px;
+  min-width: 34px;
+  height: 34px;
 
   padding: 0 8px;
 
@@ -207,19 +234,21 @@ p {
   align-items: center;
   justify-content: center;
 
-  border: 1px solid currentColor;
+  border:
+    1px solid currentColor;
 
-  border-radius: 100px;
+  border-radius: 999px;
 
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .light-label {
-  color: #fff;
+  color: white;
 }
 
 .section-title {
-  margin: 16px 0 18px;
+  margin:
+    17px 0 19px;
 
   font-family:
     "Montserrat",
@@ -227,7 +256,7 @@ p {
 
   font-size:
     clamp(
-      52px,
+      50px,
       6vw,
       82px
     );
@@ -246,7 +275,7 @@ p {
 }
 
 .light-title {
-  color: #fff;
+  color: white;
 }
 
 .light-title em {
@@ -260,13 +289,14 @@ p {
 
   color: var(--sub);
 
-  font-size: 14px;
+  font-size: 15px;
 
   line-height: 1.9;
 }
 
 .light-description {
-  color: rgba(255, 255, 255, 0.76);
+  color:
+    rgba(255, 255, 255, 0.8);
 }
 
 
@@ -286,9 +316,10 @@ p {
 
   font-family:
     "Montserrat",
+    "Noto Sans JP",
     sans-serif;
 
-  font-size: 15px;
+  font-size: 16px;
 
   font-weight: 900;
 
@@ -317,33 +348,35 @@ button:hover .link-symbol {
 
 
 /* =========================================================
-   BUTTONS
+   BUTTON
 ========================================================= */
 
 .button {
   min-height: 56px;
 
-  padding: 0 26px;
+  padding: 0 27px;
 
   display: inline-flex;
 
   align-items: center;
   justify-content: center;
 
-  gap: 13px;
+  gap: 12px;
 
   border: 0;
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     "Noto Sans JP",
     sans-serif;
 
-  font-size: 11px;
+  font-size: 12px;
 
   font-weight: 900;
+
+  line-height: 1;
 
   transition:
     transform 0.2s ease,
@@ -366,16 +399,17 @@ button:hover .link-symbol {
     );
 
   box-shadow:
-    0 16px 36px
-    rgba(255, 120, 0, 0.25);
+    0 15px 36px
+    rgba(255, 120, 0, 0.24);
 }
 
 .white-button {
   color: var(--navy);
 
-  background: #fff;
+  background: white;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 }
 
 .circle-link {
@@ -395,24 +429,23 @@ button:hover .link-symbol {
 
   color: var(--navy);
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 50%;
 
-  background: #fff;
+  background: white;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 
   transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    transform 0.25s ease;
+    0.25s ease;
 }
 
 .circle-link .link-symbol {
@@ -420,16 +453,18 @@ button:hover .link-symbol {
 }
 
 .circle-link:hover {
-  color: #fff;
+  color: white;
 
   background: var(--orange);
 
   transform:
     rotate(5deg);
+
+  box-shadow: var(--shadow-small);
 }
 
 .light-circle-link {
-  color: #fff;
+  color: white;
 
   border-color:
     rgba(255, 255, 255, 0.3);
@@ -456,7 +491,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 11px;
+  font-size: 12px;
 
   font-weight: 900;
 }
@@ -474,7 +509,8 @@ button:hover .link-symbol {
 
   transition:
     opacity 0.7s ease,
-    transform 0.7s cubic-bezier(.2, .8, .2, 1);
+    transform 0.7s
+      cubic-bezier(.2, .8, .2, 1);
 }
 
 .reveal.revealed {
@@ -494,7 +530,7 @@ button:hover .link-symbol {
 ========================================================= */
 
 .site-header {
-  height: 82px;
+  height: var(--header-height);
 
   position: fixed;
 
@@ -509,7 +545,7 @@ button:hover .link-symbol {
   align-items: center;
 
   background:
-    rgba(255, 250, 240, 0.9);
+    rgba(255, 250, 241, 0.92);
 
   backdrop-filter:
     blur(18px);
@@ -518,7 +554,8 @@ button:hover .link-symbol {
     blur(18px);
 
   border-bottom:
-    1px solid rgba(80, 45, 12, 0.06);
+    1px solid
+    rgba(80, 45, 12, 0.06);
 
   transition:
     height 0.25s ease,
@@ -534,12 +571,14 @@ button:hover .link-symbol {
 }
 
 .header-inner {
+  height: 100%;
+
   display: flex;
 
   align-items: center;
   justify-content: space-between;
 
-  gap: 30px;
+  gap: 28px;
 }
 
 .brand {
@@ -549,7 +588,7 @@ button:hover .link-symbol {
 
   flex: 0 0 auto;
 
-  line-height: 1.15;
+  line-height: 1.12;
 }
 
 .brand strong {
@@ -571,11 +610,11 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 7px;
+  font-size: 9px;
 
   font-weight: 700;
 
-  letter-spacing: 0.15em;
+  letter-spacing: 0.13em;
 }
 
 .global-nav {
@@ -583,7 +622,7 @@ button:hover .link-symbol {
 
   align-items: center;
 
-  gap: 22px;
+  gap: 21px;
 }
 
 .global-nav a {
@@ -591,9 +630,11 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
+
+  white-space: nowrap;
 
   transition:
     color 0.2s ease;
@@ -604,7 +645,8 @@ button:hover .link-symbol {
 }
 
 .nav-entry {
-  padding: 12px 19px;
+  padding:
+    12px 18px;
 
   display: inline-flex;
 
@@ -612,11 +654,11 @@ button:hover .link-symbol {
 
   gap: 9px;
 
-  color: #fff !important;
+  color: white !important;
 
   background: var(--navy);
 
-  border-radius: 100px;
+  border-radius: 999px;
 }
 
 .nav-entry:hover {
@@ -642,7 +684,7 @@ button:hover .link-symbol {
 
   border-radius: 14px;
 
-  background: var(--cream-deep);
+  background: var(--cream-2);
 }
 
 .mobile-menu-button span {
@@ -749,7 +791,7 @@ button:hover .link-symbol {
     linear-gradient(
       120deg,
       var(--cream),
-      var(--cream-deep)
+      var(--cream-2)
     );
 }
 
@@ -758,7 +800,7 @@ button:hover .link-symbol {
 
   inset: 0;
 
-  opacity: 0.28;
+  opacity: 0.27;
 
   background-image:
     linear-gradient(
@@ -784,7 +826,8 @@ button:hover .link-symbol {
     skewY(-18deg);
 
   animation:
-    heroBlockFloat 8s ease-in-out infinite;
+    heroBlockFloat
+    8s ease-in-out infinite;
 }
 
 .hero-block-a {
@@ -839,7 +882,8 @@ button:hover .link-symbol {
       transparent 2px
     );
 
-  background-size: 17px 17px;
+  background-size:
+    17px 17px;
 }
 
 .hero-layout {
@@ -852,12 +896,16 @@ button:hover .link-symbol {
   display: grid;
 
   grid-template-columns:
-    minmax(0, 1.08fr)
-    minmax(430px, 0.92fr);
+    minmax(0, 1.05fr)
+    minmax(430px, 0.95fr);
 
   align-items: center;
 
-  gap: 65px;
+  gap: 64px;
+}
+
+.hero-copy {
+  min-width: 0;
 }
 
 .hero-label {
@@ -867,21 +915,23 @@ button:hover .link-symbol {
 
   gap: 8px;
 
-  padding: 8px 14px;
+  padding:
+    9px 14px;
 
   color: var(--navy);
 
-  background: #fff;
+  background: white;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 900;
 }
@@ -891,7 +941,8 @@ button:hover .link-symbol {
 }
 
 .hero-title {
-  margin: 27px 0 25px;
+  margin:
+    27px 0 25px;
 
   font-family:
     "Montserrat",
@@ -916,7 +967,8 @@ button:hover .link-symbol {
 }
 
 .yellow-word {
-  padding: 1px 10px 6px;
+  padding:
+    1px 10px 6px;
 
   display: inline-block;
 
@@ -954,7 +1006,7 @@ button:hover .link-symbol {
 
   color: var(--sub);
 
-  font-size: 14px;
+  font-size: 15px;
 
   line-height: 1.9;
 }
@@ -969,6 +1021,12 @@ button:hover .link-symbol {
   gap: 11px;
 }
 
+
+/* =========================================================
+   PLATFORM CHIPS
+   ★ 全プラットフォーム統一
+========================================================= */
+
 .platform-chips {
   margin-top: 30px;
 
@@ -978,7 +1036,7 @@ button:hover .link-symbol {
 
   align-items: center;
 
-  gap: 8px;
+  gap: 9px;
 }
 
 .platform-chips small {
@@ -990,35 +1048,66 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 900;
+
+  letter-spacing: 0.04em;
 }
 
-.platform-chips span {
-  padding: 7px 12px;
+.platform-chips span,
+.platform-chips .blue-chip {
+  min-height: 34px;
 
-  border: 1px solid var(--line);
+  padding:
+    0 14px;
 
-  border-radius: 100px;
+  display: inline-flex;
 
-  background: #fff;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--navy);
+
+  background: white;
+
+  border:
+    1px solid
+    rgba(23, 63, 135, 0.14);
+
+  border-radius: 999px;
+
+  box-shadow:
+    0 6px 18px
+    rgba(62, 45, 29, 0.05);
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 900;
+
+  line-height: 1;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.platform-chips .blue-chip {
-  color: #fff;
+.platform-chips span:hover,
+.platform-chips .blue-chip:hover {
+  color: white;
+
+  background: var(--navy);
 
   border-color: var(--navy);
 
-  background: var(--navy);
+  transform:
+    translateY(-2px);
 }
 
 
@@ -1033,7 +1122,7 @@ button:hover .link-symbol {
 }
 
 .hero-pickup-blob {
-  width: 455px;
+  width: min(455px, 88%);
   height: 490px;
 
   position: absolute;
@@ -1123,7 +1212,8 @@ button:hover .link-symbol {
 
   z-index: 8;
 
-  padding: 9px 14px;
+  padding:
+    10px 15px;
 
   display: flex;
 
@@ -1133,21 +1223,20 @@ button:hover .link-symbol {
 
   color: var(--navy);
 
-  background: #fff;
+  background: white;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
-  border-radius: 100px;
+  border-radius: 999px;
 
-  box-shadow:
-    0 14px 35px
-    rgba(80, 45, 12, 0.11);
+  box-shadow: var(--shadow-small);
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 900;
 }
@@ -1155,7 +1244,7 @@ button:hover .link-symbol {
 .hero-pickup-label > span:first-child {
   color: var(--orange);
 
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .hero-pickup-image-wrap {
@@ -1213,7 +1302,7 @@ button:hover .link-symbol {
 
   place-items: center;
 
-  color: #fff;
+  color: white;
 
   border:
     1px solid
@@ -1231,9 +1320,9 @@ button:hover .link-symbol {
 }
 
 .hero-pickup-info {
-  min-width: 265px;
+  min-width: 270px;
 
-  padding: 20px;
+  padding: 21px;
 
   position: absolute;
 
@@ -1249,7 +1338,7 @@ button:hover .link-symbol {
   border-radius: 24px;
 
   background:
-    rgba(255, 255, 255, 0.95);
+    rgba(255, 255, 255, 0.96);
 
   backdrop-filter:
     blur(16px);
@@ -1274,31 +1363,33 @@ button:hover .link-symbol {
 }
 
 .hero-pickup-platforms span {
-  padding: 5px 9px;
+  padding:
+    6px 10px;
 
-  color: #fff;
+  color: white;
 
   background: var(--navy);
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 8px;
+  font-size: 10px;
 
   font-weight: 900;
 }
 
 .hero-pickup-info h2 {
-  margin: 13px 0 0;
+  margin:
+    13px 0 0;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 35px;
+  font-size: 36px;
 
   font-weight: 900;
 
@@ -1306,17 +1397,17 @@ button:hover .link-symbol {
 }
 
 .hero-pickup-reading {
-  margin-top: 6px;
+  margin-top: 7px;
 
   display: block;
 
   color: var(--muted);
 
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .hero-pickup-actions {
-  margin-top: 16px;
+  margin-top: 17px;
 
   display: flex;
 
@@ -1327,9 +1418,10 @@ button:hover .link-symbol {
 
 .hero-pickup-profile,
 .hero-pickup-live {
-  min-height: 38px;
+  min-height: 40px;
 
-  padding: 0 13px;
+  padding:
+    0 14px;
 
   display: inline-flex;
 
@@ -1338,17 +1430,17 @@ button:hover .link-symbol {
 
   gap: 7px;
 
-  color: #fff;
+  color: white;
 
   border: 0;
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
@@ -1393,7 +1485,7 @@ button:hover .link-symbol {
   right: 8px;
   top: 43%;
 
-  color: #fff;
+  color: white;
 
   font-size: 24px;
 
@@ -1450,7 +1542,7 @@ button:hover .link-symbol {
 .hero-marquee {
   margin-top: 38px;
 
-  padding: 14px 0;
+  padding: 15px 0;
 
   transform:
     rotate(-1deg)
@@ -1460,7 +1552,7 @@ button:hover .link-symbol {
 }
 
 .footer-marquee {
-  padding: 13px 0;
+  padding: 14px 0;
 }
 
 .auto-marquee-track {
@@ -1471,6 +1563,9 @@ button:hover .link-symbol {
   align-items: center;
 
   flex-wrap: nowrap;
+
+  transform:
+    translate3d(0, 0, 0);
 
   will-change: transform;
 }
@@ -1485,7 +1580,8 @@ button:hover .link-symbol {
 
   gap: 25px;
 
-  padding: 0 25px;
+  padding:
+    0 25px;
 
   white-space: nowrap;
 }
@@ -1508,7 +1604,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 
@@ -1523,7 +1619,7 @@ button:hover .link-symbol {
 
   color: var(--orange-deep);
 
-  font-size: 15px;
+  font-size: 16px;
 
   font-style: normal;
 
@@ -1590,11 +1686,12 @@ button:hover .link-symbol {
 
   flex-direction: column;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 27px;
 
-  background: #fff;
+  background: white;
 
   transition:
     transform 0.25s ease,
@@ -1625,30 +1722,31 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .news-meta strong {
-  padding: 5px 9px;
+  padding:
+    5px 9px;
 
   color: var(--orange-deep);
 
-  background: var(--cream-deep);
+  background: var(--cream-2);
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .news-card h3 {
   margin:
     auto 0 24px;
 
-  font-size: 17px;
+  font-size: 18px;
 
   line-height: 1.7;
 }
@@ -1660,7 +1758,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
@@ -1673,7 +1771,7 @@ button:hover .link-symbol {
 .creator-section {
   overflow: hidden;
 
-  color: #fff;
+  color: white;
 
   background:
     linear-gradient(
@@ -1689,6 +1787,8 @@ button:hover .link-symbol {
 
   color:
     rgba(255, 226, 67, 0.1);
+
+  pointer-events: none;
 
   font-weight: 900;
 }
@@ -1720,18 +1820,21 @@ button:hover .link-symbol {
 }
 
 .talent-card {
+  min-width: 0;
+
   overflow: hidden;
 
   color: var(--text);
 
-  background: #fff;
+  background: white;
 
   border-radius: 27px;
 
   cursor: pointer;
 
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.05);
+    0 10px 30px
+    rgba(0, 0, 0, 0.05);
 
   transition:
     transform 0.25s ease,
@@ -1744,8 +1847,7 @@ button:hover .link-symbol {
     rotate(0.5deg);
 
   box-shadow:
-    0 25px 60px
-    rgba(8, 25, 55, 0.24);
+    var(--shadow-blue);
 }
 
 .talent-visual {
@@ -1775,7 +1877,7 @@ button:hover .link-symbol {
 
   place-items: center;
 
-  color: #fff;
+  color: white;
 
   background:
     rgba(255, 255, 255, 0.14);
@@ -1802,26 +1904,27 @@ button:hover .link-symbol {
   top: 15px;
   left: 15px;
 
-  padding: 7px 10px;
+  padding:
+    7px 11px;
 
   color: var(--navy);
 
   background:
     rgba(255, 255, 255, 0.95);
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
 
 .talent-body {
-  padding: 21px;
+  padding: 22px;
 }
 
 .talent-body h3 {
@@ -1831,7 +1934,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 25px;
+  font-size: 26px;
 
   font-weight: 900;
 
@@ -1839,23 +1942,23 @@ button:hover .link-symbol {
 }
 
 .talent-body > small {
-  margin-top: 5px;
+  margin-top: 7px;
 
   display: block;
 
   color: var(--muted);
 
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .talent-body p {
   min-height: 54px;
 
-  margin: 16px 0;
+  margin: 17px 0;
 
   color: var(--sub);
 
-  font-size: 12px;
+  font-size: 14px;
 
   line-height: 1.75;
 }
@@ -1869,27 +1972,28 @@ button:hover .link-symbol {
 }
 
 .talent-platform {
-  padding: 5px 9px;
+  padding:
+    6px 10px;
 
   color: var(--navy);
 
   background: #f2f5ff;
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
 
 .talent-footer {
-  margin-top: 18px;
+  margin-top: 19px;
 
-  padding-top: 14px;
+  padding-top: 15px;
 
   display: flex;
 
@@ -1905,7 +2009,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 900;
 }
@@ -1936,13 +2040,16 @@ button:hover .link-symbol {
 }
 
 .event-card {
+  min-width: 0;
+
   overflow: hidden;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 27px;
 
-  background: #fff;
+  background: white;
 
   transition:
     transform 0.25s ease,
@@ -2019,7 +2126,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
@@ -2041,17 +2148,18 @@ button:hover .link-symbol {
 }
 
 .event-meta span {
-  padding: 5px 8px;
+  padding:
+    5px 9px;
 
-  border-radius: 100px;
+  border-radius: 999px;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
 
 .event-platform {
-  color: #fff;
+  color: white;
 
   background: var(--navy);
 }
@@ -2059,13 +2167,14 @@ button:hover .link-symbol {
 .event-status {
   color: var(--orange-deep);
 
-  background: var(--cream-deep);
+  background: var(--cream-2);
 }
 
 .event-info h3 {
-  margin: 17px 0 9px;
+  margin:
+    17px 0 9px;
 
-  font-size: 17px;
+  font-size: 18px;
 
   line-height: 1.5;
 }
@@ -2073,7 +2182,7 @@ button:hover .link-symbol {
 .event-info p {
   color: var(--sub);
 
-  font-size: 12px;
+  font-size: 14px;
 
   line-height: 1.75;
 }
@@ -2087,7 +2196,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 900;
 }
@@ -2098,7 +2207,7 @@ button:hover .link-symbol {
 ========================================================= */
 
 .interview-section {
-  background: #fff;
+  background: white;
 }
 
 .interview-grid {
@@ -2114,9 +2223,12 @@ button:hover .link-symbol {
 }
 
 .interview-card {
+  min-width: 0;
+
   overflow: hidden;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 27px;
 
@@ -2163,7 +2275,7 @@ button:hover .link-symbol {
 
   place-items: center;
 
-  color: #fff;
+  color: white;
 
   background:
     rgba(255, 255, 255, 0.15);
@@ -2189,19 +2301,20 @@ button:hover .link-symbol {
   left: 15px;
   top: 15px;
 
-  padding: 7px 10px;
+  padding:
+    7px 11px;
 
   color: var(--navy);
 
-  background: #fff;
+  background: white;
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
@@ -2217,19 +2330,20 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
 
 .interview-body h3 {
-  margin: 10px 0;
+  margin:
+    10px 0;
 
   font-family:
     "M PLUS Rounded 1c",
     sans-serif;
 
-  font-size: 20px;
+  font-size: 21px;
 
   line-height: 1.5;
 }
@@ -2237,7 +2351,7 @@ button:hover .link-symbol {
 .interview-body p {
   color: var(--sub);
 
-  font-size: 12px;
+  font-size: 14px;
 
   line-height: 1.75;
 }
@@ -2249,12 +2363,12 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 }
 
 
 /* =========================================================
-   ABOUT
+   ABOUT PREVIEW
 ========================================================= */
 
 .about-preview-section {
@@ -2262,7 +2376,7 @@ button:hover .link-symbol {
     linear-gradient(
       180deg,
       var(--cream),
-      var(--cream-deep)
+      var(--cream-2)
     );
 }
 
@@ -2278,7 +2392,8 @@ button:hover .link-symbol {
 }
 
 .about-preview-copy h2 {
-  margin: 20px 0;
+  margin:
+    20px 0;
 
   font-family:
     "M PLUS Rounded 1c",
@@ -2305,7 +2420,7 @@ button:hover .link-symbol {
 .about-preview-copy p {
   color: var(--sub);
 
-  font-size: 14px;
+  font-size: 15px;
 
   line-height: 1.9;
 }
@@ -2342,7 +2457,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
@@ -2376,7 +2491,7 @@ button:hover .link-symbol {
 }
 
 .about-orange {
-  color: #fff;
+  color: white;
 
   background:
     linear-gradient(
@@ -2395,7 +2510,7 @@ button:hover .link-symbol {
 .about-blue {
   grid-column: 1 / -1;
 
-  color: #fff;
+  color: white;
 
   background:
     linear-gradient(
@@ -2407,11 +2522,11 @@ button:hover .link-symbol {
 
 
 /* =========================================================
-   PLATFORM
+   PLATFORM CARDS
 ========================================================= */
 
 .platform-section {
-  background: #fff;
+  background: white;
 }
 
 .platform-grid {
@@ -2439,7 +2554,7 @@ button:hover .link-symbol {
 
   flex-direction: column;
 
-  color: #fff;
+  color: white;
 
   border-radius: 29px;
 
@@ -2502,13 +2617,14 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
 
 .platform-card h3 {
-  margin: auto 0 18px;
+  margin:
+    auto 0 18px;
 
   position: relative;
 
@@ -2539,19 +2655,19 @@ button:hover .link-symbol {
 
   margin-bottom: 0;
 
-  font-size: 13px;
+  font-size: 14px;
 
   line-height: 1.8;
 
-  opacity: 0.84;
+  opacity: 0.9;
 }
 
 .platform-iriam {
   background:
     linear-gradient(
       145deg,
-      #816aef,
-      #5941c9
+      #826aef,
+      #5941c8
     );
 }
 
@@ -2559,7 +2675,7 @@ button:hover .link-symbol {
   background:
     linear-gradient(
       145deg,
-      #50bce8,
+      #50bbe7,
       #287fb5
     );
 }
@@ -2575,7 +2691,7 @@ button:hover .link-symbol {
 
 
 /* =========================================================
-   RECRUIT
+   RECRUIT PREVIEW
 ========================================================= */
 
 .recruit-preview-section {
@@ -2591,7 +2707,7 @@ button:hover .link-symbol {
 .recruit-main-heading > small {
   display: block;
 
-  margin-bottom: 13px;
+  margin-bottom: 14px;
 
   color: var(--navy);
 
@@ -2599,15 +2715,20 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
+
+  line-height: 1;
 
   letter-spacing: 0.08em;
 }
 
 .recruit-main-heading h2 {
-  margin: 0 0 20px;
+  margin:
+    0 0 20px;
+
+  max-width: 920px;
 
   font-family:
     "Montserrat",
@@ -2636,7 +2757,7 @@ button:hover .link-symbol {
 
   color: var(--sub);
 
-  font-size: 14px;
+  font-size: 15px;
 
   line-height: 1.8;
 }
@@ -2668,7 +2789,7 @@ button:hover .link-symbol {
 
   justify-content: flex-end;
 
-  color: #fff;
+  color: white;
 
   border-radius: 32px;
 
@@ -2735,8 +2856,8 @@ button:hover .link-symbol {
   background:
     linear-gradient(
       145deg,
-      #ff7900 0%,
-      #ffad40 100%
+      #ff7900,
+      #ffad40
     );
 }
 
@@ -2744,8 +2865,8 @@ button:hover .link-symbol {
   background:
     linear-gradient(
       145deg,
-      var(--navy) 0%,
-      var(--blue) 100%
+      var(--navy),
+      var(--blue)
     );
 }
 
@@ -2761,7 +2882,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 
@@ -2775,7 +2896,7 @@ button:hover .link-symbol {
   top: 28px;
 
   color:
-    rgba(255, 255, 255, 0.35);
+    rgba(255, 255, 255, 0.45);
 
   font-size: 30px;
 
@@ -2789,13 +2910,14 @@ button:hover .link-symbol {
 }
 
 .recruit-card > div small {
-  font-size: 12px;
+  font-size: 13px;
 
   font-weight: 700;
 }
 
 .recruit-card > div h3 {
-  margin: 13px 0 20px;
+  margin:
+    13px 0 20px;
 
   font-family:
     "Montserrat",
@@ -2822,11 +2944,11 @@ button:hover .link-symbol {
 
   padding-right: 60px;
 
-  font-size: 13px;
+  font-size: 14px;
 
   line-height: 1.8;
 
-  opacity: 0.88;
+  opacity: 0.92;
 }
 
 .recruit-card-arrow {
@@ -2846,7 +2968,7 @@ button:hover .link-symbol {
 
   color: var(--navy);
 
-  background: #fff;
+  background: white;
 
   border-radius: 50%;
 
@@ -2865,7 +2987,7 @@ button:hover .link-symbol {
 ========================================================= */
 
 .journal-section {
-  background: #fff;
+  background: white;
 }
 
 .journal-grid {
@@ -2889,7 +3011,8 @@ button:hover .link-symbol {
 
   flex-direction: column;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 27px;
 
@@ -2917,19 +3040,20 @@ button:hover .link-symbol {
 }
 
 .journal-card > div span {
-  padding: 5px 9px;
+  padding:
+    5px 9px;
 
   color: var(--navy);
 
   background: var(--yellow);
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
@@ -2941,13 +3065,14 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .journal-card h3 {
-  margin: 38px 0 13px;
+  margin:
+    38px 0 13px;
 
-  font-size: 18px;
+  font-size: 19px;
 
   line-height: 1.6;
 }
@@ -2955,7 +3080,7 @@ button:hover .link-symbol {
 .journal-card p {
   color: var(--sub);
 
-  font-size: 12px;
+  font-size: 14px;
 
   line-height: 1.75;
 }
@@ -2969,7 +3094,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 }
 
 
@@ -2982,7 +3107,7 @@ button:hover .link-symbol {
     linear-gradient(
       180deg,
       var(--cream),
-      var(--cream-deep)
+      var(--cream-2)
     );
 }
 
@@ -3035,11 +3160,12 @@ button:hover .link-symbol {
 .faq-item {
   overflow: hidden;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 22px;
 
-  background: #fff;
+  background: white;
 }
 
 .faq-question {
@@ -3072,13 +3198,13 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
 
 .faq-question strong {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .faq-icon {
@@ -3089,7 +3215,7 @@ button:hover .link-symbol {
 
   place-items: center;
 
-  color: #fff;
+  color: white;
 
   background: var(--navy);
 
@@ -3119,7 +3245,7 @@ button:hover .link-symbol {
 
   color: var(--sub);
 
-  font-size: 13px;
+  font-size: 14px;
 
   line-height: 1.85;
 }
@@ -3130,7 +3256,7 @@ button:hover .link-symbol {
 ========================================================= */
 
 .external-section {
-  background: #fff;
+  background: white;
 }
 
 .external-grid {
@@ -3152,13 +3278,14 @@ button:hover .link-symbol {
 
   position: relative;
 
+  overflow: hidden;
+
   display: flex;
 
   flex-direction: column;
 
-  overflow: hidden;
-
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 25px;
 
@@ -3167,16 +3294,19 @@ button:hover .link-symbol {
   transition:
     transform 0.25s ease,
     background 0.25s ease,
-    color 0.25s ease;
+    color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .external-card:hover {
-  color: #fff;
+  color: white;
 
   background: var(--orange);
 
   transform:
     translateY(-6px);
+
+  box-shadow: var(--shadow);
 }
 
 .external-card > span {
@@ -3186,23 +3316,24 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
 
 .external-card:hover > span {
-  color: #fff;
+  color: white;
 }
 
 .external-card h3 {
-  margin: auto 0 9px;
+  margin:
+    auto 0 9px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 23px;
+  font-size: 24px;
 }
 
 .external-card p {
@@ -3210,14 +3341,14 @@ button:hover .link-symbol {
 
   color: var(--sub);
 
-  font-size: 12px;
+  font-size: 14px;
 
   line-height: 1.7;
 }
 
 .external-card:hover p {
   color:
-    rgba(255, 255, 255, 0.82);
+    rgba(255, 255, 255, 0.85);
 }
 
 .external-card strong {
@@ -3243,7 +3374,7 @@ button:hover .link-symbol {
 
   overflow: hidden;
 
-  color: #fff;
+  color: white;
 
   background:
     linear-gradient(
@@ -3283,7 +3414,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
@@ -3312,11 +3443,11 @@ button:hover .link-symbol {
 
   margin-bottom: 0;
 
-  font-size: 13px;
+  font-size: 14px;
 
   line-height: 1.8;
 
-  opacity: 0.85;
+  opacity: 0.88;
 }
 
 .line-cta-button {
@@ -3336,7 +3467,9 @@ button:hover .link-symbol {
 
   background: var(--yellow);
 
-  border-radius: 100px;
+  border-radius: 999px;
+
+  font-size: 14px;
 
   font-weight: 900;
 
@@ -3352,7 +3485,7 @@ button:hover .link-symbol {
 
 
 /* =========================================================
-   SUB PAGE
+   SUB PAGE HERO
 ========================================================= */
 
 .sub-page-hero {
@@ -3369,7 +3502,7 @@ button:hover .link-symbol {
     linear-gradient(
       145deg,
       var(--cream),
-      var(--cream-deep)
+      var(--cream-2)
     );
 }
 
@@ -3408,7 +3541,8 @@ button:hover .link-symbol {
 }
 
 .sub-page-hero h1 {
-  margin: 18px 0;
+  margin:
+    18px 0;
 
   font-family:
     "Montserrat",
@@ -3435,11 +3569,11 @@ button:hover .link-symbol {
 .sub-page-hero p {
   color: var(--sub);
 
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .orange-sub-page {
-  color: #fff;
+  color: white;
 
   background:
     linear-gradient(
@@ -3450,7 +3584,7 @@ button:hover .link-symbol {
 }
 
 .blue-sub-page {
-  color: #fff;
+  color: white;
 
   background:
     linear-gradient(
@@ -3469,7 +3603,7 @@ button:hover .link-symbol {
 .orange-sub-page p,
 .blue-sub-page p {
   color:
-    rgba(255, 255, 255, 0.8);
+    rgba(255, 255, 255, 0.83);
 }
 
 
@@ -3488,28 +3622,30 @@ button:hover .link-symbol {
 }
 
 .filter-button {
-  padding: 10px 16px;
+  padding:
+    10px 16px;
 
   color: var(--navy);
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
-  border-radius: 100px;
+  border-radius: 999px;
 
-  background: #fff;
+  background: white;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
 
 .filter-button.active,
 .filter-button:hover {
-  color: #fff;
+  color: white;
 
   border-color: var(--orange);
 
@@ -3527,7 +3663,7 @@ button:hover .link-symbol {
   padding:
     150px 0 70px;
 
-  color: #fff;
+  color: white;
 }
 
 .virtual-detail-hero {
@@ -3553,13 +3689,14 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
 
 .recruit-detail-hero h1 {
-  margin: 20px 0;
+  margin:
+    20px 0;
 
   font-family:
     "Montserrat",
@@ -3584,7 +3721,7 @@ button:hover .link-symbol {
 }
 
 .recruit-detail-hero p {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .recruit-detail-layout {
@@ -3628,7 +3765,7 @@ button:hover .link-symbol {
 .recruit-side p {
   color: var(--sub);
 
-  font-size: 14px;
+  font-size: 15px;
 
   line-height: 1.8;
 }
@@ -3642,11 +3779,12 @@ button:hover .link-symbol {
 .detail-card {
   padding: 31px;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 27px;
 
-  background: #fff;
+  background: white;
 }
 
 .detail-number {
@@ -3656,20 +3794,21 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
 
 .detail-card h3 {
-  margin: 10px 0 20px;
+  margin:
+    10px 0 20px;
 
   font-family:
     "Montserrat",
     "Noto Sans JP",
     sans-serif;
 
-  font-size: 24px;
+  font-size: 25px;
 }
 
 .detail-card ul {
@@ -3685,7 +3824,7 @@ button:hover .link-symbol {
 
   color: var(--sub);
 
-  font-size: 13px;
+  font-size: 14px;
 
   line-height: 1.8;
 }
@@ -3721,7 +3860,7 @@ button:hover .link-symbol {
 
   border-radius: 18px;
 
-  font-size: 12px;
+  font-size: 14px;
 
   font-weight: 800;
 }
@@ -3749,7 +3888,8 @@ button:hover .link-symbol {
 
   justify-content: space-between;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 18px;
 
@@ -3757,7 +3897,7 @@ button:hover .link-symbol {
 }
 
 .flow-grid > div.active {
-  color: #fff;
+  color: white;
 
   border-color: var(--orange);
 
@@ -3765,7 +3905,7 @@ button:hover .link-symbol {
 }
 
 .flow-grid small {
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .flow-grid strong {
@@ -3773,11 +3913,11 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .flow-grid span {
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .genre-list {
@@ -3789,19 +3929,20 @@ button:hover .link-symbol {
 }
 
 .genre-list span {
-  padding: 8px 13px;
+  padding:
+    8px 13px;
 
   color: var(--navy);
 
-  background: var(--yellow-light);
+  background: var(--yellow-soft);
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
@@ -3809,7 +3950,7 @@ button:hover .link-symbol {
 .small-note {
   color: var(--sub);
 
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .real-sample-grid {
@@ -3827,7 +3968,8 @@ button:hover .link-symbol {
 .real-sample-card {
   overflow: hidden;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid var(--line);
 
   border-radius: 20px;
 
@@ -3857,7 +3999,7 @@ button:hover .link-symbol {
 
   place-items: center;
 
-  color: #fff;
+  color: white;
 
   background:
     rgba(255, 255, 255, 0.15);
@@ -3884,13 +4026,13 @@ button:hover .link-symbol {
 .real-sample-body strong {
   display: block;
 
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .real-sample-body span {
   color: var(--muted);
 
-  font-size: 10px;
+  font-size: 12px;
 }
 
 
@@ -3920,7 +4062,7 @@ button:hover .link-symbol {
 
   justify-content: space-between;
 
-  color: #fff;
+  color: white;
 
   background:
     linear-gradient(
@@ -3957,7 +4099,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .about-page-copy h2 {
@@ -3984,14 +4126,14 @@ button:hover .link-symbol {
 .about-page-copy p {
   color: var(--sub);
 
-  font-size: 14px;
+  font-size: 15px;
 
   line-height: 1.9;
 }
 
 
 /* =========================================================
-   MODALS
+   MODAL
 ========================================================= */
 
 .modal-overlay {
@@ -4038,7 +4180,7 @@ button:hover .link-symbol {
 
   border-radius: 30px;
 
-  background: #fff;
+  background: white;
 
   box-shadow:
     0 35px 90px
@@ -4066,7 +4208,7 @@ button:hover .link-symbol {
 
   border-radius: 50%;
 
-  background: #fff;
+  background: white;
 
   font-size: 21px;
 }
@@ -4089,7 +4231,7 @@ button:hover .link-symbol {
 }
 
 .modal-initial {
-  color: #fff;
+  color: white;
 
   font-family:
     "Montserrat",
@@ -4111,13 +4253,14 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
 
 .profile-modal-body h2 {
-  margin: 8px 0 0;
+  margin:
+    8px 0 0;
 
   font-family:
     "Montserrat",
@@ -4129,7 +4272,7 @@ button:hover .link-symbol {
 .modal-reading {
   color: var(--muted);
 
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .modal-platforms {
@@ -4143,15 +4286,16 @@ button:hover .link-symbol {
 }
 
 .modal-platforms span {
-  padding: 6px 10px;
+  padding:
+    6px 10px;
 
   color: var(--navy);
 
   background: #f3f6ff;
 
-  border-radius: 100px;
+  border-radius: 999px;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 900;
 }
@@ -4161,7 +4305,7 @@ button:hover .link-symbol {
 
   color: var(--sub);
 
-  font-size: 14px;
+  font-size: 15px;
 
   line-height: 1.85;
 }
@@ -4175,15 +4319,16 @@ button:hover .link-symbol {
 }
 
 .modal-links a {
-  padding: 10px 14px;
+  padding:
+    10px 14px;
 
-  color: #fff;
+  color: white;
 
   background: var(--navy);
 
-  border-radius: 100px;
+  border-radius: 999px;
 
-  font-size: 10px;
+  font-size: 11px;
 
   font-weight: 900;
 }
@@ -4204,13 +4349,14 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 900;
 }
 
 .interview-modal-heading h2 {
-  margin: 10px 0;
+  margin:
+    10px 0;
 
   font-family:
     "Montserrat",
@@ -4229,19 +4375,22 @@ button:hover .link-symbol {
 .interview-question > small {
   color: var(--orange);
 
-  font-family:
-    "Montserrat",
-    sans-serif;
+  font-size: 12px;
 
   font-weight: 900;
 }
 
 .interview-question h3 {
-  margin: 8px 0 15px;
+  margin:
+    8px 0 15px;
+
+  font-size: 19px;
 }
 
 .interview-question p {
   color: var(--sub);
+
+  font-size: 15px;
 
   line-height: 1.85;
 }
@@ -4252,7 +4401,7 @@ button:hover .link-symbol {
 ========================================================= */
 
 .site-footer {
-  color: #fff;
+  color: white;
 
   background:
     linear-gradient(
@@ -4287,22 +4436,22 @@ button:hover .link-symbol {
     "M PLUS Rounded 1c",
     sans-serif;
 
-  font-size: 20px;
+  font-size: 21px;
 
   font-weight: 900;
 }
 
 .footer-brand small {
-  margin-top: 4px;
+  margin-top: 5px;
 
   color:
-    rgba(255, 255, 255, 0.43);
+    rgba(255, 255, 255, 0.48);
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .footer-brand p {
@@ -4311,9 +4460,9 @@ button:hover .link-symbol {
   margin-top: 19px;
 
   color:
-    rgba(255, 255, 255, 0.6);
+    rgba(255, 255, 255, 0.65);
 
-  font-size: 12px;
+  font-size: 13px;
 
   line-height: 1.8;
 }
@@ -4344,19 +4493,19 @@ button:hover .link-symbol {
   margin-bottom: 7px;
 
   color:
-    rgba(255, 255, 255, 0.4);
+    rgba(255, 255, 255, 0.48);
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
 
 .footer-links a {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .footer-bottom {
@@ -4374,13 +4523,13 @@ button:hover .link-symbol {
     rgba(255, 255, 255, 0.08);
 
   color:
-    rgba(255, 255, 255, 0.4);
+    rgba(255, 255, 255, 0.46);
 
   font-family:
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 }
 
 
@@ -4439,7 +4588,8 @@ button:hover .link-symbol {
       transparent 1px
     );
 
-  background-size: 55px 55px;
+  background-size:
+    55px 55px;
 }
 
 .loading-decoration {
@@ -4490,15 +4640,16 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 900;
 
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
 }
 
 .loading-title {
-  margin: 13px 0 9px;
+  margin:
+    13px 0 9px;
 
   font-family:
     "Montserrat",
@@ -4527,7 +4678,7 @@ button:hover .link-symbol {
 
   color: var(--sub);
 
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .connection-list {
@@ -4553,7 +4704,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 11px;
 
   font-weight: 800;
 }
@@ -4561,7 +4712,7 @@ button:hover .link-symbol {
 .connection-row strong {
   color: var(--orange);
 
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .connection-row strong.connected {
@@ -4575,7 +4726,7 @@ button:hover .link-symbol {
 
   overflow: hidden;
 
-  border-radius: 100px;
+  border-radius: 999px;
 
   background:
     rgba(24, 63, 135, 0.1);
@@ -4607,7 +4758,7 @@ button:hover .link-symbol {
     "Montserrat",
     sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
   font-weight: 900;
 }
@@ -4626,6 +4777,8 @@ button:hover .link-symbol {
   font-family:
     "Montserrat",
     sans-serif;
+
+  font-size: 14px;
 
   font-weight: 900;
 
@@ -4674,8 +4827,10 @@ button:hover .link-symbol {
     translate(-50%, -50%);
 
   transition:
-    width 0.68s cubic-bezier(.3, .8, .2, 1),
-    height 0.68s cubic-bezier(.3, .8, .2, 1);
+    width 0.68s
+      cubic-bezier(.3, .8, .2, 1),
+    height 0.68s
+      cubic-bezier(.3, .8, .2, 1);
 }
 
 .tb-1 {
@@ -4696,14 +4851,14 @@ button:hover .link-symbol {
   left: 48%;
   top: 45%;
 
-  background: #fff;
+  background: white;
 }
 
 .tb-4 {
   left: 14%;
   top: 82%;
 
-  background: var(--yellow-light);
+  background: var(--yellow-soft);
 }
 
 .tb-5 {
@@ -4724,11 +4879,13 @@ button:hover .link-symbol {
   left: 50%;
   top: 92%;
 
-  background: #fff;
+  background: white;
 }
 
-.bubble-transition.active .transition-bubble,
-.bubble-transition.loading-finish .transition-bubble {
+.bubble-transition.active
+.transition-bubble,
+.bubble-transition.loading-finish
+.transition-bubble {
   width: 180vmax;
   height: 180vmax;
 }
@@ -4801,7 +4958,7 @@ button:hover .link-symbol {
 
 
 /* =========================================================
-   TABLET / MOBILE NAV
+   TABLET NAV
 ========================================================= */
 
 @media (max-width: 800px) {
@@ -4848,7 +5005,8 @@ button:hover .link-symbol {
 
     gap: 4px;
 
-    border: 1px solid var(--line);
+    border:
+      1px solid var(--line);
 
     border-radius: 24px;
 
@@ -4863,9 +5021,10 @@ button:hover .link-symbol {
   }
 
   .global-nav a {
-    padding: 11px 10px;
+    padding:
+      11px 10px;
 
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .nav-entry {
@@ -4879,7 +5038,8 @@ button:hover .link-symbol {
   }
 
   .section {
-    padding: 82px 0;
+    padding:
+      82px 0;
   }
 
   .section-heading {
@@ -4894,11 +5054,14 @@ button:hover .link-symbol {
     width: auto;
     height: auto;
 
-    padding: 11px 17px;
+    padding:
+      12px 18px;
 
     flex-direction: row;
 
-    border-radius: 100px;
+    border-radius: 999px;
+
+    font-size: 11px;
   }
 
   .platform-grid,
@@ -4942,7 +5105,9 @@ button:hover .link-symbol {
 @media (max-width: 560px) {
 
   body {
-    font-size: 15px;
+    font-size: 16px;
+
+    line-height: 1.8;
   }
 
   .container {
@@ -4959,7 +5124,7 @@ button:hover .link-symbol {
   }
 
   .brand strong {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .mobile-menu-button {
@@ -4971,18 +5136,19 @@ button:hover .link-symbol {
   /* COMMON */
 
   .section {
-    padding: 70px 0;
+    padding:
+      70px 0;
   }
 
   .section-label {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .section-label > span {
     min-width: 34px;
     height: 34px;
 
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .section-title {
@@ -4995,7 +5161,9 @@ button:hover .link-symbol {
   }
 
   .section-description {
-    font-size: 14px;
+    font-size: 15px;
+
+    line-height: 1.85;
   }
 
 
@@ -5019,7 +5187,10 @@ button:hover .link-symbol {
   }
 
   .hero-label {
-    font-size: 9px;
+    padding:
+      9px 13px;
+
+    font-size: 10px;
   }
 
   .hero-japanese {
@@ -5027,7 +5198,9 @@ button:hover .link-symbol {
   }
 
   .hero-description {
-    font-size: 14px;
+    font-size: 15px;
+
+    line-height: 1.85;
   }
 
   .hero-actions {
@@ -5039,23 +5212,48 @@ button:hover .link-symbol {
   }
 
   .button {
-    min-height: 55px;
+    min-height: 56px;
 
     font-size: 12px;
+  }
+
+
+  /* PLATFORM BUTTONS */
+
+  .platform-chips {
+    margin-top: 27px;
+
+    gap: 8px;
   }
 
   .platform-chips small {
     width: 100%;
 
-    font-size: 10px;
+    margin-bottom: 2px;
+
+    font-size: 11px;
   }
 
-  .platform-chips span {
-    font-size: 10px;
+  .platform-chips span,
+  .platform-chips .blue-chip {
+    min-height: 38px;
+
+    padding:
+      0 14px;
+
+    color: var(--navy);
+
+    background: white;
+
+    border:
+      1px solid
+      rgba(23, 63, 135, 0.14);
+
+    font-size: 11px;
   }
 
 
-  /* HERO PICKUP */
+  /* PICKUP */
 
   .hero-pickup {
     min-height: 535px;
@@ -5095,7 +5293,7 @@ button:hover .link-symbol {
     top: 30px;
     left: 0;
 
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .hero-pickup-info {
@@ -5105,27 +5303,30 @@ button:hover .link-symbol {
     right: 15px;
     bottom: 0;
 
-    padding: 17px;
+    padding: 18px;
 
     transform:
       rotate(-1deg);
   }
 
   .hero-pickup-info h2 {
-    font-size: 29px;
+    font-size: 30px;
   }
 
   .hero-pickup-reading {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .hero-pickup-platforms span {
-    font-size: 9px;
+    padding:
+      7px 10px;
+
+    font-size: 10px;
   }
 
   .hero-pickup-profile,
   .hero-pickup-live {
-    min-height: 40px;
+    min-height: 41px;
 
     font-size: 10px;
   }
@@ -5145,11 +5346,13 @@ button:hover .link-symbol {
   .hero-marquee {
     margin-top: 26px;
 
-    padding: 12px 0;
+    padding:
+      13px 0;
   }
 
   .footer-marquee {
-    padding: 11px 0;
+    padding:
+      12px 0;
   }
 
   .auto-marquee-source,
@@ -5162,12 +5365,12 @@ button:hover .link-symbol {
 
   .auto-marquee-source span,
   .auto-marquee-unit span {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .auto-marquee-source i,
   .auto-marquee-unit i {
-    font-size: 14px;
+    font-size: 15px;
   }
 
 
@@ -5188,16 +5391,23 @@ button:hover .link-symbol {
   .news-card {
     min-height: 215px;
 
-    padding: 23px;
+    padding: 24px;
   }
 
-  .news-meta span,
+  .news-meta span {
+    font-size: 11px;
+  }
+
   .news-meta strong {
     font-size: 10px;
   }
 
   .news-card h3 {
-    font-size: 17px;
+    font-size: 18px;
+  }
+
+  .news-card > small {
+    font-size: 11px;
   }
 
 
@@ -5211,9 +5421,10 @@ button:hover .link-symbol {
     top: 16px;
     left: 16px;
 
-    padding: 8px 12px;
+    padding:
+      8px 12px;
 
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .talent-body {
@@ -5227,23 +5438,25 @@ button:hover .link-symbol {
   .talent-body > small {
     margin-top: 8px;
 
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .talent-body p {
     min-height: 0;
 
-    margin: 20px 0;
+    margin:
+      20px 0;
 
-    font-size: 14px;
+    font-size: 15px;
 
     line-height: 1.8;
   }
 
   .talent-platform {
-    padding: 7px 11px;
+    padding:
+      7px 11px;
 
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .talent-footer {
@@ -5251,7 +5464,7 @@ button:hover .link-symbol {
 
     padding-top: 18px;
 
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .talent-footer .link-symbol {
@@ -5277,35 +5490,51 @@ button:hover .link-symbol {
     height: 82px;
   }
 
+  .event-date span {
+    font-size: 10px;
+  }
+
+  .event-meta span {
+    font-size: 10px;
+  }
+
   .event-info h3 {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .event-info p {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .event-info a {
-    font-size: 10px;
+    font-size: 11px;
   }
 
 
   /* INTERVIEW */
 
+  .interview-visual > span {
+    font-size: 10px;
+  }
+
   .interview-body {
     padding: 23px;
   }
 
+  .interview-body small {
+    font-size: 11px;
+  }
+
   .interview-body h3 {
-    font-size: 20px;
+    font-size: 21px;
   }
 
   .interview-body p {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .interview-body strong {
-    font-size: 10px;
+    font-size: 11px;
   }
 
 
@@ -5317,7 +5546,7 @@ button:hover .link-symbol {
 
   .about-preview-copy p,
   .about-page-copy p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .about-bento {
@@ -5332,8 +5561,12 @@ button:hover .link-symbol {
     min-height: 230px;
   }
 
+  .about-bento-card small {
+    font-size: 11px;
+  }
 
-  /* PLATFORM */
+
+  /* PLATFORM CARDS */
 
   .platform-grid {
     gap: 13px;
@@ -5345,12 +5578,16 @@ button:hover .link-symbol {
     padding: 25px;
   }
 
+  .platform-card small {
+    font-size: 11px;
+  }
+
   .platform-card h3 {
     font-size: 46px;
   }
 
   .platform-card p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
 
@@ -5361,7 +5598,7 @@ button:hover .link-symbol {
   }
 
   .recruit-main-heading > small {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .recruit-main-heading h2 {
@@ -5376,7 +5613,7 @@ button:hover .link-symbol {
   }
 
   .recruit-main-heading p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .recruit-grid {
@@ -5395,7 +5632,7 @@ button:hover .link-symbol {
     left: 26px;
     top: 25px;
 
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .recruit-card-symbol {
@@ -5406,7 +5643,7 @@ button:hover .link-symbol {
   }
 
   .recruit-card > div small {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .recruit-card > div h3 {
@@ -5419,7 +5656,7 @@ button:hover .link-symbol {
 
     padding-right: 0;
 
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .recruit-card-arrow {
@@ -5439,12 +5676,21 @@ button:hover .link-symbol {
     padding: 23px;
   }
 
+  .journal-card > div span,
+  .journal-card > div small {
+    font-size: 10px;
+  }
+
   .journal-card h3 {
-    font-size: 18px;
+    font-size: 19px;
   }
 
   .journal-card p {
-    font-size: 13px;
+    font-size: 14px;
+  }
+
+  .journal-card > strong {
+    font-size: 11px;
   }
 
 
@@ -5463,8 +5709,12 @@ button:hover .link-symbol {
     gap: 10px;
   }
 
+  .faq-number {
+    font-size: 11px;
+  }
+
   .faq-question strong {
-    font-size: 14px;
+    font-size: 15px;
 
     line-height: 1.6;
   }
@@ -5473,7 +5723,7 @@ button:hover .link-symbol {
     padding:
       0 18px 20px 63px;
 
-    font-size: 13px;
+    font-size: 14px;
   }
 
 
@@ -5483,19 +5733,28 @@ button:hover .link-symbol {
     min-height: 220px;
   }
 
+  .external-card > span {
+    font-size: 11px;
+  }
+
   .external-card h3 {
     font-size: 24px;
   }
 
   .external-card p {
-    font-size: 13px;
+    font-size: 14px;
   }
 
 
-  /* LINE CTA */
+  /* LINE */
 
   .line-cta-section {
-    padding: 70px 0;
+    padding:
+      70px 0;
+  }
+
+  .line-cta-inner small {
+    font-size: 11px;
   }
 
   .line-cta-inner h2 {
@@ -5503,7 +5762,7 @@ button:hover .link-symbol {
   }
 
   .line-cta-inner p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .line-cta-button {
@@ -5515,7 +5774,7 @@ button:hover .link-symbol {
   }
 
 
-  /* SUB PAGE */
+  /* SUBPAGE */
 
   .sub-page-hero {
     min-height: 380px;
@@ -5533,14 +5792,22 @@ button:hover .link-symbol {
       );
   }
 
+  .sub-page-hero p {
+    font-size: 15px;
+  }
 
-  /* RECRUIT DETAILS */
+
+  /* RECRUIT DETAIL */
 
   .recruit-detail-hero {
     min-height: 430px;
 
     padding:
       125px 0 55px;
+  }
+
+  .recruit-detail-hero small {
+    font-size: 11px;
   }
 
   .recruit-detail-hero h1 {
@@ -5552,20 +5819,28 @@ button:hover .link-symbol {
       );
   }
 
+  .recruit-detail-hero p {
+    font-size: 15px;
+  }
+
   .recruit-side p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .detail-card {
     padding: 23px;
   }
 
+  .detail-number {
+    font-size: 11px;
+  }
+
   .detail-card h3 {
-    font-size: 22px;
+    font-size: 23px;
   }
 
   .detail-card li {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .support-grid,
@@ -5575,6 +5850,22 @@ button:hover .link-symbol {
   }
 
   .support-grid div {
+    font-size: 14px;
+  }
+
+  .flow-grid small {
+    font-size: 10px;
+  }
+
+  .flow-grid span {
+    font-size: 12px;
+  }
+
+  .genre-list span {
+    font-size: 11px;
+  }
+
+  .small-note {
     font-size: 13px;
   }
 
@@ -5599,7 +5890,7 @@ button:hover .link-symbol {
   }
 
   .profile-modal-body > small {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .profile-modal-body h2 {
@@ -5607,11 +5898,15 @@ button:hover .link-symbol {
   }
 
   .modal-reading {
-    font-size: 12px;
+    font-size: 13px;
+  }
+
+  .modal-platforms span {
+    font-size: 11px;
   }
 
   .profile-modal-body p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .modal-links a {
@@ -5629,15 +5924,15 @@ button:hover .link-symbol {
   }
 
   .footer-brand strong {
-    font-size: 19px;
+    font-size: 20px;
   }
 
   .footer-brand small {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .footer-brand p {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .footer-links {
@@ -5647,15 +5942,16 @@ button:hover .link-symbol {
         minmax(0, 1fr)
       );
 
-    gap: 30px 20px;
+    gap:
+      30px 20px;
   }
 
   .footer-links > div > span {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .footer-links a {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .footer-bottom {
@@ -5663,7 +5959,7 @@ button:hover .link-symbol {
 
     gap: 4px;
 
-    font-size: 9px;
+    font-size: 10px;
   }
 
 }
