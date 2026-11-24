@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schritt Production Admin</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+  <div id="adminApp" class="admin-app">
+    <section id="loginView" class="login-view">
+      <div class="login-card">
+        <div class="eyebrow">SCHRITT PRODUCTION</div>
+        <h1>ADMIN</h1>
+        <p>運営専用管理画面</p>
+
+        <form id="loginForm" class="form-grid">
+          <label>
+            <span>EMAIL</span>
+            <input id="loginEmail" type="email" autocomplete="email" required>
+          </label>
+
+          <label>
+            <span>PASSWORD</span>
+            <input id="loginPassword" type="password" autocomplete="current-password" required>
+          </label>
+
+          <button class="primary-button" type="submit">LOGIN ✦</button>
+        </form>
+
+        <p id="loginMessage" class="form-message"></p>
+      </div>
+    </section>
+
+    <section id="dashboardView" class="dashboard-view hidden">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <strong>しゅりプロ</strong>
+          <span>ADMIN CONSOLE</span>
+        </div>
+
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-panel="dashboard">DASHBOARD</button>
+          <button class="nav-item" data-panel="talents">LIVER</button>
+          <button class="nav-item" data-panel="topLiver">TOP LIVER</button>
+          <button class="nav-item" data-panel="news">NEWS</button>
+          <button class="nav-item" data-panel="officeEvents">OFFICE EVENT</button>
+          <button class="nav-item" data-panel="platformEvents">PF EVENT</button>
+        </nav>
+
+        <button id="logoutButton" class="logout-button">LOGOUT</button>
+      </aside>
+
+      <main class="main-content">
+        <header class="admin-header">
+          <div>
+            <small>CONTENT MANAGEMENT</small>
+            <h2 id="panelTitle">DASHBOARD</h2>
+          </div>
+          <div class="status-pill">✦ CONNECTED</div>
+        </header>
+
+        <section id="panel-dashboard" class="panel active">
+          <div class="stats-grid">
+            <article class="stat-card">
+              <small>LIVER</small>
+              <strong id="statTalents">0</strong>
+            </article>
+            <article class="stat-card">
+              <small>NEWS</small>
+              <strong id="statNews">0</strong>
+            </article>
+            <article class="stat-card">
+              <small>EVENT</small>
+              <strong id="statEvents">0</strong>
+            </article>
+          </div>
+
+          <div class="dashboard-note">
+            <span>✦</span>
+            <div>
+              <strong>更新内容は保存後すぐ公開サイトへ反映できます。</strong>
+              <p>画像・プロフィール・TOPライバー・NEWS・イベントをコード編集なしで管理するための画面です。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="panel-talents" class="panel">
+          <div class="panel-toolbar">
+            <p>所属ライバーのプロフィールと画像を管理します。</p>
+            <button id="newTalentButton" class="primary-button">＋ ADD LIVER</button>
+          </div>
+          <div id="talentList" class="content-list"></div>
+        </section>
+
+        <section id="panel-topLiver" class="panel">
+          <div class="panel-toolbar">
+            <p>月1で更新するTOPライバー専用設定です。</p>
+          </div>
+          <form id="topLiverForm" class="editor-card form-grid two-column">
+            <label>
+              <span>表示ライバー</span>
+              <select id="topTalentId"></select>
+            </label>
+            <label>
+              <span>ラベル</span>
+              <input id="topLabel" type="text" value="MONTHLY PICK UP">
+            </label>
+            <label>
+              <span>TOP用一言</span>
+              <input id="topMessage" type="text" maxlength="20">
+            </label>
+            <label>
+              <span>LIVE URL</span>
+              <input id="topLiveUrl" type="url">
+            </label>
+            <label class="full">
+              <span>TOP画像</span>
+              <input id="topImage" type="file" accept="image/*">
+            </label>
+            <div id="topImagePreview" class="image-preview full"></div>
+            <button class="primary-button full" type="submit">SAVE TOP LIVER ✦</button>
+          </form>
+        </section>
+
+        <section id="panel-news" class="panel">
+          <div class="panel-toolbar">
+            <p>公式HPのお知らせを投稿・編集します。</p>
+            <button class="primary-button" data-create-post="news">＋ ADD NEWS</button>
+          </div>
+          <div id="newsList" class="content-list"></div>
+        </section>
+
+        <section id="panel-officeEvents" class="panel">
+          <div class="panel-toolbar">
+            <p>事務所内イベントを投稿・編集します。</p>
+            <button class="primary-button" data-create-event="office">＋ ADD EVENT</button>
+          </div>
+          <div id="officeEventList" class="content-list"></div>
+        </section>
+
+        <section id="panel-platformEvents" class="panel">
+          <div class="panel-toolbar">
+            <p>IRIAM / Mirrativ / TikTok などのPFイベントを投稿・編集します。</p>
+            <button class="primary-button" data-create-event="platform">＋ ADD PF EVENT</button>
+          </div>
+          <div id="platformEventList" class="content-list"></div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <div id="editorModal" class="modal hidden">
+    <div class="modal-card">
+      <button id="modalClose" class="modal-close" type="button">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./supabase-config.js"></script>
+  <script src="./admin.js"></script>
+</body>
+</html>
