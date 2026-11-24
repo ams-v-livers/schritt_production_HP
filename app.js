@@ -10,7 +10,7 @@
 
 function getTalent(id) {
 
-  return TALENTS.find(
+  return TALENT_DATA.find(
     talent =>
       talent.id === id
   );
@@ -133,105 +133,92 @@ function applyConfig() {
 
 function renderHeroPickup() {
 
-  const talent =
+  const linkedTalent =
     getTalent(
-      HERO_PICKUP.talentId
+      TOP_LIVER.linkedTalentId
     );
-
-
-  if(!talent) {
-    return;
-  }
-
 
   const label =
     document.getElementById(
       "heroPickupLabel"
     );
 
-
   const imageWrap =
     document.getElementById(
       "heroPickupImageWrap"
     );
-
 
   const name =
     document.getElementById(
       "heroPickupName"
     );
 
-
   const reading =
     document.getElementById(
       "heroPickupReading"
     );
-
 
   const platforms =
     document.getElementById(
       "heroPickupPlatforms"
     );
 
-
   const profileButton =
     document.getElementById(
       "heroPickupProfile"
     );
-
 
   const liveButton =
     document.getElementById(
       "heroPickupLive"
     );
 
-
   if(label) {
-
     label.textContent =
-      HERO_PICKUP.label;
-
+      TOP_LIVER.label || "MONTHLY PICK UP";
   }
-
 
   if(name) {
-
     name.textContent =
-      talent.name;
-
+      TOP_LIVER.name ||
+      linkedTalent?.name ||
+      "";
   }
-
 
   if(reading) {
-
     reading.textContent =
-      talent.reading;
-
+      TOP_LIVER.nameEn ||
+      linkedTalent?.reading ||
+      "";
   }
 
-
   if(platforms) {
-
     platforms.innerHTML =
-      talent.platforms
-
+      (TOP_LIVER.platforms || [])
         .map(
           platform => `
             <span>
-              ${platform}
+              ${platform.name}
             </span>
           `
         )
-
         .join("");
-
   }
 
-
   const pickupImage =
-    HERO_PICKUP.image ||
-    talent.image;
+    TOP_LIVER.image ||
+    linkedTalent?.image ||
+    "";
 
+  const colorA =
+    TOP_LIVER.colorA ||
+    linkedTalent?.colorA ||
+    "#ff9500";
+
+  const colorB =
+    TOP_LIVER.colorB ||
+    linkedTalent?.colorB ||
+    "#ffb34d";
 
   if(imageWrap) {
 
@@ -241,7 +228,7 @@ function renderHeroPickup() {
 
         <img
           src="${pickupImage}"
-          alt="${talent.name}"
+          alt="${TOP_LIVER.name || linkedTalent?.name || ""}"
           class="hero-pickup-image"
         >
 
@@ -251,6 +238,13 @@ function renderHeroPickup() {
 
     else {
 
+      const initial =
+        (
+          TOP_LIVER.name ||
+          linkedTalent?.name ||
+          "P"
+        ).charAt(0);
+
       imageWrap.innerHTML = `
 
         <div
@@ -259,14 +253,12 @@ function renderHeroPickup() {
             background:
             linear-gradient(
               145deg,
-              ${talent.colorA},
-              ${talent.colorB}
+              ${colorA},
+              ${colorB}
             );
           "
         >
-
-          ${talent.name.charAt(0)}
-
+          ${initial}
         </div>
 
       `;
@@ -275,66 +267,72 @@ function renderHeroPickup() {
 
   }
 
-
   if(profileButton) {
 
-    if(
-      HERO_PICKUP.showProfileButton
-    ) {
+    const canOpenProfile =
+      Boolean(linkedTalent) &&
+      TOP_LIVER.showProfileButton !== false;
 
-      profileButton.style.display =
-        "inline-flex";
+    profileButton.style.display =
+      canOpenProfile
+        ? "inline-flex"
+        : "none";
 
-
+    if(canOpenProfile) {
       profileButton.onclick =
         () => {
-
           openTalentModal(
-            talent.id
+            linkedTalent.id
           );
-
         };
-
-    }
-
-    else {
-
-      profileButton.style.display =
-        "none";
-
     }
 
   }
 
-
   if(liveButton) {
 
-    if(
-      HERO_PICKUP.showLiveButton &&
-      HERO_PICKUP.liveUrl &&
-      HERO_PICKUP.liveUrl !== "#"
-    ) {
+    const showLive =
+      TOP_LIVER.showLiveButton !== false &&
+      TOP_LIVER.liveUrl &&
+      TOP_LIVER.liveUrl !== "#";
 
-      liveButton.style.display =
-        "inline-flex";
+    liveButton.style.display =
+      showLive
+        ? "inline-flex"
+        : "none";
 
-
+    if(showLive) {
       liveButton.href =
-        HERO_PICKUP.liveUrl;
-
-    }
-
-    else {
-
-      liveButton.style.display =
-        "none";
-
+        TOP_LIVER.liveUrl;
     }
 
   }
 
 }
 
+
+/* ============================================================
+   IRIAM GENERATION
+============================================================ */
+
+function createIriamGenerationBadge(talent) {
+
+  if(
+    !talent ||
+    !Array.isArray(talent.platforms) ||
+    !talent.platforms.includes("IRIAM") ||
+    !talent.iriamGeneration
+  ) {
+    return "";
+  }
+
+  return `
+    <span class="iriam-generation">
+      IRIAM ${talent.iriamGeneration}
+    </span>
+  `;
+
+}
 
 
 /* ============================================================
@@ -422,6 +420,8 @@ function createTalentCard(talent) {
         <p>
           ${talent.shortDescription}
         </p>
+
+        ${createIriamGenerationBadge(talent)}
 
         <div class="talent-platform-list">
           ${platformHTML}
@@ -968,7 +968,7 @@ function renderAll() {
   if(homeTalents) {
 
     homeTalents.innerHTML =
-      TALENTS
+      TALENT_DATA
 
         .slice(
           0,
@@ -987,7 +987,7 @@ function renderAll() {
   if(allTalents) {
 
     allTalents.innerHTML =
-      TALENTS
+      TALENT_DATA
         .map(
           createTalentCard
         )
@@ -1150,7 +1150,7 @@ function setupTalentFilter() {
 
 
         let filtered =
-          TALENTS;
+          TALENT_DATA;
 
 
         if(
@@ -1158,7 +1158,7 @@ function setupTalentFilter() {
         ) {
 
           filtered =
-            TALENTS.filter(
+            TALENT_DATA.filter(
               talent =>
                 talent.type === "V"
             );
@@ -1170,7 +1170,7 @@ function setupTalentFilter() {
         ) {
 
           filtered =
-            TALENTS.filter(
+            TALENT_DATA.filter(
               talent =>
                 talent.type === "REAL"
             );
@@ -1182,7 +1182,7 @@ function setupTalentFilter() {
         ) {
 
           filtered =
-            TALENTS.filter(
+            TALENT_DATA.filter(
               talent =>
                 talent.platforms.includes(
                   filter
@@ -1416,6 +1416,8 @@ function openTalentModal(id) {
   document.getElementById(
     "talentModalPlatforms"
   ).innerHTML =
+
+    createIriamGenerationBadge(talent) +
 
     talent.platforms
 
