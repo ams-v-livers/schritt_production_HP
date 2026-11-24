@@ -6009,3 +6009,71 @@ button:hover .link-symbol {
   }
 
 }
+
+
+/* =========================================================
+   IRIAM GENERATION
+   IRIAM所属ライバーだけ表示
+========================================================= */
+
+.iriam-generation {
+  width: fit-content;
+
+  margin:
+    14px 0 10px;
+
+  padding:
+    6px 10px;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  color:
+    var(--orange-deep);
+
+  background:
+    var(--cream-2);
+
+  border:
+    1px solid var(--line);
+
+  border-radius:
+    999px;
+
+  font-family:
+    "Montserrat",
+    "Noto Sans JP",
+    sans-serif;
+
+  font-size:
+    10px;
+
+  font-weight:
+    900;
+
+  line-height:
+    1;
+}
+
+.modal-platforms .iriam-generation {
+  color:
+    var(--orange-deep);
+
+  background:
+    var(--cream-2);
+}
+
+@media (max-width: 560px) {
+
+  .iriam-generation {
+    padding:
+      7px 11px;
+
+    font-size:
+      11px;
+  }
+
+}
